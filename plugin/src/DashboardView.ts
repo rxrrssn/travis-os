@@ -25,8 +25,8 @@ const SIM_H = 480;
 interface GraphNode extends d3.SimulationNodeDatum { id: string; type: string; path: string; }
 interface GraphLink extends d3.SimulationLinkDatum<GraphNode> { source: string | GraphNode; target: string | GraphNode; }
 interface TokenSession { date: string; tokens_in: number; tokens_out: number; total: number; session_label?: string; }
-interface TokenLog { monthly_limit: number; sessions: TokenSession[]; }
-interface LiveTokens { session: number; allTime: number; }
+interface TokenLog { daily_limit?: number; monthly_limit: number; sessions: TokenSession[]; }
+interface LiveTokens { session: number; today: number; allTime: number; }
 interface SessionInfo { id: string; mtime: Date; preview: string; }
 
 export class DashboardView extends ItemView {
@@ -240,40 +240,54 @@ export class DashboardView extends ItemView {
     const live = this.readLiveTokens();
     const log  = await this.readTokenLog();
 
-    // Live session block
-    if (live) {
-      const liveRow = body.createDiv('tos-live-row');
-      liveRow.createSpan({ cls: 'tos-live-label', text: 'SESSION' });
-      liveRow.createSpan({ cls: 'tos-live-val', text: this.fmtTok(live.session) });
-      liveRow.createSpan({ cls: 'tos-live-sep', text: '·' });
-      liveRow.createSpan({ cls: 'tos-live-label', text: 'ALL TIME' });
-      liveRow.createSpan({ cls: 'tos-live-all', text: this.fmtTok(live.allTime) });
-    }
-
-    if (!log) {
-      body.createDiv({ cls: 'tos-empty', text: live ? '' : `NO LOG · ${TOKEN_LOG}` });
+    if (!live && !log) {
+      body.createDiv({ cls: 'tos-empty', text: `NO LOG · ${TOKEN_LOG}` });
       return;
     }
 
-    const used = this.monthlyUsed(log);
-    const pct  = Math.min(100, Math.round((used / log.monthly_limit) * 100));
+    // TODAY row — primary metric (stable, doesn't reset mid-session)
+    if (live) {
+      const todayRow = body.createDiv('tos-live-row');
+      todayRow.createSpan({ cls: 'tos-live-label', text: 'TODAY' });
+      todayRow.createSpan({ cls: 'tos-live-val',   text: this.fmtTok(live.today) });
 
-    const bar  = body.createDiv('tos-meter-track');
-    const fill = bar.createDiv(pct > 80 ? 'tos-meter-fill tos-meter-warn' : 'tos-meter-fill');
-    fill.style.width = `${pct}%`;
+      const dailyLimit = log?.daily_limit;
+      if (dailyLimit) {
+        const pct = Math.min(100, Math.round((live.today / dailyLimit) * 100));
+        const bar  = body.createDiv('tos-meter-track');
+        const fill = bar.createDiv(pct > 80 ? 'tos-meter-fill tos-meter-warn' : 'tos-meter-fill');
+        fill.style.width = `${pct}%`;
+        const meta = body.createDiv('tos-token-meta');
+        meta.createSpan({ cls: 'tos-tok-used', text: this.fmtTok(live.today) });
+        meta.createSpan({ cls: 'tos-tok-sep',  text: ' / ' });
+        meta.createSpan({ cls: 'tos-tok-lim',  text: this.fmtTok(dailyLimit) });
+        meta.createSpan({ cls: 'tos-tok-pct',  text: `  ${pct}%` });
+      }
 
-    const meta = body.createDiv('tos-token-meta');
-    meta.createSpan({ cls: 'tos-tok-used', text: this.fmtTok(used) });
-    meta.createSpan({ cls: 'tos-tok-sep',  text: ' / ' });
-    meta.createSpan({ cls: 'tos-tok-lim',  text: this.fmtTok(log.monthly_limit) });
-    meta.createSpan({ cls: 'tos-tok-pct',  text: `  ${pct}%` });
+      // Session + all-time as secondary info
+      const sub = body.createDiv('tos-tok-sub');
+      sub.createSpan({ cls: 'tos-tok-sub-lbl', text: 'SESSION' });
+      sub.createSpan({ cls: 'tos-tok-sub-val', text: this.fmtTok(live.session) });
+      sub.createSpan({ cls: 'tos-tok-sub-sep', text: '·' });
+      sub.createSpan({ cls: 'tos-tok-sub-lbl', text: 'ALL TIME' });
+      sub.createSpan({ cls: 'tos-tok-sub-val', text: this.fmtTok(live.allTime) });
+    }
 
-    const hist = body.createDiv('tos-token-hist');
-    for (const s of log.sessions.slice(-3).reverse()) {
-      const row = hist.createDiv('tos-token-row');
-      row.createSpan({ cls: 'tos-tok-date', text: s.date });
-      row.createSpan({ cls: 'tos-tok-val',  text: this.fmtTok(s.total) });
-      if (s.session_label) row.createSpan({ cls: 'tos-tok-tag', text: s.session_label });
+    // Monthly bar (from manual log)
+    if (log) {
+      const used = this.monthlyUsed(log);
+      const pct  = Math.min(100, Math.round((used / log.monthly_limit) * 100));
+      body.createDiv({ cls: 'tos-tok-divider' });
+      const mrow = body.createDiv('tos-tok-month-row');
+      mrow.createSpan({ cls: 'tos-live-label', text: 'MONTH (LOG)' });
+      const mbar  = body.createDiv('tos-meter-track');
+      const mfill = mbar.createDiv(pct > 80 ? 'tos-meter-fill tos-meter-warn' : 'tos-meter-fill');
+      mfill.style.width = `${pct}%`;
+      const mmeta = body.createDiv('tos-token-meta');
+      mmeta.createSpan({ cls: 'tos-tok-used', text: this.fmtTok(used) });
+      mmeta.createSpan({ cls: 'tos-tok-sep',  text: ' / ' });
+      mmeta.createSpan({ cls: 'tos-tok-lim',  text: this.fmtTok(log.monthly_limit) });
+      mmeta.createSpan({ cls: 'tos-tok-pct',  text: `  ${pct}%` });
     }
   }
 
@@ -281,7 +295,8 @@ export class DashboardView extends ItemView {
 
   private async buildStatsPanel(col: HTMLElement) {
     const body  = this.panel(col, 'VAULT STATS', 'tos-stats-panel');
-    const files = this.obsApp.vault.getMarkdownFiles();
+    const files = this.obsApp.vault.getMarkdownFiles()
+      .filter(f => !GRAPH_EXCLUDE.some(p => f.path.startsWith(p)));
     const types: Record<string, number> = {};
     let openTasks = 0, todayMod = 0;
     const dayStart = Date.now() - (Date.now() % 86_400_000);
@@ -444,41 +459,51 @@ export class DashboardView extends ItemView {
   }
 
   private launchClaude(mode: string, btn?: HTMLButtonElement) {
+    const fs   = require('fs')   as typeof import('fs');
+    const path = require('path') as typeof import('path');
+    const os   = require('os')   as typeof import('os');
     const { exec, execSync } = require('child_process') as typeof import('child_process');
+
     const vault = this.vaultPath();
 
-    // Resolve the absolute path to claude -- prefer .cmd on Windows
+    // Resolve absolute path to claude.cmd to avoid Electron PATH gaps
     let claudeBin = 'claude';
     try {
       const lines = (execSync('where claude', { shell: true }) as Buffer)
         .toString().split(/\r?\n/).map((l: string) => l.trim()).filter(Boolean);
-      claudeBin = lines.find((l: string) => l.toLowerCase().endsWith('.cmd')) ?? lines[0] ?? 'claude';
-    } catch { /* leave as 'claude' */ }
+      claudeBin = lines.find((l: string) => l.toLowerCase().endsWith('.cmd'))
+               ?? lines.find((l: string) => l.toLowerCase().endsWith('.exe'))
+               ?? lines[0]
+               ?? 'claude';
+    } catch { /* fallback to 'claude' */ }
 
     const claudeArg =
       mode === 'new'      ? '' :
       mode === 'continue' ? '--continue' :
                             `--resume ${mode}`;
 
-    // Build the PowerShell command, then base64-encode it for -EncodedCommand.
-    // This sidesteps all quoting issues when passing through cmd start.
-    const safeVault = vault.replace(/'/g, "''");
-    const safeBin   = claudeBin.replace(/'/g, "''");
-    const psInner   = `Set-Location '${safeVault}'; & '${safeBin}' ${claudeArg}`.trimEnd();
-    const encoded   = Buffer.from(psInner, 'utf16le').toString('base64');
+    // Write a temp .ps1 file -- eliminates ALL quoting issues
+    const scriptPath = path.join(os.tmpdir(), `travis-os-${Date.now()}.ps1`);
+    fs.writeFileSync(
+      scriptPath,
+      `Set-Location '${vault.replace(/'/g, "''")}'\r\n& '${claudeBin.replace(/'/g, "''")}' ${claudeArg}\r\n`,
+      'utf8'
+    );
 
     if (btn) { btn.disabled = true; btn.setText('LAUNCHING...'); }
-
     const btnLabel = mode === 'new' ? '+ NEW SESSION' : mode === 'continue' ? 'CONTINUE LAST' : 'RESUME';
     const restore  = (label: string) => { if (btn) { btn.disabled = false; btn.setText(label); } };
+    const cleanup  = () => { try { fs.unlinkSync(scriptPath); } catch { /* ignore */ } };
 
-    const wtCmd = `start "" wt.exe new-tab -- powershell.exe -NoExit -NoProfile -EncodedCommand ${encoded}`;
-    const psCmd = `start "" powershell.exe -NoExit -NoProfile -EncodedCommand ${encoded}`;
+    const psArgs = `-NoExit -NoProfile -ExecutionPolicy Bypass -File "${scriptPath}"`;
+    const wtCmd  = `start "" wt.exe new-tab -- powershell.exe ${psArgs}`;
+    const psCmd  = `start "" powershell.exe ${psArgs}`;
 
     exec(wtCmd, { shell: true }, (err) => {
-      if (!err) { restore(btnLabel); return; }
+      if (!err) { restore(btnLabel); setTimeout(cleanup, 15_000); return; }
 
       exec(psCmd, { shell: true }, (err2) => {
+        cleanup();
         if (!err2) { restore(btnLabel); return; }
         restore('ERROR');
         new Notice(`Travis OS: failed to open terminal\n${err2.message}`, 8000);
@@ -534,25 +559,27 @@ export class DashboardView extends ItemView {
       const path = require('path') as typeof import('path');
       const os   = require('os')   as typeof import('os');
 
-      const vaultPath   = this.vaultPath();
-      const projectHash = vaultPath.replace(/\\/g, '-').replace(/:/g, '-');
+      const projectHash = this.vaultPath().replace(/\\/g, '-').replace(/:/g, '-');
       const claudeDir   = path.join(os.homedir(), '.claude', 'projects', projectHash);
-
       if (!fs.existsSync(claudeDir)) return null;
 
+      const now       = Date.now();
+      const dayStart  = now - (now % 86_400_000);
+
       const files = (fs.readdirSync(claudeDir) as string[])
-        .filter(f => f.endsWith('.jsonl'))
-        .map(f => ({ name: f, mtime: fs.statSync(path.join(claudeDir, f)).mtimeMs }))
-        .sort((a, b) => b.mtime - a.mtime);
+        .filter((f: string) => f.endsWith('.jsonl'))
+        .map((f: string) => ({ name: f, mtime: fs.statSync(path.join(claudeDir, f)).mtimeMs }))
+        .sort((a: { mtime: number }, b: { mtime: number }) => b.mtime - a.mtime);
 
       if (!files.length) return null;
 
       const sessionFile = files[0].name;
-      let session = 0, allTime = 0;
+      let session = 0, today = 0, allTime = 0;
 
-      for (const { name } of files) {
-        const content = fs.readFileSync(path.join(claudeDir, name), 'utf8') as string;
+      for (const { name, mtime } of files) {
+        const content   = fs.readFileSync(path.join(claudeDir, name), 'utf8') as string;
         const isSession = name === sessionFile;
+        const isToday   = mtime >= dayStart;
 
         for (const line of content.split('\n')) {
           if (!line.trim()) continue;
@@ -560,14 +587,19 @@ export class DashboardView extends ItemView {
             const obj = JSON.parse(line);
             const u   = obj?.message?.usage;
             if (!u) continue;
-            const t = (u.input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0) + (u.output_tokens ?? 0);
+            // Include all token types: fresh input, cache creation, cache reads, output
+            const t = (u.input_tokens ?? 0)
+                    + (u.cache_creation_input_tokens ?? 0)
+                    + (u.cache_read_input_tokens ?? 0)
+                    + (u.output_tokens ?? 0);
             allTime += t;
             if (isSession) session += t;
+            if (isToday)   today   += t;
           } catch { /* malformed line */ }
         }
       }
 
-      return { session, allTime };
+      return { session, today, allTime };
     } catch {
       return null;
     }

@@ -276,6 +276,25 @@
 .tos-tok-val    { color: rgba(0, 212, 255, 0.65); }
 .tos-tok-tag    { color: rgba(168, 212, 255, 0.25); font-size: 0.58rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+.tos-tok-sub {
+  display: flex; align-items: center; gap: 6px;
+  margin-top: 5px; font-size: 0.6rem;
+}
+.tos-tok-sub-lbl { color: rgba(168, 212, 255, 0.3); letter-spacing: 0.1em; }
+.tos-tok-sub-val { color: rgba(0, 212, 255, 0.5); }
+.tos-tok-sub-sep { color: rgba(168, 212, 255, 0.15); }
+
+.tos-tok-divider {
+  height: 1px; background: rgba(0, 212, 255, 0.08);
+  margin: 8px 0;
+}
+
+.tos-tok-month-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 4px; font-size: 0.58rem;
+}
+.tos-tok-month-row .tos-live-label { font-size: 0.52rem; }
+
 /* ── Stats ───────────────────────────────────────────────── */
 
 .tos-stats-grid {
