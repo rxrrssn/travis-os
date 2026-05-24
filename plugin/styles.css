@@ -220,68 +220,73 @@
   filter: brightness(1.4) drop-shadow(0 0 4px currentColor);
 }
 
-/* ── Command Panel ───────────────────────────────────────── */
+/* ── Session Panel ───────────────────────────────────────── */
 
-.tos-cmd-panel { flex-shrink: 0; height: 260px; }
+.tos-session-panel { flex-shrink: 0; }
 
-.tos-cmd-body {
-  display: flex; flex-direction: column;
-  height: calc(100% - 29px);
-  padding: 0;
+.tos-session-body {
+  padding: 8px 12px;
+  display: flex; flex-direction: column; gap: 8px;
 }
 
-.tos-cmd-output {
-  flex: 1; overflow-y: auto;
-  padding: 6px 10px;
-  font-size: 0.68rem; line-height: 1.6;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 212, 255, 0.2) transparent;
-}
+.tos-session-actions { display: flex; gap: 6px; }
 
-.tos-cmd-input-row {
-  display: flex; align-items: center; gap: 6px;
-  padding: 6px 10px;
-  border-top: 1px solid rgba(0, 212, 255, 0.15);
-  flex-shrink: 0;
-}
-
-.tos-cmd-prompt {
-  color: #00d4ff; font-size: 0.8rem;
-  text-shadow: 0 0 8px rgba(0, 212, 255, 0.7);
-  flex-shrink: 0;
-}
-
-.tos-cmd-input {
-  flex: 1; background: transparent;
-  border: none; border-bottom: 1px solid rgba(0, 212, 255, 0.25);
-  color: #a8d4ff; font-family: 'Consolas', 'Courier New', monospace;
-  font-size: 0.72rem; padding: 2px 4px;
-  outline: none;
-}
-.tos-cmd-input:focus { border-bottom-color: rgba(0, 212, 255, 0.6); }
-.tos-cmd-input::placeholder { color: rgba(168, 212, 255, 0.2); }
-
-.tos-cmd-btn {
-  background: rgba(0, 212, 255, 0.08);
-  border: 1px solid rgba(0, 212, 255, 0.25);
-  color: rgba(0, 212, 255, 0.7);
+.tos-session-new,
+.tos-session-con {
+  flex: 1;
+  background: rgba(0, 212, 255, 0.05);
+  border: 1px solid rgba(0, 212, 255, 0.28);
+  color: rgba(0, 212, 255, 0.75);
   font-family: 'Consolas', 'Courier New', monospace;
-  font-size: 0.58rem; letter-spacing: 0.12em;
-  padding: 3px 8px; cursor: pointer; border-radius: 2px;
+  font-size: 0.58rem; letter-spacing: 0.18em;
+  padding: 6px 4px; cursor: pointer; border-radius: 2px;
   transition: background 0.12s, color 0.12s;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
 }
-.tos-cmd-btn:hover { background: rgba(0, 212, 255, 0.15); color: #00d4ff; }
-.tos-cmd-clr { border-color: rgba(255, 107, 53, 0.3); color: rgba(255, 107, 53, 0.6); }
-.tos-cmd-clr:hover { background: rgba(255, 107, 53, 0.1); color: #ff6b35; }
+.tos-session-new:hover { background: rgba(0, 212, 255, 0.12); color: #00d4ff; }
+.tos-session-con {
+  border-color: rgba(0, 255, 136, 0.25);
+  color: rgba(0, 255, 136, 0.65);
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.2);
+}
+.tos-session-con:hover { background: rgba(0, 255, 136, 0.08); color: #00ff88; }
 
-/* Command output line types */
-.tos-cmd-line { white-space: pre-wrap; word-break: break-all; }
-.tos-cmd-echo { color: rgba(0, 212, 255, 0.5); }
-.tos-cmd-out  { color: rgba(168, 212, 255, 0.75); }
-.tos-cmd-err  { color: #ff4b91; }
-.tos-cmd-exit { color: rgba(168, 212, 255, 0.25); font-size: 0.6rem; }
-.tos-cmd-path { color: rgba(0, 212, 255, 0.35); font-size: 0.6rem; }
-.tos-cmd-info { color: rgba(168, 212, 255, 0.25); font-size: 0.6rem; }
+.tos-session-list { display: flex; flex-direction: column; gap: 2px; }
+
+.tos-session-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.06);
+  cursor: default;
+}
+.tos-session-row:hover { border-bottom-color: rgba(0, 212, 255, 0.15); }
+
+.tos-session-info { flex: 1; min-width: 0; }
+
+.tos-session-date    { font-size: 0.58rem; color: rgba(168, 212, 255, 0.35); letter-spacing: 0.05em; }
+.tos-session-id      { font-size: 0.6rem;  color: rgba(0, 212, 255, 0.45);  font-family: monospace; }
+.tos-session-preview {
+  font-size: 0.6rem; color: rgba(168, 212, 255, 0.3);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+.tos-resume-btn {
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  color: rgba(0, 212, 255, 0.5);
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.52rem; letter-spacing: 0.15em;
+  padding: 3px 8px; cursor: pointer; border-radius: 2px;
+  transition: all 0.12s;
+}
+.tos-resume-btn:hover {
+  background: rgba(0, 212, 255, 0.1);
+  color: #00d4ff;
+  border-color: rgba(0, 212, 255, 0.45);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.15);
+}
 
 /* ── Utility ─────────────────────────────────────────────── */
 

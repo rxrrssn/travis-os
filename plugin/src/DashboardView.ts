@@ -18,6 +18,7 @@ const LEGEND_ORDER  = ['project', 'system', 'knowledge', 'person', 'reference', 
 const TASK_FOLDERS  = ['02 - Projects', '01 - Daily'];
 const TOKEN_LOG     = '00 - Inbox/claude-tokens.json';
 const GRAPH_EXCLUDE = ['plugin/', '.obsidian/'];
+const MAX_SESSIONS  = 6;
 const SIM_W = 800;
 const SIM_H = 480;
 
@@ -26,6 +27,7 @@ interface GraphLink extends d3.SimulationLinkDatum<GraphNode> { source: string |
 interface TokenSession { date: string; tokens_in: number; tokens_out: number; total: number; session_label?: string; }
 interface TokenLog { monthly_limit: number; sessions: TokenSession[]; }
 interface LiveTokens { session: number; allTime: number; }
+interface SessionInfo { id: string; mtime: Date; preview: string; }
 
 export class DashboardView extends ItemView {
   private sim: d3.Simulation<GraphNode, GraphLink> | null = null;
@@ -61,7 +63,7 @@ export class DashboardView extends ItemView {
     await this.buildTokenPanel(left);
     await this.buildStatsPanel(left);
     await this.buildGraphPanel(right);
-    this.buildCommandPanel(right);
+    this.buildSessionPanel(right);
   }
 
   // ── Header ───────────────────────────────────────────────────────────────
@@ -244,68 +246,111 @@ export class DashboardView extends ItemView {
     });
   }
 
-  // ── Command Panel ─────────────────────────────────────────────────────────
+  // ── Session Panel ─────────────────────────────────────────────────────────
 
-  private buildCommandPanel(col: HTMLElement) {
-    const wrap = col.createDiv('tos-panel tos-cmd-panel');
-    wrap.createDiv({ cls: 'tos-panel-title', text: 'CLAUDE TERMINAL' });
-    const body = wrap.createDiv('tos-cmd-body');
+  private buildSessionPanel(col: HTMLElement) {
+    const wrap = col.createDiv('tos-panel tos-session-panel');
+    wrap.createDiv({ cls: 'tos-panel-title', text: 'CLAUDE SESSIONS' });
+    const body = wrap.createDiv('tos-session-body');
 
-    const output = body.createDiv('tos-cmd-output');
-    this.cmdLine(output, `cwd: ${this.vaultPath()}`, 'tos-cmd-path');
-    this.cmdLine(output, 'type a command and press enter  ·  try: claude -p "..."', 'tos-cmd-info');
+    const topRow = body.createDiv('tos-session-actions');
+    const newBtn = topRow.createEl('button', { cls: 'tos-session-new', text: '+ NEW SESSION' });
+    const conBtn = topRow.createEl('button', { cls: 'tos-session-con', text: 'CONTINUE LAST' });
+    newBtn.addEventListener('click', () => this.launchClaude('new'));
+    conBtn.addEventListener('click', () => this.launchClaude('continue'));
 
-    const inputRow = body.createDiv('tos-cmd-input-row');
-    inputRow.createSpan({ cls: 'tos-cmd-prompt', text: '>' });
+    const sessions = this.getSessions();
 
-    const input = inputRow.createEl('input') as HTMLInputElement;
-    input.type = 'text';
-    input.addClass('tos-cmd-input');
-    input.placeholder = 'command...';
+    if (!sessions.length) {
+      body.createDiv({ cls: 'tos-empty', text: 'NO SESSIONS FOUND' });
+      return;
+    }
 
-    const run = inputRow.createEl('button', { cls: 'tos-cmd-btn', text: 'RUN' });
-    const clr = inputRow.createEl('button', { cls: 'tos-cmd-btn tos-cmd-clr', text: 'CLR' });
+    const list = body.createDiv('tos-session-list');
+    for (const s of sessions.slice(0, MAX_SESSIONS)) {
+      const row = list.createDiv('tos-session-row');
 
-    const execute = () => {
-      const cmd = input.value.trim();
-      if (!cmd) return;
-      this.cmdLine(output, `> ${cmd}`, 'tos-cmd-echo');
-      input.value = '';
-      this.runCommand(cmd, output);
-    };
+      const info = row.createDiv('tos-session-info');
+      info.createDiv({ cls: 'tos-session-date', text: this.fmtDate(s.mtime) });
+      info.createDiv({ cls: 'tos-session-id',   text: s.id.slice(0, 8) });
+      if (s.preview) info.createDiv({ cls: 'tos-session-preview', text: s.preview });
 
-    run.addEventListener('click', execute);
-    input.addEventListener('keydown', e => { if (e.key === 'Enter') execute(); });
-    clr.addEventListener('click', () => { output.empty(); this.cmdLine(output, `cwd: ${this.vaultPath()}`, 'tos-cmd-path'); });
+      const btn = row.createEl('button', { cls: 'tos-resume-btn', text: 'RESUME' });
+      btn.addEventListener('click', () => this.launchClaude(s.id));
+    }
   }
 
-  private runCommand(cmd: string, output: HTMLElement) {
+  private getSessions(): SessionInfo[] {
+    try {
+      const fs   = require('fs')   as typeof import('fs');
+      const path = require('path') as typeof import('path');
+      const os   = require('os')   as typeof import('os');
+
+      const projectHash = this.vaultPath().replace(/\\/g, '-').replace(/:/g, '-');
+      const claudeDir   = path.join(os.homedir(), '.claude', 'projects', projectHash);
+      if (!fs.existsSync(claudeDir)) return [];
+
+      return (fs.readdirSync(claudeDir) as string[])
+        .filter((f: string) => f.endsWith('.jsonl'))
+        .map((f: string) => {
+          const full  = path.join(claudeDir, f);
+          const id    = f.slice(0, -6);
+          const mtime = new Date(fs.statSync(full).mtimeMs);
+          let preview = '';
+
+          try {
+            const lines = (fs.readFileSync(full, 'utf8') as string).split('\n');
+            for (const line of lines.slice(0, 40)) {
+              if (!line.trim()) continue;
+              try {
+                const obj = JSON.parse(line);
+                if (obj.type === 'user' && typeof obj.message?.content === 'string') {
+                  preview = obj.message.content.slice(0, 72).replace(/\n/g, ' ');
+                  break;
+                }
+              } catch { /* skip */ }
+            }
+          } catch { /* skip */ }
+
+          return { id, mtime, preview };
+        })
+        .sort((a: SessionInfo, b: SessionInfo) => b.mtime.getTime() - a.mtime.getTime());
+    } catch {
+      return [];
+    }
+  }
+
+  private launchClaude(mode: string) {
     const { spawn } = require('child_process') as typeof import('child_process');
-    const child = spawn('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', cmd], {
-      cwd: this.vaultPath(),
+    const vault = this.vaultPath();
+
+    const claudeCmd =
+      mode === 'new'      ? 'claude' :
+      mode === 'continue' ? 'claude --continue' :
+                            `claude --resume ${mode}`;
+
+    const psCmd = `cd '${vault}'; ${claudeCmd}`;
+
+    // Try Windows Terminal, fall back to a new PowerShell window
+    const wt = spawn(
+      'wt.exe',
+      ['new-tab', '--title', 'Claude', '--', 'powershell.exe', '-NoExit', '-NoProfile', '-Command', psCmd],
+      { detached: true, stdio: 'ignore' }
+    );
+
+    wt.on('error', () => {
+      spawn(
+        'powershell.exe',
+        ['-NoExit', '-NoProfile', '-Command', psCmd],
+        { detached: true, stdio: 'ignore', cwd: vault }
+      ).unref();
     });
 
-    child.stdout.on('data', (data: Buffer) => {
-      for (const line of data.toString().split('\n')) {
-        if (line.trim()) this.cmdLine(output, line.trimEnd(), 'tos-cmd-out');
-      }
-      output.scrollTop = output.scrollHeight;
-    });
-
-    child.stderr.on('data', (data: Buffer) => {
-      this.cmdLine(output, data.toString().trimEnd(), 'tos-cmd-err');
-      output.scrollTop = output.scrollHeight;
-    });
-
-    child.on('close', (code: number | null) => {
-      this.cmdLine(output, `[exit ${code ?? '?'}]`, 'tos-cmd-exit');
-      output.scrollTop = output.scrollHeight;
-    });
+    wt.unref();
   }
 
-  private cmdLine(output: HTMLElement, text: string, cls: string) {
-    output.createDiv({ cls: `tos-cmd-line ${cls}`, text });
-    output.scrollTop = output.scrollHeight;
+  private fmtDate(d: Date): string {
+    return d.toISOString().slice(0, 16).replace('T', '  ');
   }
 
   // ── Data helpers ──────────────────────────────────────────────────────────
