@@ -1,0 +1,12 @@
+{
+  "monthly_limit": 5000000,
+  "sessions": [
+    {
+      "date": "2026-05-23",
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "total": 0,
+      "session_label": "Vault build-out"
+    }
+  ]
+}

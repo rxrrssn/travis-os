@@ -1,0 +1,10 @@
+{
+  "id": "travis-os-dashboard",
+  "name": "Travis OS",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Jarvis-themed operational dashboard for the TravisOS vault.",
+  "author": "Travis Hornbuckle",
+  "authorUrl": "https://www.tjhorn.com",
+  "isDesktopOnly": false
+}

@@ -8,6 +8,9 @@
 .obsidian/plugins/*/main.js
 .obsidian/plugins/*/styles.css
 
+# Plugin build artifacts
+plugin/node_modules/
+
 # Windows noise
 Thumbs.db
 desktop.ini

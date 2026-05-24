@@ -77,5 +77,5 @@ Consistent with the broader pattern across Contact Center, OSC, and Mainstay wor
 [[TDX]]
 [[Power Platform]]
 [[Megan Brandly]]
-[[Seini]]
+[[Seini Pahulu]]
 [[Bruin Connect Transition]]
