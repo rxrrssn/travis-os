@@ -10,7 +10,7 @@ mkdirSync(outDir, { recursive: true });
 await esbuild.build({
   entryPoints: ['src/main.ts'],
   bundle: true,
-  external: ['obsidian', 'electron', '@codemirror/*', '@lezer/*', 'node:*'],
+  external: ['obsidian', 'electron', '@codemirror/*', '@lezer/*', 'node:*', 'fs', 'path', 'os', 'child_process'],
   format: 'cjs',
   target: 'es2018',
   logLevel: 'info',
