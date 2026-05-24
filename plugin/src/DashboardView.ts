@@ -59,6 +59,9 @@ export class DashboardView extends ItemView {
     const left  = grid.createDiv('tos-col-left');
     const right = grid.createDiv('tos-col-right');
 
+    await this.buildDailyPanel(left);
+    this.buildCapturePanel(left);
+    this.buildRecentPanel(left);
     await this.buildTasksPanel(left);
     await this.buildTokenPanel(left);
     await this.buildStatsPanel(left);
@@ -76,6 +79,126 @@ export class DashboardView extends ItemView {
     s.createSpan({ cls: 'tos-status-text', text: 'SYSTEM ONLINE' });
     const m = (window as any).moment;
     h.createDiv({ cls: 'tos-date', text: m ? m().format('YYYY.MM.DD · HH:mm') : new Date().toLocaleString() });
+  }
+
+  // ── Daily Note ────────────────────────────────────────────────────────────
+
+  private async buildDailyPanel(col: HTMLElement) {
+    const body = this.panel(col, 'DAILY NOTE', 'tos-daily-panel');
+    const m    = (window as any).moment;
+    const today = m ? m().format('YYYY-MM-DD') : new Date().toISOString().slice(0, 10);
+    const path  = `01 - Daily/${today}.md`;
+    const exists = !!this.obsApp.vault.getAbstractFileByPath(path);
+
+    body.createDiv({ cls: 'tos-daily-date', text: m ? m().format('dddd, MMMM D') : today });
+
+    const btn = body.createEl('button', {
+      cls:  exists ? 'tos-daily-btn tos-daily-open' : 'tos-daily-btn tos-daily-create',
+      text: exists ? "OPEN TODAY'S NOTE" : "CREATE TODAY'S NOTE",
+    });
+    btn.addEventListener('click', async () => {
+      if (exists) { await this.openFile(path); return; }
+      await this.createDailyNote(today, path);
+      btn.setText("OPEN TODAY'S NOTE");
+      btn.removeClass('tos-daily-create');
+      btn.addClass('tos-daily-open');
+    });
+
+    if (!exists) {
+      const last = this.obsApp.vault.getMarkdownFiles()
+        .filter(f => f.path.startsWith('01 - Daily/'))
+        .sort((a, b) => b.stat.mtime - a.stat.mtime)[0];
+      if (last) {
+        const row = body.createDiv('tos-daily-last');
+        row.createSpan({ cls: 'tos-daily-last-lbl', text: 'LAST' });
+        const link = row.createSpan({ cls: 'tos-daily-last-name', text: last.basename });
+        link.addEventListener('click', () => this.openFile(last.path));
+      }
+    }
+  }
+
+  private async createDailyNote(date: string, path: string) {
+    const tplFile = this.obsApp.vault.getAbstractFileByPath('99 - Templates/Daily.md');
+    let content = `---\ntype: daily\ndate: ${date}\n---\n\n# ${date}\n\n## Focus\n\n## Tasks\n\n- [ ] \n\n## Thoughts\n\n## Related\n`;
+
+    if (tplFile instanceof TFile) {
+      const raw = await this.obsApp.vault.read(tplFile);
+      content = raw.replace(/<% tp\.date\.now\("YYYY-MM-DD"\) %>/g, date);
+    }
+
+    await this.obsApp.vault.create(path, content);
+    await this.openFile(path);
+  }
+
+  // ── Quick Capture ─────────────────────────────────────────────────────────
+
+  private buildCapturePanel(col: HTMLElement) {
+    const body = this.panel(col, 'QUICK CAPTURE', 'tos-capture-panel');
+
+    const textarea = body.createEl('textarea') as HTMLTextAreaElement;
+    textarea.addClass('tos-capture-input');
+    textarea.placeholder = 'capture a thought...';
+    textarea.rows = 3;
+
+    const row = body.createDiv('tos-capture-row');
+    const btn  = row.createEl('button', { cls: 'tos-capture-btn', text: 'CAPTURE' });
+    row.createSpan({ cls: 'tos-capture-hint', text: 'ctrl+enter' });
+
+    const capture = async () => {
+      const text = textarea.value.trim();
+      if (!text) return;
+
+      const m   = (window as any).moment;
+      const now = m ? m() : new Date();
+      const ts  = m ? now.format('YYYY-MM-DD HH-mm-ss') : new Date().toISOString().slice(0, 19).replace(/[T:]/g, '-');
+      const title    = text.split('\n')[0].slice(0, 40).replace(/[\\/:*?"<>|]/g, '');
+      const dateStr  = m ? now.format('YYYY-MM-DD HH:mm') : new Date().toLocaleString();
+      const fileName = `00 - Inbox/${ts} ${title}.md`;
+
+      try {
+        await this.obsApp.vault.create(fileName, `---\ntype: capture\ndate: ${dateStr}\n---\n\n${text}\n`);
+        textarea.value = '';
+        btn.setText('CAPTURED');
+        btn.addClass('tos-capture-ok');
+        setTimeout(() => { btn.setText('CAPTURE'); btn.removeClass('tos-capture-ok'); }, 1600);
+      } catch {
+        btn.setText('ERROR');
+        setTimeout(() => btn.setText('CAPTURE'), 1600);
+      }
+    };
+
+    btn.addEventListener('click', capture);
+    textarea.addEventListener('keydown', e => { if (e.key === 'Enter' && e.ctrlKey) { e.preventDefault(); capture(); } });
+  }
+
+  // ── Recent Notes ──────────────────────────────────────────────────────────
+
+  private buildRecentPanel(col: HTMLElement) {
+    const body  = this.panel(col, 'RECENT NOTES', 'tos-recent-panel');
+    const files = this.obsApp.vault.getMarkdownFiles()
+      .filter(f => !GRAPH_EXCLUDE.some(p => f.path.startsWith(p)))
+      .sort((a, b) => b.stat.mtime - a.stat.mtime)
+      .slice(0, 7);
+
+    if (!files.length) { body.createDiv({ cls: 'tos-empty', text: 'NO NOTES' }); return; }
+
+    const list = body.createDiv('tos-recent-list');
+    for (const file of files) {
+      const meta  = this.obsApp.metadataCache.getFileCache(file);
+      const type  = meta?.frontmatter?.type ?? 'default';
+      const color = TYPE_COLORS[type] ?? TYPE_COLORS.default;
+
+      const row = list.createDiv('tos-recent-row');
+      const dot = row.createSpan({ cls: 'tos-recent-dot' });
+      dot.style.background = color;
+      dot.style.boxShadow  = `0 0 4px ${color}`;
+
+      const info = row.createDiv('tos-recent-info');
+      info.createDiv({ cls: 'tos-recent-name', text: file.basename });
+      info.createDiv({ cls: 'tos-recent-time', text: this.relTime(file.stat.mtime) });
+
+      row.addEventListener('click', () => this.openFile(file.path));
+    }
   }
 
   // ── Tasks ────────────────────────────────────────────────────────────────
@@ -351,6 +474,15 @@ export class DashboardView extends ItemView {
 
   private fmtDate(d: Date): string {
     return d.toISOString().slice(0, 16).replace('T', '  ');
+  }
+
+  private relTime(mtime: number): string {
+    const mins = Math.floor((Date.now() - mtime) / 60_000);
+    if (mins < 1)   return 'just now';
+    if (mins < 60)  return `${mins}m ago`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs  < 24)  return `${hrs}h ago`;
+    return `${Math.floor(hrs / 24)}d ago`;
   }
 
   // ── Data helpers ──────────────────────────────────────────────────────────

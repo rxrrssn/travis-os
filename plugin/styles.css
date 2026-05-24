@@ -86,6 +86,120 @@
 
 .tos-panel-body { padding: 10px 12px; }
 
+/* ── Daily Note ──────────────────────────────────────────── */
+
+.tos-daily-date {
+  font-size: 0.72rem; letter-spacing: 0.1em;
+  color: rgba(168, 212, 255, 0.5);
+  margin-bottom: 8px;
+}
+
+.tos-daily-btn {
+  width: 100%; padding: 7px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.6rem; letter-spacing: 0.2em;
+  border-radius: 2px; cursor: pointer;
+  transition: all 0.12s;
+}
+
+.tos-daily-open {
+  background: rgba(0, 212, 255, 0.06);
+  border: 1px solid rgba(0, 212, 255, 0.28);
+  color: rgba(0, 212, 255, 0.75);
+}
+.tos-daily-open:hover { background: rgba(0, 212, 255, 0.12); color: #00d4ff; }
+
+.tos-daily-create {
+  background: rgba(0, 255, 136, 0.05);
+  border: 1px solid rgba(0, 255, 136, 0.28);
+  color: rgba(0, 255, 136, 0.7);
+}
+.tos-daily-create:hover { background: rgba(0, 255, 136, 0.1); color: #00ff88; }
+
+.tos-daily-last {
+  display: flex; align-items: center; gap: 6px;
+  margin-top: 7px; font-size: 0.6rem;
+}
+.tos-daily-last-lbl  { color: rgba(168, 212, 255, 0.3); letter-spacing: 0.1em; }
+.tos-daily-last-name {
+  color: rgba(0, 212, 255, 0.45); cursor: pointer;
+  text-decoration: underline; text-underline-offset: 2px;
+  text-decoration-color: rgba(0, 212, 255, 0.2);
+}
+.tos-daily-last-name:hover { color: #00d4ff; }
+
+/* ── Quick Capture ───────────────────────────────────────── */
+
+.tos-capture-input {
+  width: 100%; box-sizing: border-box;
+  background: rgba(0, 212, 255, 0.03);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 2px;
+  color: #a8d4ff;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.72rem; line-height: 1.5;
+  padding: 6px 8px; resize: none; outline: none;
+  transition: border-color 0.15s;
+}
+.tos-capture-input:focus  { border-color: rgba(0, 212, 255, 0.35); }
+.tos-capture-input::placeholder { color: rgba(168, 212, 255, 0.2); }
+
+.tos-capture-row {
+  display: flex; align-items: center; gap: 8px; margin-top: 6px;
+}
+
+.tos-capture-btn {
+  background: rgba(0, 212, 255, 0.07);
+  border: 1px solid rgba(0, 212, 255, 0.28);
+  color: rgba(0, 212, 255, 0.7);
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.58rem; letter-spacing: 0.18em;
+  padding: 4px 12px; cursor: pointer; border-radius: 2px;
+  transition: all 0.12s; flex-shrink: 0;
+}
+.tos-capture-btn:hover { background: rgba(0, 212, 255, 0.14); color: #00d4ff; }
+.tos-capture-ok {
+  border-color: rgba(0, 255, 136, 0.4) !important;
+  color: #00ff88 !important;
+  background: rgba(0, 255, 136, 0.08) !important;
+}
+
+.tos-capture-hint {
+  font-size: 0.55rem; letter-spacing: 0.08em;
+  color: rgba(168, 212, 255, 0.2);
+}
+
+/* ── Recent Notes ────────────────────────────────────────── */
+
+.tos-recent-list { display: flex; flex-direction: column; gap: 1px; }
+
+.tos-recent-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 4px 0; cursor: pointer;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.05);
+  transition: border-color 0.12s;
+}
+.tos-recent-row:hover { border-bottom-color: rgba(0, 212, 255, 0.18); }
+.tos-recent-row:hover .tos-recent-name { color: #00d4ff; }
+
+.tos-recent-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%; flex-shrink: 0;
+}
+
+.tos-recent-info { flex: 1; min-width: 0; }
+
+.tos-recent-name {
+  font-size: 0.7rem; color: rgba(168, 212, 255, 0.75);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  transition: color 0.12s;
+}
+
+.tos-recent-time {
+  font-size: 0.56rem; color: rgba(168, 212, 255, 0.3);
+  letter-spacing: 0.05em; margin-top: 1px;
+}
+
 /* ── Tasks ───────────────────────────────────────────────── */
 
 .tos-task-list  { display: flex; flex-direction: column; gap: 5px; }
