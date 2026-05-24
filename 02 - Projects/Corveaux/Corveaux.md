@@ -24,17 +24,31 @@ Name history: Vetra -> Corvux -> Corveaux
 
 ## Development Status (as of 2026-05-24)
 
-Active MVP in progress. Admin shell is functional. Three build sessions completed.
+Active MVP in progress. Five build sessions completed. Codebase committed and pushed to GitHub (private).
 
-**Exists:** foundational architecture, product philosophy, tenant model, IAM concepts, workflow ideology, operational design patterns, branding, domain, legal formation, full Prisma schema, seed data, working dev server, complete admin UI for Sites / Pages / Blocks / KB, public tenant routing, site importer.
+**Exists:** foundational architecture, product philosophy, tenant model, IAM concepts, workflow ideology, operational design patterns, branding, domain, legal formation, full Prisma schema with 3 migrations, seed data, working dev server, complete admin UI for Sites / Pages / Blocks / KB, public tenant routing, site importer, DnD column layout editor (1/2/3 col), WYSIWYG block editing, ownership + department context, content review cycles.
 
-**Working admin routes:** `/admin/sites`, `/admin/sites/[siteId]`, `/admin/pages`, `/admin/blocks`, `/admin/blocks/[blockId]/edit`, `/admin/kb`, `/admin/kb/[articleId]/edit`
+**Working admin routes:**
+- `/admin` — platform dashboard
+- `/admin/tenants` — tenant list
+- `/admin/settings` — platform settings (read-only MVP)
+- `/t/[slug]/admin` — tenant dashboard
+- `/t/[slug]/admin/sites` — site CRUD
+- `/t/[slug]/admin/pages` — page list + create
+- `/t/[slug]/admin/pages/[pageId]/edit` — page editor with DnD columns + layout selector
+- `/t/[slug]/admin/blocks` — block list + create
+- `/t/[slug]/admin/blocks/[blockId]/edit` — block editor with WYSIWYG + ownership
+- `/t/[slug]/admin/kb` — KB article list + create
+- `/t/[slug]/admin/kb/[articleId]/edit` — article editor
+- `/t/[slug]/admin/settings` — CSS theming + branding
 
 **Working public routes:** `/t/[slug]`, `/t/[slug]/[...path]`, `/t/[slug]/kb`, `/t/[slug]/kb/[articleSlug]`
 
-**Not yet:** auth layer, tenant theme rendering, tag/category management UI, production DB (NeonDB), institutional pilots.
+**Not yet:** auth layer, tenant creation UI, tag/category management UI, cross-column DnD, production DB (NeonDB), tenant theme in admin UI, institutional pilots.
 
-See [[Corveaux CMS Build - Session 1]], [[Corveaux CMS Build - Session 2]], [[Corveaux CMS Build - Session 3]] for full build logs.
+See [[Corveaux CMS Build - Session 6 Plan]] for next session tasks.
+
+See [[Corveaux CMS Build - Session 1]], [[Corveaux CMS Build - Session 2]], [[Corveaux CMS Build - Session 3]], [[Corveaux CMS Build - Session 4]], [[Corveaux CMS Build - Session 5]] for full build logs.
 
 ## Taglines
 
