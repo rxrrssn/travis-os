@@ -20,6 +20,6 @@ Reports into the Contact Center umbrella (proposed: Bruin Connect). Oversees the
 
 ## Related
 
-[[Seini]]
+[[Seini Pahulu]]
 [[Online Success Coaching]]
 [[Bruin Connect Transition]]

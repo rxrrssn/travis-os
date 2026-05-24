@@ -26,4 +26,4 @@ Named in multiple student testimonials (Spring 2025):
 
 [[Online Success Coaching]]
 [[Megan Brandly]]
-[[Seini]]
+[[Seini Pahulu]]

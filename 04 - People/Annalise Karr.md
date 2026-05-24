@@ -22,6 +22,6 @@ Under proposed restructure: would oversee Assist (inbound) and Persist (outbound
 
 ## Related
 
-[[Seini]]
+[[Seini Pahulu]]
 [[Contact Center]]
 [[Bruin Connect Transition]]

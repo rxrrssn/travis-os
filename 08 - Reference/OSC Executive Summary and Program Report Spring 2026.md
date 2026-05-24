@@ -240,7 +240,7 @@ Collaborates with: DSA (grade reports), SLCC Online and eLearning Services (Canv
 
 [[Online Success Coaching]]
 [[Megan Brandly]]
-[[Seini]]
+[[Seini Pahulu]]
 [[Bruin Connect Transition]]
 [[HB 265]]
 [[TDX]]

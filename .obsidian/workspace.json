@@ -4,20 +4,35 @@
     "type": "split",
     "children": [
       {
-        "id": "23f09b7898e2dfd6",
+        "id": "f357b3e2999b08f5",
         "type": "tabs",
         "children": [
           {
-            "id": "5fea1daabb26dc75",
+            "id": "121a66504a750286",
             "type": "leaf",
             "state": {
-              "type": "empty",
+              "type": "travis-os-dashboard",
               "state": {},
+              "icon": "layout-dashboard",
+              "title": "Travis OS"
+            }
+          },
+          {
+            "id": "19c31f0b4e444401",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "02 - Projects/Corveaux/Corveaux CMS Build - Session 3.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Corveaux CMS Build - Session 3"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -177,6 +192,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "travis-os-dashboard:Travis OS": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -190,25 +206,43 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "6e0c806417478946",
+  "active": "19c31f0b4e444401",
   "lastOpenFiles": [
+    "02 - Projects/Corveaux/Corveaux CMS Build - Session 2.md",
+    "02 - Projects/Corveaux/Corveaux CMS Build - Session 1.md",
+    "02 - Projects/Corveaux/Corveaux CMS Build - Session 3.md",
+    "01 - Daily/2026-05-23.md",
+    "02 - Projects/Corveaux/Corveaux.md.tmp.16892.2b86ce4d0824",
+    "02 - Projects/Corveaux/Corveaux CMS Build - Session 1.md.tmp.11768.8f71346a9bf8",
+    "02 - Projects/Corveaux/Corveaux.md.tmp.16892.bf0f6b4b6ca9",
+    "02 - Projects/Corveaux/Corveaux.md.tmp.16892.f789626eb026",
+    "02 - Projects/Corveaux/Corveaux.md",
+    "02 - Projects/Corveaux/Corveaux GTM Strategy.md",
+    "02 - Projects/Corveaux/Corveaux Pricing Model.md",
+    "02 - Projects/Corveaux/Corveaux Regulatory Surface.md",
+    "02 - Projects/Corveaux/Corveaux Data Portability.md",
+    "02 - Projects/Corveaux",
     "99 - Templates/People.md",
-    "04 - People/Travis Hornbuckle (me).md",
-    "Welcome.md",
-    "CLAUDE.md.md",
-    "03 - Knowledge/One Voice One Brutus.md.md",
-    "99 - Templates/Daily.md.md",
-    "99 - Templates/Meeting.md.md",
-    "99 - Templates/Project.md.md",
-    "03 - Knowledge",
-    "99 - Templates",
-    "09 - Archive",
-    "08 - Reference",
-    "07 - Strategy",
-    "06 - Systems",
-    "05 - Meetings",
-    "04 - People",
-    "02 - Projects",
-    "01 - Daily"
+    "99 - Templates/Meeting.md",
+    "99 - Templates/Daily.md",
+    "plugin/styles.css.tmp.2332.580efa96c8aa",
+    "plugin/src/DashboardView.ts.tmp.2332.d0ffd31934a8",
+    "plugin/src/DashboardView.ts.tmp.2332.ee5f49e856b9",
+    "plugin/src/DashboardView.ts.tmp.2332.0f90bce56c0d",
+    "plugin/src/DashboardView.ts.tmp.2332.73267766ced9",
+    "06 - Systems/Contact Center.md",
+    "plugin/node_modules/@codemirror/state/README.md",
+    "plugin/node_modules/@codemirror/state/CHANGELOG.md",
+    "plugin/node_modules/@codemirror/view/README.md",
+    "plugin/node_modules/@codemirror/view/CHANGELOG.md",
+    "plugin/node_modules/d3/README.md",
+    "plugin/node_modules/d3-array/README.md",
+    "plugin/node_modules/d3-chord/README.md",
+    "plugin/node_modules/d3-geo/README.md",
+    "plugin/node_modules/obsidian/README.md",
+    "plugin/node_modules/obsidian/LICENSE.md",
+    "plugin/node_modules/@types/node/README.md",
+    "plugin/node_modules/obsidian/CHANGELOG.md",
+    "plugin/node_modules/d3-scale-chromatic/README.md"
   ]
 }

@@ -47,6 +47,6 @@ When helping Travis on SLCC work:
 
 ## Related
 
-[[Seini]]
+[[Seini Pahulu]]
 [[Contact Center]]
 [[SLCC Overview]]

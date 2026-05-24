@@ -68,7 +68,7 @@ Same scope (Contact Center), different time windows. The 85k is the active figur
 
 ## Key People
 
-- [[Seini]] -- Director, Bruin Connect (umbrella)
+- [[Seini Pahulu]] -- Director, Bruin Connect (umbrella)
 - [[Annalise Karr]] -- Contact Center Manager (Assist/Persist)
 - [[Megan Brandly]] -- Assistant Director, Coaching
 - Travis -- Success Operations Analyst

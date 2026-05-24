@@ -22,13 +22,19 @@ Not just an SIS or CRM. The intended institutional nervous system for colleges, 
 
 Name history: Vetra -> Corvux -> Corveaux
 
-## Development Status (as of 2026-05-23)
+## Development Status (as of 2026-05-24)
 
-Very early-stage but unusually well-defined architecturally. Strongest current asset is the systems thinking and operational model -- not the code.
+Active MVP in progress. Admin shell is functional. Three build sessions completed.
 
-**Exists:** foundational architecture, product philosophy, tenant model, IAM concepts, workflow ideology, operational design patterns, branding, domain, legal formation, infrastructure setup, early Next.js / Tailwind / Prisma prototyping.
+**Exists:** foundational architecture, product philosophy, tenant model, IAM concepts, workflow ideology, operational design patterns, branding, domain, legal formation, full Prisma schema, seed data, working dev server, complete admin UI for Sites / Pages / Blocks / KB, public tenant routing, site importer.
 
-**Not yet:** mature MVP, production customers, full engineering team, institutional pilots.
+**Working admin routes:** `/admin/sites`, `/admin/sites/[siteId]`, `/admin/pages`, `/admin/blocks`, `/admin/blocks/[blockId]/edit`, `/admin/kb`, `/admin/kb/[articleId]/edit`
+
+**Working public routes:** `/t/[slug]`, `/t/[slug]/[...path]`, `/t/[slug]/kb`, `/t/[slug]/kb/[articleSlug]`
+
+**Not yet:** auth layer, tenant theme rendering, tag/category management UI, production DB (NeonDB), institutional pilots.
+
+See [[Corveaux CMS Build - Session 1]], [[Corveaux CMS Build - Session 2]], [[Corveaux CMS Build - Session 3]] for full build logs.
 
 ## Taglines
 
@@ -167,12 +173,43 @@ Core governance principle: **people change, roles persist.**
 
 ## Organizational Structure
 
-Corveaux itself is organized into offices that mirror how the product thinks about institutions:
+Corveaux the company lives the values it sells: canonical structure, single source of truth, de-siloed roles. The internal org model is itself a dogfood of the platform philosophy.
 
-- **Office of Institutional Continuity** -- onboarding, support, implementation, partner success
-- **Platform** -- infrastructure, IAM, engineering
-- **System** -- finance, procurement, executive operations
-- **People & Culture** -- HR / internal operations
+Corveaux is organized into five named offices:
+
+### Office of the Platform
+Infrastructure, engineering, server operations, IAM, and internal technical support. Everything that keeps the platform running.
+
+### Office of the System
+Executive leadership, finance, AP, AR, and legal. Operates as the visionary and operational core of the company.
+
+### Office of People & Culture
+HR, benefits, employee onboarding, and internal culture operations.
+
+### Office of Intelligence
+Oversees performance, analytics, and metrics -- both internally (platform health, company operations) and externally in support of institutional partners. The team responsible for turning data into operational insight across every layer of the company.
+
+### Office of Institutional Partnerships
+Manages all institutional relationships. Does not use traditional account managers.
+
+Instead, institutions are supported by **Pods** -- cross-functional teams assigned to each institution. A Pod includes at minimum:
+
+- **Partnership Manager (PM)** -- primary point of contact for the institution; owns the relationship end-to-end
+- **Institutional Success Partner (ISP)** -- strategic alignment, platform adoption, ongoing success
+- **Implementation Partner (IP)** -- onboarding, configuration, technical deployment
+
+Additional Pod roles may be defined as the model matures.
+
+The Pod model deliberately de-silos the onboarding and relationship management process. Rather than handoffs between sales, implementation, and support, one Pod maintains continuity across the full institutional lifecycle.
+
+#### Matrix Reporting Structure
+
+Pod members operate on a dual-reporting model:
+
+- **Daily / project reporting** to their Pod lead for active institutional work
+- **Functional reporting** to a manager within their home office subdivision
+
+This keeps cross-functional teams coherent around institutional outcomes while preserving clear career paths, specialization, and accountability within each office. The structure mirrors the platform's own principle: roles are canonical, but context is flexible.
 
 ---
 
