@@ -1,0 +1,13 @@
+# Obsidian session state — changes every time the vault is opened
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+# Plugin binaries — compiled code, reinstalled automatically by Obsidian
+# Plugin data.json (user config) and manifest.json (metadata) are kept
+.obsidian/plugins/*/main.js
+.obsidian/plugins/*/styles.css
+
+# Windows noise
+Thumbs.db
+desktop.ini

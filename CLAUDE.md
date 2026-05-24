@@ -1,5 +1,20 @@
 # Travis OS
 
+## Key Notes Index
+
+| Domain | Note |
+|---|---|
+| Institution | [[SLCC Overview]] |
+| Contact Center | [[Contact Center]] |
+| Student Messaging | [[Mainstay Brutus]] |
+| Online Coaching | [[Online Success Coaching]] |
+| Workflow Platform | [[TDX]] |
+| Reporting / BI | [[Power Platform]] |
+| Platform Vision | [[Corveaux]] |
+| Communication Philosophy | [[One Voice One Brutus]] |
+
+---
+
 This vault is my external brain, operational memory system, and long-term context archive.
 
 Its purpose is to:
@@ -38,20 +53,9 @@ The vault should help agents quickly understand:
 
 My name is Travis Hornbuckle.
 
-I work in higher education operations at Salt Lake Community College (SLCC).
+I work at Salt Lake Community College (SLCC) as Coordinator, Success Operations Analyst, embedded primarily within the Contact Center and Online Success Coaching under Student Affairs.
 
-My role sits between:
-- operations
-- analytics
-- automation
-- workflow architecture
-- reporting
-- systems integration
-- strategic planning
-- technical implementation
-
-Officially, I work as:
-Coordinator - Success Operations Analyst
+Officially the role is operations and analytics focused. Functionally I operate as a systems strategist, workflow architect, and operational translator between frontline staff, leadership, data teams, and technology platforms.
 
 Functionally, I often operate as:
 - systems architect
@@ -63,6 +67,10 @@ Functionally, I often operate as:
 - process modernization advocate
 - chatbot/platform administrator
 - technical implementation specialist
+
+Leadership trusts me with cross-functional and politically sensitive operational questions because I can translate large amounts of fragmented technical and operational information into actionable institutional strategy. Though not formally in IT leadership, architecture, or executive administration, I regularly operate adjacent to all three.
+
+Personal site: https://www.tjhorn.com
 
 I frequently work with:
 - directors
@@ -345,55 +353,33 @@ Strong preference for:
 
 ---
 
-# Corvux
+# Corveaux
 
-Corvux is a long-term platform vision for a unified higher education operating system.
+Corveaux LLC is Travis's private Delaware LLC -- a SaaS / EdTech company. Name history: Vetra -> Corvux -> Corveaux.
 
-It is intended to eventually replace fragmented institutional ecosystems with:
-- one platform
-- one operational layer
-- one source of truth
-- one lifecycle-aware environment
+Taglines: "One System, One Institution, Every Student." / "The system that ensures nothing falls through."
 
-The philosophy is:
-- institutions should not need dozens of disconnected systems
-- systems should communicate natively
-- automation should be built in
-- workflows should be proactive
-- operational context should persist everywhere
+URLs: https://www.corveaux.app / https://www.crvx.app
 
-Planned domains include:
-- SIS
-- LMS
-- CRM
-- advising
-- student success
-- ITSM
-- communications
-- websites
-- knowledge management
-- workflow automation
-- facilities
-- HR/payroll
-- analytics
-- AI orchestration
+Not just an SIS or CRM -- the intended institutional nervous system for colleges.
 
-Key themes:
-- lifecycle orchestration
-- automation-first operations
-- centralized knowledge
-- operational intelligence
-- tenant-aware architecture
-- proactive systems
-- reduced middleware dependency
+Multi-tenant SaaS. Each institution is an isolated tenant. Corveaux dogfoods the platform as its own first tenant. Corveaux University is the demo environment and institutional support hub.
 
-Core belief:
-"The system is the operator."
+Core architectural principles:
+- Canonical data: one PERSON, one COURSE, one DEPARTMENT, one POLICY, one KNOWLEDGE BLOCK. Everything else is a reference or contextualized view. No sync drift, no duplicates.
+- Do it once, reuse everywhere: assets are referenced, not recreated.
+- People change, roles persist: governance and provisioning are role-based, not person-based. Nothing is orphaned.
+- Corveaux is the authoritative system for Entra/Azure provisioning.
 
-Meaning:
-- systems should automate routine work
-- staff should handle exceptions and human interaction
-- institutional processes should be orchestrated automatically
+Platform covers as native modules: SIS, LMS, CRM/admissions, student success, ITSM, HR/payroll, finance, IAM, CMS/websites, knowledge management, facilities, communications/campaigning, workflow/automation.
+
+Wedge product: Web / CMS / Knowledge -- decentralized content ownership with canonical knowledge blocks.
+
+Internal org structure mirrors the product: Office of Institutional Continuity, Platform, System, People & Culture.
+
+Long-term vision: a digital institution layer where websites, workflows, campaigns, and provisioning operate automatically from canonical data.
+
+See [[Corveaux]] for full detail.
 
 ---
 
@@ -439,7 +425,9 @@ Preferred implementation style:
 
 # WGU / Education
 
-Currently pursuing accelerated education pathways through WGU.
+Currently holds dual associate degrees: Psychology and Business Administration (concentration in Data Analytics).
+
+Enrolled in accelerated BSIT program at Western Governors University starting 2026-06-01, with intent to continue directly into MSIT.
 
 Primary goals:
 - accelerated BSIT completion
@@ -562,8 +550,12 @@ When creating new notes:
 - link related systems and concepts
 - focus on long-term usefulness over perfection
 
-This vault should evolve organically through real usage.
+## Auto-Write Policy
 
-The goal is not perfect organization.
+Write proactively. Do not wait to be asked.
 
-The goal is preserved context and operational continuity.
+After any session where something significant is discussed -- a decision, a system detail, a project update, a strategic direction, a person, a constraint -- write it to the vault immediately.
+
+Travis should never have to repeat himself. If something has been said once, it lives here permanently.
+
+When in doubt, write the note. Over-documentation is preferable to lost context.
