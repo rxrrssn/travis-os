@@ -1,4 +1,4 @@
-import { App, ItemView, TFile, WorkspaceLeaf } from 'obsidian';
+import { App, ItemView, Notice, TFile, WorkspaceLeaf } from 'obsidian';
 import * as d3 from 'd3';
 
 export const DASHBOARD_VIEW_TYPE = 'travis-os-dashboard';
@@ -379,8 +379,8 @@ export class DashboardView extends ItemView {
     const topRow = body.createDiv('tos-session-actions');
     const newBtn = topRow.createEl('button', { cls: 'tos-session-new', text: '+ NEW SESSION' });
     const conBtn = topRow.createEl('button', { cls: 'tos-session-con', text: 'CONTINUE LAST' });
-    newBtn.addEventListener('click', () => this.launchClaude('new'));
-    conBtn.addEventListener('click', () => this.launchClaude('continue'));
+    newBtn.addEventListener('click', () => this.launchClaude('new', newBtn as HTMLButtonElement));
+    conBtn.addEventListener('click', () => this.launchClaude('continue', conBtn as HTMLButtonElement));
 
     const sessions = this.getSessions();
 
@@ -399,7 +399,7 @@ export class DashboardView extends ItemView {
       if (s.preview) info.createDiv({ cls: 'tos-session-preview', text: s.preview });
 
       const btn = row.createEl('button', { cls: 'tos-resume-btn', text: 'RESUME' });
-      btn.addEventListener('click', () => this.launchClaude(s.id));
+      btn.addEventListener('click', () => this.launchClaude(s.id, btn as HTMLButtonElement));
     }
   }
 
@@ -443,33 +443,47 @@ export class DashboardView extends ItemView {
     }
   }
 
-  private launchClaude(mode: string) {
-    const { spawn } = require('child_process') as typeof import('child_process');
+  private launchClaude(mode: string, btn?: HTMLButtonElement) {
+    const { exec, execSync } = require('child_process') as typeof import('child_process');
     const vault = this.vaultPath();
 
-    const claudeCmd =
-      mode === 'new'      ? 'claude' :
-      mode === 'continue' ? 'claude --continue' :
-                            `claude --resume ${mode}`;
+    // Resolve the absolute path to claude so Electron's restricted PATH isn't a problem
+    let claudeBin = 'claude';
+    try {
+      const found = (execSync('where claude', { shell: true }) as Buffer)
+        .toString().split(/\r?\n/)[0].trim();
+      if (found) claudeBin = found;
+    } catch { /* leave as 'claude' and hope PATH works */ }
 
-    const psCmd = `cd '${vault}'; ${claudeCmd}`;
+    const claudeArg =
+      mode === 'new'      ? '' :
+      mode === 'continue' ? '--continue' :
+                            `--resume ${mode}`;
 
-    // Try Windows Terminal, fall back to a new PowerShell window
-    const wt = spawn(
-      'wt.exe',
-      ['new-tab', '--title', 'Claude', '--', 'powershell.exe', '-NoExit', '-NoProfile', '-Command', psCmd],
-      { detached: true, stdio: 'ignore' }
-    );
+    const safeVault = vault.replace(/'/g, "''");
+    const safeBin   = claudeBin.replace(/'/g, "''");
 
-    wt.on('error', () => {
-      spawn(
-        'powershell.exe',
-        ['-NoExit', '-NoProfile', '-Command', psCmd],
-        { detached: true, stdio: 'ignore', cwd: vault }
-      ).unref();
+    // PowerShell command: cd to vault then invoke claude
+    const inner = `Set-Location '${safeVault}'; & '${safeBin}' ${claudeArg}`.trimEnd();
+
+    if (btn) { btn.disabled = true; btn.setText('LAUNCHING...'); }
+
+    const btnLabel = mode === 'new' ? '+ NEW SESSION' : mode === 'continue' ? 'CONTINUE LAST' : 'RESUME';
+    const restore  = (label: string) => { if (btn) { btn.disabled = false; btn.setText(label); } };
+
+    // Try Windows Terminal first, then a plain PowerShell window
+    const wtCmd = `start "" wt.exe new-tab -- powershell.exe -NoExit -NoProfile -Command "${inner}"`;
+    const psCmd = `start "" powershell.exe -NoExit -NoProfile -Command "${inner}"`;
+
+    exec(wtCmd, { shell: true }, (err) => {
+      if (!err) { restore(btnLabel); return; }
+
+      exec(psCmd, { shell: true }, (err2) => {
+        if (!err2) { restore(btnLabel); return; }
+        restore('ERROR');
+        new Notice(`Travis OS: failed to open terminal\n${err2.message}`, 8000);
+      });
     });
-
-    wt.unref();
   }
 
   private fmtDate(d: Date): string {
