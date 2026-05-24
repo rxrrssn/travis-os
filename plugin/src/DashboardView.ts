@@ -447,33 +447,33 @@ export class DashboardView extends ItemView {
     const { exec, execSync } = require('child_process') as typeof import('child_process');
     const vault = this.vaultPath();
 
-    // Resolve the absolute path to claude so Electron's restricted PATH isn't a problem
+    // Resolve the absolute path to claude -- prefer .cmd on Windows
     let claudeBin = 'claude';
     try {
-      const found = (execSync('where claude', { shell: true }) as Buffer)
-        .toString().split(/\r?\n/)[0].trim();
-      if (found) claudeBin = found;
-    } catch { /* leave as 'claude' and hope PATH works */ }
+      const lines = (execSync('where claude', { shell: true }) as Buffer)
+        .toString().split(/\r?\n/).map((l: string) => l.trim()).filter(Boolean);
+      claudeBin = lines.find((l: string) => l.toLowerCase().endsWith('.cmd')) ?? lines[0] ?? 'claude';
+    } catch { /* leave as 'claude' */ }
 
     const claudeArg =
       mode === 'new'      ? '' :
       mode === 'continue' ? '--continue' :
                             `--resume ${mode}`;
 
+    // Build the PowerShell command, then base64-encode it for -EncodedCommand.
+    // This sidesteps all quoting issues when passing through cmd start.
     const safeVault = vault.replace(/'/g, "''");
     const safeBin   = claudeBin.replace(/'/g, "''");
-
-    // PowerShell command: cd to vault then invoke claude
-    const inner = `Set-Location '${safeVault}'; & '${safeBin}' ${claudeArg}`.trimEnd();
+    const psInner   = `Set-Location '${safeVault}'; & '${safeBin}' ${claudeArg}`.trimEnd();
+    const encoded   = Buffer.from(psInner, 'utf16le').toString('base64');
 
     if (btn) { btn.disabled = true; btn.setText('LAUNCHING...'); }
 
     const btnLabel = mode === 'new' ? '+ NEW SESSION' : mode === 'continue' ? 'CONTINUE LAST' : 'RESUME';
     const restore  = (label: string) => { if (btn) { btn.disabled = false; btn.setText(label); } };
 
-    // Try Windows Terminal first, then a plain PowerShell window
-    const wtCmd = `start "" wt.exe new-tab -- powershell.exe -NoExit -NoProfile -Command "${inner}"`;
-    const psCmd = `start "" powershell.exe -NoExit -NoProfile -Command "${inner}"`;
+    const wtCmd = `start "" wt.exe new-tab -- powershell.exe -NoExit -NoProfile -EncodedCommand ${encoded}`;
+    const psCmd = `start "" powershell.exe -NoExit -NoProfile -EncodedCommand ${encoded}`;
 
     exec(wtCmd, { shell: true }, (err) => {
       if (!err) { restore(btnLabel); return; }
