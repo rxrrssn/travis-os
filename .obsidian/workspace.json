@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "bce4c996b21465b1",
+        "id": "e88d772758665847",
         "type": "tabs",
         "children": [
           {
-            "id": "46cebe7ceb7c2083",
+            "id": "995e850e12e10ffa",
             "type": "leaf",
             "state": {
               "type": "travis-os-dashboard",
@@ -74,7 +74,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "4ab2c3837098b50a",
@@ -191,11 +192,14 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "46cebe7ceb7c2083",
+  "active": "995e850e12e10ffa",
   "lastOpenFiles": [
+    "02 - Projects/Corveaux/Corveaux Auth Architecture - Tenant Resolver.md",
     "02 - Projects/Corveaux/Corveaux Architecture Session - 2026-05-27.md",
-    "02 - Projects/Corveaux/Corveaux Architecture Session - 2026-05-27.md.tmp.8312.72a8e4f3e173",
+    "01 - Daily/2026-05-27.md",
     "02 - Projects/Corveaux/Corveaux CMS Build - Session 11.md",
+    "02 - Projects/Corveaux/Corveaux Regulatory Surface.md",
+    "02 - Projects/Corveaux/Corveaux Architecture Session - 2026-05-27.md.tmp.8312.72a8e4f3e173",
     "02 - Projects/Corveaux/Corveaux CMS Build - Session 10.md",
     "02 - Projects/Corveaux/Corveaux CMS Build - Session 6 Plan.md",
     "02 - Projects/Corveaux/Corveaux CMS Build - Session 9.md",
@@ -226,9 +230,6 @@
     "02 - Projects/Corveaux/Corveaux.md",
     "02 - Projects/Corveaux/Corveaux GTM Strategy.md",
     "02 - Projects/Corveaux/Corveaux Pricing Model.md",
-    "02 - Projects/Corveaux/Corveaux Regulatory Surface.md",
-    "02 - Projects/Corveaux/Corveaux Data Portability.md",
-    "99 - Templates/People.md",
-    "99 - Templates/Meeting.md"
+    "02 - Projects/Corveaux/Corveaux Data Portability.md"
   ]
 }

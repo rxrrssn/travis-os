@@ -24,13 +24,13 @@ All admin routes are functional but entirely unprotected. This session should cl
 
 The single most important unfinished piece. Every route is currently open to anyone.
 
-- [ ] Install and configure NextAuth v5 (`next-auth@beta`) with credentials provider
-- [ ] Add `User.passwordHash` field to Prisma schema + migration
-- [ ] Protect all `/admin/**` and `/t/[slug]/admin/**` routes via middleware
-- [ ] Create login page at `/login` — minimal, on-brand
-- [ ] Session-aware `AppShell` / `TenantAdminShell` (show logged-in user, sign-out)
-- [ ] Seed demo user with hashed password for dev login
-- [ ] Verify: unauthenticated requests redirect to `/login`; authenticated requests pass through
+- [x] Install and configure NextAuth v5 (`next-auth@beta`) with credentials provider
+- [x] Add `User.passwordHash` field to Prisma schema + migration
+- [x] Protect all `/admin/**` and `/t/[slug]/admin/**` routes via middleware
+- [x] Create login page at `/login` — minimal, on-brand
+- [x] Session-aware `AppShell` / `TenantAdminShell` (show logged-in user, sign-out)
+- [x] Seed demo user with hashed password for dev login
+- [x] Verify: unauthenticated requests redirect to `/login`; authenticated requests pass through
 
 ---
 
@@ -38,10 +38,10 @@ The single most important unfinished piece. Every route is currently open to any
 
 Currently tenants only exist via seed or direct DB. Platform admin has no way to create one from the UI.
 
-- [ ] Add "New Tenant" button + modal/form to `/admin/tenants`
-- [ ] Server action: `createTenant(slug, name, domain?)` — validates slug uniqueness
-- [ ] On success: redirect to new tenant's admin dashboard
-- [ ] Show validation errors inline (slug taken, slug format)
+- [x] Add "New Tenant" button + modal/form to `/admin/tenants`
+- [x] Server action: `createTenant(slug, name, domain?)` — validates slug uniqueness
+- [x] On success: redirect to new tenant's admin dashboard
+- [x] Show validation errors inline (slug taken, slug format)
 
 ---
 
@@ -49,10 +49,10 @@ Currently tenants only exist via seed or direct DB. Platform admin has no way to
 
 The KB sidebar shows categories read-only. Editors have no way to create or rename them from the UI.
 
-- [ ] "New Category" button in KB sidebar or KB index page
-- [ ] Server action: `createCategory(tenantSlug, name, slug, description?)`
-- [ ] Inline edit / rename on existing category names (or a settings modal)
-- [ ] Verify: new category appears in article editor's category dropdown immediately
+- [x] "New Category" button in KB sidebar or KB index page
+- [x] Server action: `createCategory(tenantSlug, name, slug, description?)`
+- [x] Inline edit / rename on existing category names (or a settings modal)
+- [x] Verify: new category appears in article editor's category dropdown immediately
 
 ---
 
@@ -61,7 +61,7 @@ The KB sidebar shows categories read-only. Editors have no way to create or rena
 - **Tag management UI** — create, rename, delete tags; assign tags to articles from article editor
 - **Cross-column DnD** — drag blocks across column boundaries (currently column is set via dropdown only)
 - **NeonDB migration** — swap `@prisma/adapter-libsql` for `@prisma/adapter-neon` + provision Neon project
-- **Tenant theme in admin UI** — apply tenant CSS vars to admin shell, not just public site
+- [x] **Tenant theme in admin UI** — apply tenant CSS vars to admin shell, not just public site
 - **Public page rendering from `page.layout`** — public site currently ignores column layout; blocks render in a single column regardless of saved layout
 
 ---
