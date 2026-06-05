@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "e88d772758665847",
+        "id": "5ec96ee8f8da653b",
         "type": "tabs",
         "children": [
           {
-            "id": "995e850e12e10ffa",
+            "id": "762d51b3a5a5efdb",
             "type": "leaf",
             "state": {
               "type": "travis-os-dashboard",
@@ -16,8 +16,23 @@
               "icon": "layout-dashboard",
               "title": "Travis OS"
             }
+          },
+          {
+            "id": "9ca1623987fb6c79",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "02 - Projects/CorveauxV2/research/institutional-archetypes.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "institutional-archetypes"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -74,8 +89,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "4ab2c3837098b50a",
@@ -192,44 +206,44 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "995e850e12e10ffa",
+  "active": "9ca1623987fb6c79",
   "lastOpenFiles": [
+    "02 - Projects/CorveauxV2/research/catalog-format-survey.md",
+    "02 - Projects/CorveauxV2/research/institutional-archetypes.md",
+    "02 - Projects/CorveauxV2/research/institutional-archetypes.md.tmp.21564.fedcc8ee270a",
+    "02 - Projects/CorveauxV2/research/competitive-landscape.md",
+    "02 - Projects/CorveauxV2/research/buyer-personas.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-003 — Content Block Architecture.md",
+    "02 - Projects/CorveauxV2/research/buyer-personas.md.tmp.21564.3a650b4e2a8f",
+    "02 - Projects/CorveauxV2/research/competitive-landscape.md.tmp.21564.d4c6193e524f",
+    "02 - Projects/CorveauxV2/research",
+    "02 - Projects/CorveauxV2/decisions/ADR-003 — Content Block Architecture.md.tmp.21564.77464c27479d",
+    "02 - Projects/CorveauxV2/vision/Philosophy.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-008 — Generated Tenant Lifecycle.md",
+    "02 - Projects/CorveauxV2/vision/GTM Hypothesis.md",
+    "02 - Projects/CorveauxV2/vision/Product Brief.md",
+    "02 - Projects/CorveauxV2/vision/Product Brief.md.tmp.21564.62921b936cf1",
+    "02 - Projects/CorveauxV2/vision/Philosophy.md.tmp.21564.562eb1c78d0c",
+    "02 - Projects/CorveauxV2/vision",
+    "02 - Projects/CorveauxV2/Corveaux V2.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-008 — Generated Tenant Lifecycle.md.tmp.21564.2584ac1e800a",
+    "02 - Projects/CorveauxV2/decisions/ADR-007 — LLM Strategy Positioning.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-007 — LLM Strategy Positioning.md.tmp.21564.aeed63287aff",
+    "02 - Projects/CorveauxV2/decisions/ADR-006 — Tenant Zero.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-005 — Capability-Based Authority Model.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-004 — Platform Tenant Architecture.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-002 — Institutional Model Primitives.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-001 — Entry Wedge Selection.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 01.md",
+    "CLAUDE.md",
+    "02 - Projects/Corveaux-Old/Corveaux Platform Build - Session 12.md",
+    "02 - Projects/Corveaux-Old/Corveaux Platform Build - Session 13.md",
+    "02 - Projects/Corveaux/Corveaux Platform Build - Session 13.md",
+    "02 - Projects/Corveaux/Corveaux Platform Build - Session 12.md",
+    "02 - Projects/Corveaux/CRVX MOBILE.md",
+    "02 - Projects/Corveaux/Corveaux Assistant Architecture - 2026-05-27.md",
     "02 - Projects/Corveaux/Corveaux Auth Architecture - Tenant Resolver.md",
     "02 - Projects/Corveaux/Corveaux Architecture Session - 2026-05-27.md",
-    "01 - Daily/2026-05-27.md",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 11.md",
-    "02 - Projects/Corveaux/Corveaux Regulatory Surface.md",
-    "02 - Projects/Corveaux/Corveaux Architecture Session - 2026-05-27.md.tmp.8312.72a8e4f3e173",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 10.md",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 6 Plan.md",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 9.md",
-    "Corveaux CMS Build - Session 10.md",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 8.md",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 9.md.tmp.10072.2fc37666cfe0",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 6.md",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 7.md",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 5.md",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 4.md",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 2.md",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 3.md",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 8.md.tmp.10072.5bbc52d3ad62",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 7.md.tmp.10072.7e3fc64243f7",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 6.md.tmp.10072.f341d8b1adb2",
-    "01 - Daily/2026-05-24.md",
-    "02 - Projects/Bruin Connect Transition.md",
-    "BruinConnect.md",
-    "01 - Daily/2026-05-24.md.tmp.10584.e4ae40154fcd",
-    "BruinConnect.md.tmp.18680.ece4cabe1dba",
-    "02 - Projects/Bruin Connect Transition.md.tmp.18680.f674c5b8f8b5",
-    "01 - Daily/2026-05-24.md.tmp.13224.e8fc5763530e",
-    "01 - Daily/2026-05-24.md.tmp.11888.f58db6b62e92",
-    "01 - Daily/2026-05-23.md",
-    "08 - Reference/Non-Returning Student Survey 2024.md",
-    "Untitled.canvas",
-    "02 - Projects/Corveaux/Corveaux CMS Build - Session 1.md",
-    "02 - Projects/Corveaux/Corveaux.md",
-    "02 - Projects/Corveaux/Corveaux GTM Strategy.md",
-    "02 - Projects/Corveaux/Corveaux Pricing Model.md",
-    "02 - Projects/Corveaux/Corveaux Data Portability.md"
+    "Untitled.canvas"
   ]
 }

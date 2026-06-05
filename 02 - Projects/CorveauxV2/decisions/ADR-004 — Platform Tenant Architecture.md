@@ -1,0 +1,65 @@
+---
+type: decision
+domain: corveaux
+status: active
+date: 2026-06-05
+tags: [corveaux, architecture, multi-tenant, platform]
+---
+
+# ADR-004 — Platform Tenant Architecture
+
+## Decision
+
+The platform is divided into two cleanly separated layers: the Platform Layer (Corveaux-operated) and the Institutional Layer (each tenant operates its own instance). Every institution is a tenant. Corveaux is Tenant Zero.
+
+## Context
+
+Multi-tenancy is a founding requirement. The architecture must support multiple institutions as isolated tenants while allowing Corveaux to operate the shared infrastructure. The separation must be clean enough that Corveaux's own use of the platform is indistinguishable from any other tenant's use — except for the `platform.operator` authority scope.
+
+## Options Considered
+
+1. **Single-layer architecture** — All tenants share one layer with tenant-scoped access controls. Simpler initially but doesn't cleanly separate platform operations from institutional operations.
+2. **Monolith with tenant isolation** — One codebase, one database, row-level tenant isolation. Standard SaaS approach. Viable but creates risk of cross-tenant data leakage and makes platform administration harder to separate.
+3. **Platform Layer / Institutional Layer separation** (chosen) — Clean conceptual separation with different operators. Platform Layer operated by Corveaux. Institutional Layer operated by each tenant independently.
+
+## Rationale
+
+**Platform Layer** — Corveaux-operated:
+- Tenant Provisioning (create, configure, deactivate tenants)
+- Capability Registry (what each tenant tier can do)
+- Billing and Subscriptions
+- Feature Management
+- Platform Monitoring and Observability
+- Shared Infrastructure (CDN, object storage, search)
+- Platform Admin Interface
+
+**Institutional Layer** — each tenant operates its own:
+- Institutional Object Store (primitive layer, tenant-namespaced)
+- Content Block Store (rendering layer, tenant-namespaced)
+- Role Registry (audience types and projection rules)
+- Rendering Engine (shared engine, institution-scoped execution — stateless)
+- Governance Workflows (approval chains, ownership, publication policies)
+- Discovery Pipeline (extraction runs, institution-scoped)
+- Assistant Knowledge Layer (grounded in institution's block store)
+- Analytics (institution-scoped data, shared engine)
+- Tenant Admin Interface
+
+The rendering engine is shared infrastructure but executes in an institution-scoped context. No institution can see another institution's data.
+
+## Stakeholders
+
+- Builder (Travis Hornbuckle)
+
+## Consequences
+
+- Postgres with tenant-namespaced schemas or row-level security from Day 1; mixing tenant data at the schema level is a security risk
+- The rendering engine must be stateless and institution-scoped
+- Corveaux Tenant Zero operates through the institutional layer; the only thing that makes Corveaux different is the `platform.operator` authority scope
+- Future resellers or system-office partners could be granted `platform.operator` scope without code changes — the capability model supports this
+- Shared services (CDN, search infrastructure) must be institution-scoped at the storage/index level
+
+## Related
+
+- [[ADR-005 — Capability-Based Authority Model]]
+- [[ADR-006 — Tenant Zero]]
+- `Corveaux V2 - Session 01.md`
