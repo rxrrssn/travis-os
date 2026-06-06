@@ -4,35 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "5957ea6cd76c3e7b",
+        "id": "87b3112a36940c3f",
         "type": "tabs",
         "children": [
           {
-            "id": "c7938375ff418fed",
-            "type": "leaf",
-            "state": {
-              "type": "travis-os-dashboard",
-              "state": {},
-              "icon": "layout-dashboard",
-              "title": "Travis OS"
-            }
-          },
-          {
-            "id": "481e24dd8f39eb7f",
+            "id": "c413a3f155f1843a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02 - Projects/Corveaux-Old/Corveaux.md",
+                "file": "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 07 — Catalog Extraction and Promoter Fixes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Corveaux"
+              "title": "Corveaux V2 - Session 07 — Catalog Extraction and Promoter Fixes"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -64,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "\"Tenan",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -206,44 +195,44 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "481e24dd8f39eb7f",
+  "active": "c413a3f155f1843a",
   "lastOpenFiles": [
-    "02 - Projects/Corveaux-Old/Corveaux.md.tmp.21564.c6a248bcfebe",
-    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 02 — Tech Stack and Vault Infrastructure.md.tmp.21564.3dd451449ece",
-    "02 - Projects/CorveauxV2/vision/Product Brief.md.tmp.21564.1e1aafef9ff2",
-    "CLAUDE.md",
-    "Welcome.md",
-    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 01.md",
-    "02 - Projects/CorveauxV2/vision/Philosophy.md.tmp.21564.a639ca592401",
-    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 02 — Tech Stack and Vault Infrastructure.md.tmp.21564.eb3609c3b64d",
-    "02 - Projects/CorveauxV2/decisions/ADR-004 — Platform Tenant Architecture.md.tmp.21564.8c6cddfd444c",
-    "02 - Projects/CorveauxV2/decisions/ADR-010 — Tenant Isolation Architecture.md.tmp.21564.c26a84771d4c",
-    "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.21564.d3ac098d7d65",
-    "99 - Templates/Daily.md",
-    "99 - Templates/Decision.md",
-    "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.21564.1f792ceac795",
-    "02 - Projects/CorveauxV2/decisions/ADR-011 — Background Job Platform.md.tmp.21564.70a5d6bced28",
+    "02 - Projects/CorveauxV2/decisions/ADR-014 — Fan-out Scalability and batchTriggerAndWait.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-014 — Fan-out Scalability and batchTriggerAndWait.md.tmp.11100.316ab429a111",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 08 — Trigger.dev Validation and Catalog Pilot.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 08 — Trigger.dev Validation and Catalog Pilot.md.tmp.11100.a48840563b62",
+    "02 - Projects/CorveauxV2/metrics.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 06 — Auth Layer and SLCC Smoke Test.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 07 — Catalog Extraction and Promoter Fixes.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 07 — Catalog Extraction and Promoter Fixes.md.tmp.11100.4a19c3b417f2",
+    "02 - Projects/CorveauxV2/validation/institution-runs/SLCC/SLCC Source Inventory.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 06 — Auth Layer and SLCC Smoke Test.md.tmp.11100.386c83524f12",
+    "02 - Projects/CorveauxV2/validation/institution-runs/SLCC/SLCC Material Facts Checklist.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 05 — Extraction Pipeline Implementation.md",
+    "02 - Projects/CorveauxV2/vision/Institutional Governance.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-006 — Tenant Zero.md",
     "02 - Projects/CorveauxV2/Corveaux V2.md",
-    "02 - Projects/CorveauxV2/decisions/ADR-011 — Background Job Platform.md",
-    "02 - Projects/CorveauxV2/decisions/ADR-011 — Background Job Platform.md.tmp.21564.626d277bfe7c",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 11.md",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 10.md",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 9.md",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 8.md",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 7.md",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 6 Plan.md",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 6.md",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 5.md",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 4.md",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 3.md",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 2.md",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 1.md",
-    "02 - Projects/Corveaux-Old/Corveaux Data Portability.md",
-    "02 - Projects/Corveaux-Old/Corveaux GTM Strategy.md",
-    "02 - Projects/Corveaux-Old/Corveaux Platform Build - Session 12.md",
-    "02 - Projects/Corveaux-Old/Corveaux Platform Build - Session 13.md",
-    "02 - Projects/Corveaux-Old/Corveaux Pricing Model.md",
-    "02 - Projects/Corveaux-Old/Corveaux Regulatory Surface.md",
+    "02 - Projects/CorveauxV2/validation/Corveaux Tenant Zero Checklist.md",
+    "02 - Projects/Corveaux-Old/Corveaux.md",
+    "CLAUDE.md",
+    "02 - Projects/CorveauxV2/vision/The End State.md",
+    "02 - Projects/CorveauxV2/vision/Why Institutions Fail To Understand Themselves.md",
+    "02 - Projects/CorveauxV2/vision/Corveaux 2035.md",
+    "02 - Projects/CorveauxV2/vision/Why Higher Education First.md",
+    "02 - Projects/CorveauxV2/vision/Corveaux Constitution.md",
+    "02 - Projects/CorveauxV2/vision/Institutional Maturity Model.md",
+    "02 - Projects/CorveauxV2/vision/Vendor Displacement Strategy.md",
+    "02 - Projects/CorveauxV2/vision/What Corveaux Will Not Become.md",
+    "02 - Projects/CorveauxV2/vision/GTM Hypothesis.md",
+    "02 - Projects/CorveauxV2/vision/Philosophy.md",
+    "02 - Projects/CorveauxV2/vision/Why Corveaux Exists.md",
+    "02 - Projects/CorveauxV2/vision/Founder Letter.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 05 — Extraction Pipeline Implementation.md.tmp.2720.296a4c19a26f",
+    "01 - Daily/2026-05-27.md.tmp.21564.167d1ef064bd",
+    "01 - Daily/2026-05-24.md.tmp.21564.1016f8cd736d",
+    "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.21564.8eb2c94bb97f",
+    "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.21564.bd75fbefb368",
+    "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.21564.0c6e1737e978",
     "Untitled.canvas"
   ]
 }

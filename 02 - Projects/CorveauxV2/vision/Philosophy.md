@@ -5,7 +5,7 @@ status: active
 date: 2026-06-05
 tags: [corveaux, philosophy, vision, canonical]
 ---
-/
+
 # Philosophy
 
 ## One Reality. Many Projections.

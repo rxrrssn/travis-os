@@ -5,105 +5,433 @@ status: active
 date: 2026-06-05
 tags: [corveaux, gtm, sales, pricing, adoption]
 ---
-
 # GTM Hypothesis
 
-**Status:** Hypothesis. To be validated by Day 90.
+**Status:** Living hypothesis. Subject to validation through customer discovery, pilot deployments, and institutional adoption.
 
 ---
 
-## Sales Narrative
+# The Core Narrative
 
-Corveaux does not lead with "replace your CMS."
+Corveaux is not a CMS.
 
-Corveaux leads with:
-> "We model your institution and reintroduce it to itself through a modernized lens."
+Corveaux is not a catalog platform.
 
-The generated tenant demonstrates the model. The role-aware toggle is the wow moment. The gaps layer is the evidence. The pricing conversation follows naturally.
+Corveaux is not a CRM.
 
-**Never say externally:** AI-powered, machine learning, large language model, GPT, Claude.
+Corveaux is not a student success platform.
 
----
+Corveaux is not an ERP.
 
-## Entry Wedge
+Corveaux models the institution itself.
 
-Web + Catalog + Directory. Public, visible, low-risk, discoverable through automation.
+Most technology vendors focus on a domain. They solve a specific problem within a specific department.
 
-Not the platform boundary. The entry point.
+Corveaux starts from a different premise.
 
----
+Institutions already possess enormous amounts of information about themselves. Policies, procedures, programs, services, governance structures, organizational relationships, responsibilities, and knowledge already exist. The challenge is that this information is fragmented across systems, departments, documents, websites, and institutional memory.
 
-## Adoption Path
+Corveaux creates a canonical understanding of the institution and renders that understanding through audience-aware experiences.
 
-| Stage | What happens |
-|---|---|
-| 0 — Discovery | Corveaux extracts institutional knowledge from public sources |
-| 1 — Generated Tenant | Institution sees itself |
-| 2 — Validation | Ownership assigned, knowledge corrected, governance introduced |
-| 3 — Production Launch | Website, catalog, directory, knowledge go live on Corveaux |
-| 4 — Expansion | Additional institutional domains move into Corveaux |
-| 5 — Institutional OS | Corveaux is the institution's primary operational platform |
+The platform does not merely manage information.
+
+It reintroduces institutions to themselves.
 
 ---
 
-## Pricing Hypothesis (unvalidated)
+# The Wedge Is Not The Platform
 
-| Offering | Type | Price Range |
-|---|---|---|
-| Institutional Discovery Audit | Project fee | $7,500 - $12,000 |
-| Living Knowledge Layer | Annual subscription | $25,000 - $60,000/year |
-| Governance Platform | Annual subscription, premium tier | TBD |
-| Enterprise Platform | Custom | TBD |
+The initial entry point is intentionally narrow.
 
-Pricing is tiered by institution size (community college vs. regional vs. R1 vs. system office).
+Corveaux begins with:
 
----
+- Website
+- Catalog
+- Directory
 
-## Primary Buyer
+These domains are:
 
-**CIO or VP of Strategic Initiatives** — spans silos; controls discretionary technology budget.
+- Public
+- Low-risk
+- Highly visible
+- Information-dense
+- Governed poorly in most institutions
+- Discoverable through automation
 
-Secondary: Web Director (often frustrated by content governance), VP Academic Affairs (catalog pain), VP Enrollment (prospective student experience).
+This allows Corveaux to demonstrate value without requiring deep integrations, organizational restructuring, or mission-critical operational dependencies.
 
----
+The wedge validates the model.
 
-## Key Objections
+The wedge does not define the company.
 
-| Objection | Response |
-|---|---|
-| "We have a CMS with an AI roadmap." | "Does it see across your web presence, catalog, and directory simultaneously and show you where they contradict each other?" |
-| "Who owns the extracted data?" | Answer before they ask. Data governance one-pager. |
-| "How does this integrate with Banner?" | "It doesn't in v1 — this is a web and catalog layer. SIS integration is a Phase 2 discussion." |
-| "If this hallucinates our program info, who's liable?" | Confidence scoring + source citations + human review before anything goes live. |
-| "We just implemented Navigate360." | "This isn't a student success system. It's a knowledge layer that feeds better information to Navigate360." |
+The long-term platform boundary is the institution itself.
 
 ---
 
-## Expansion Sequencing
+# The Demonstration
 
-The roadmap is not "replace CMS → replace catalog → replace portal."
+Most software demonstrations show features.
 
-The roadmap is:
-Land → Knowledge Layer → Governance Layer → Identity Layer → Workflow Layer → Operational Layer → Institutional Operating System
+Corveaux demonstrates institutional understanding.
 
-No domain is permanently excluded. Sequencing is driven by institutional risk, adoption complexity, dependency chains, and architectural readiness.
+The first experience a prospective customer should have is seeing their own institution rendered through the Corveaux model.
+
+The generated tenant becomes the demonstration.
+
+The institution sees:
+
+- Its programs
+- Its departments
+- Its services
+- Its policies
+- Its people
+- Its organizational relationships
+- Its inconsistencies
+- Its governance gaps
+
+for the first time in a unified experience.
+
+The role-aware perspective shift becomes the moment of realization.
+
+An advisor sees one institution.
+
+A prospective student sees another.
+
+A faculty member sees another.
+
+A department chair sees another.
+
+The underlying reality remains the same.
+
+Only the projection changes.
+
+The demonstration is not the software.
+
+The demonstration is the institution.
 
 ---
 
-## Distribution Channels
+# Adoption Model
 
-**Year 1:** Institution-direct (slow, high CAC, but builds deep institutional relationships)
+## Stage 0 — Discovery
 
-**Year 2 targets:**
-- State system offices (USHE, CCCCO) — one sale = N institutions
-- Edtech consultants and implementation partners
-- Accreditation body relationships
+Corveaux extracts and structures publicly available institutional information.
+
+No integrations.
+
+No implementation project.
+
+No institutional effort required.
+
+The objective is to establish a baseline institutional model.
 
 ---
 
-## Related
+## Stage 1 — Generated Institution
 
-- [[Product Brief]]
-- [[Philosophy]]
-- [[ADR-001 — Entry Wedge Selection]]
-- [[ADR-007 — LLM Strategy Positioning]]
+The institution receives a generated tenant.
+
+This tenant represents the institution as Corveaux currently understands it.
+
+At this stage the primary value is visibility.
+
+Institutions begin seeing:
+
+- Contradictions
+- Missing ownership
+- Broken governance
+- Fragmented information
+- Outdated content
+
+The institution sees itself.
+
+---
+
+## Stage 2 — Validation
+
+Institutional stakeholders validate and correct the generated model.
+
+Ownership becomes explicit.
+
+Governance begins to emerge.
+
+Policies gain stewards.
+
+Knowledge gains accountability.
+
+Institutional memory begins moving from individuals into the model.
+
+---
+
+## Stage 3 — Knowledge Layer
+
+The public website, catalog, directory, and knowledge experiences are generated from the canonical model.
+
+The institution begins operating from a single reality rather than maintaining multiple competing realities.
+
+Governance becomes ongoing rather than episodic.
+
+---
+
+## Stage 4 — Governance Layer
+
+The institution begins managing:
+
+- Policies
+- Ownership
+- Authority
+- Stewardship
+- Organizational relationships
+
+directly through the platform.
+
+Knowledge becomes operational.
+
+The institution begins understanding itself in a durable way.
+
+---
+
+## Stage 5 — Identity Layer
+
+Identity, roles, permissions, and authority become projections of institutional reality.
+
+Governance drives access.
+
+Organizational structure drives responsibility.
+
+Roles persist while people change.
+
+---
+
+## Stage 6 — Workflow Layer
+
+Workflows begin operating directly against the institutional model.
+
+Requests, approvals, escalations, communications, and service delivery become institution-aware.
+
+---
+
+## Stage 7 — Institutional Operating System
+
+Corveaux becomes the institution's primary operational layer.
+
+The institution no longer maintains disconnected representations of itself.
+
+It maintains reality.
+
+Everything else becomes a projection.
+
+---
+
+# Buyers
+
+## Economic Buyer
+
+Typically:
+
+- CIO
+- VP of Strategic Initiatives
+- Provost
+- Chief Transformation Officer
+- System Office Leadership
+
+These individuals possess authority to sponsor institutional transformation efforts.
+
+---
+
+## Operational Champion
+
+Typically:
+
+- Web Director
+- Catalog Manager
+- Academic Affairs
+- Enrollment Operations
+- Institutional Effectiveness
+- Digital Experience Teams
+- Knowledge Management Leaders
+
+These individuals experience the pain directly.
+
+They become internal advocates because they understand the operational burden of fragmentation.
+
+---
+
+# Competitive Positioning
+
+Most vendors model a domain.
+
+Examples:
+
+| Vendor Type | Models |
+|------------|---------|
+| CMS | Content |
+| CRM | Relationships |
+| SIS | Academic Transactions |
+| LMS | Learning |
+| ITSM | Service Requests |
+| Student Success | Interventions |
+
+Corveaux models the institution.
+
+Because Corveaux operates beneath individual domains, it can generate and support capabilities traditionally provided by multiple categories of software.
+
+The objective is not replacement through migration.
+
+The objective is replacement through convergence.
+
+---
+
+# Common Objections
+
+## "We already have a CMS."
+
+A CMS manages content.
+
+Corveaux manages institutional reality.
+
+The question is not whether content can be published.
+
+The question is whether the institution understands what should be published.
+
+---
+
+## "We have an AI roadmap."
+
+Artificial intelligence is not the differentiator.
+
+Institutional understanding is.
+
+The question is not whether AI can generate content.
+
+The question is whether AI understands the institution it is representing.
+
+---
+
+## "Who owns the data?"
+
+The institution.
+
+Always.
+
+Corveaux exists to structure institutional knowledge, not own it.
+
+Data governance must be clear, contractually defined, and institution-first.
+
+---
+
+## "How does this integrate with Banner?"
+
+The initial wedge does not require SIS integration.
+
+The first objective is understanding the institution's published reality.
+
+Operational integrations occur later as institutional maturity increases.
+
+---
+
+## "What if the extraction is wrong?"
+
+Every extracted fact is:
+
+- Source linked
+- Confidence scored
+- Reviewable
+- Governed
+
+The institution remains the final authority.
+
+Corveaux proposes.
+
+The institution approves.
+
+---
+
+# Pricing Philosophy
+
+Corveaux should be priced as institutional infrastructure rather than departmental software.
+
+The platform ultimately supports institutional continuity, governance, knowledge preservation, and operational understanding.
+
+Pricing should align with:
+
+- Institutional size
+- Institutional complexity
+- Number of modeled domains
+- Governance requirements
+- Operational scope
+
+Specific pricing remains unvalidated until customer discovery and pilot deployments are complete.
+
+---
+
+# Distribution Strategy
+
+## Phase 1
+
+Direct institutional sales.
+
+The objective is learning.
+
+Not scale.
+
+The first customers validate the model, reveal weaknesses, and shape the platform.
+
+---
+
+## Phase 2
+
+System-level partnerships.
+
+Examples:
+
+- State higher education systems
+- Multi-campus districts
+- Shared services organizations
+
+One deployment creates multiple institutional opportunities.
+
+---
+
+## Phase 3
+
+Institutional ecosystem partnerships.
+
+Examples:
+
+- Consulting firms
+- Implementation partners
+- Accreditation bodies
+- Governance organizations
+
+Corveaux becomes part of institutional modernization efforts rather than a standalone software purchase.
+
+---
+
+# Long-Term Outcome
+
+The goal is not to sell a better website.
+
+The goal is not to sell a better catalog.
+
+The goal is not to sell another system.
+
+The goal is to help institutions understand themselves.
+
+Once an institution understands itself, governance improves.
+
+Knowledge persists.
+
+Ownership becomes clear.
+
+Communication becomes intentional.
+
+Continuity becomes possible.
+
+The institution spends less time reconciling systems and more time fulfilling its mission.
+
+That is the market opportunity.
+
+That is the product.
+
+Everything else is a projection.

@@ -46,21 +46,29 @@ One Reality. Many Projections.
 
 ## Current State
 
-**Stage:** Pre-implementation. Strategic planning complete. Tech stack decided. All pre-implementation ADRs filed.
+**Stage:** Implementation in progress. Canonical layer complete. Extraction pipeline next.
 
 **What exists:**
-- V4 strategic plan (approved)
-- Claude project memory
-- CLAUDE.md and CLAUDE.local.md in codebase
-- Vault project structure (this document)
-- ADR-001 through ADR-011
-- research/, specs/, validation/ scaffold directories
+- Next.js project (TypeScript, App Router, PostgreSQL, Prisma)
+- Two-schema architecture: platform DB (`tenants`) + tenant DB (10 canonical tables)
+- Canonical primitives: Entity, EntityIdentifier, Relationship, InstitutionalEvent, Policy
+- Pipeline models: ExtractionRun, ExtractionObservation (with GIN-indexed dependency JSONB)
+- ContentBlock projection model with full dependency graph and GIN indexes
+- Four institutional services: EntityService, RelationshipService, EventService, PolicyService
+- TypeScript type registry: EntityTypes, RelationshipTypes, EventTypes, BlockTypes, RenderingContexts
+- Zod schemas for all 8 content block types
+- Tenant Zero seeded: Corveaux org, Travis person, Founder & CEO position, 2 relationships, ontology config
+- ADR-001 through ADR-013
+- Specs: extraction-pipeline-spec, content-block-schema (both complete and active)
+- Specs: generated-tenant-spec, role-aware-rendering-spec (scaffolds, to be written before Day 60)
 
 **What does not exist yet:**
-- Code
-- Extraction pipeline
-- Institutional object store
+- Extraction pipeline implementation (Trigger.dev, Crawlee, Claude extractor, promotion engine)
+- Auth layer (Entra ID)
+- Content block generator / regeneration engine
+- Role-aware rendering
 - Generated tenant
+- Search layer
 
 ## Institutional Model Primitives
 
@@ -96,9 +104,9 @@ Content blocks are projections of these primitives. Content blocks are not canon
 
 ## Decisions
 
-See decisions/ folder for full ADRs (ADR-001 through ADR-011).
+See decisions/ folder for full ADRs (ADR-001 through ADR-013).
 
-Key decisions made 2026-06-05:
+Key decisions:
 - Entry wedge: Web + Catalog + Directory (unified extraction sources)
 - Institutional model: canonical primitives, not flat object store
 - Content blocks: projections of canonical primitives, not canonical themselves
@@ -109,22 +117,29 @@ Key decisions made 2026-06-05:
 - LLM: implementation detail, not product headline
 - Generated tenant: production survival from day one, not disposable
 - Tech stack: TypeScript, Next.js, PostgreSQL, Prisma, Entra ID, Trigger.dev, Docker + Coolify
-- Background jobs: Trigger.dev
+- Canonical schema: one master schema, no `tenant_id`, three identifier layers (see [[ADR-012 — Canonical Schema Architecture]])
+- Type registry: TypeScript constants are authoritative, DB metadata deferred to V3 (see [[ADR-013 — Canonical Type Registry]])
 
 ## Next Actions
 
-- [ ] Initialize Next.js project — Day 15
-- [ ] Design PostgreSQL schema for institutional model primitives — Day 15
-- [ ] Implement institutional model v1 and content block schema v1 — Day 30
-- [ ] Run extraction pipeline against SLCC — Day 30
-- [ ] Pass accuracy gate (>90% material facts) — Day 30
-- [ ] Initialize Corveaux as Tenant Zero — Day 30
-- [ ] Build generated tenant with role-aware rendering — Day 60
-- [ ] Corveaux website running on Corveaux — Day 60
-- [ ] Catalog round-trip validation — Day 60
-- [ ] First external buyer conversation — Day 60
-- [ ] Demo-quality platform — Day 90
-- [ ] Go/No-Go decision — Day 90
+**Day 30 (~2026-07-05)**
+- [ ] Implement extraction pipeline: Trigger.dev setup, Crawlee crawler, Claude extractor, ExtractionObservation writer
+- [ ] Implement promotion engine: source precedence Policy, temporal canonical updates, conflict detection
+- [ ] Implement content block generator: assemble blocks from current canonical state per block type
+- [ ] Implement auth layer (Entra ID)
+- [ ] Run extraction pipeline against SLCC
+- [ ] Pass accuracy gate (>90% material facts) — see [[SLCC Validation Run]]
+
+**Day 60 (~2026-08-05)**
+- [ ] Write generated-tenant-spec and role-aware-rendering-spec
+- [ ] Build generated tenant with role-aware rendering
+- [ ] Corveaux website running on Corveaux
+- [ ] Catalog round-trip validation
+- [ ] First external buyer conversation
+
+**Day 90 (~2026-09-05)**
+- [ ] Demo-quality platform
+- [ ] Go/No-Go decision
 
 ## Related Notes
 
