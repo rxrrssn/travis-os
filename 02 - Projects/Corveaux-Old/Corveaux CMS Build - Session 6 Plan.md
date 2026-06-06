@@ -56,20 +56,7 @@ The KB sidebar shows categories read-only. Editors have no way to create or rena
 
 ---
 
-## Deferred (Session 7+)
 
-- **Tag management UI** — create, rename, delete tags; assign tags to articles from article editor
-- **Cross-column DnD** — drag blocks across column boundaries (currently column is set via dropdown only)
-- **NeonDB migration** — swap `@prisma/adapter-libsql` for `@prisma/adapter-neon` + provision Neon project
-- [x] **Tenant theme in admin UI** — apply tenant CSS vars to admin shell, not just public site
-- **Public page rendering from `page.layout`** — public site currently ignores column layout; blocks render in a single column regardless of saved layout
 
 ---
 
-## Starting Point Reminder
-
-- Dev server: `cd corveaux && npm run dev`
-- DB: SQLite via libsql at `prisma/dev.db`; seed with `npx tsx prisma/seed.ts`
-- After any schema change: `npx prisma migrate dev && npx prisma generate` then **restart dev server**
-- Tenant slug for testing: `corveaux-university`
-- Demo user email: `demo@corveaux.app` (no password yet — add one in this session)

@@ -77,5 +77,5 @@ What the generated tenant must demonstrate:
 
 - [[ADR-001 — Entry Wedge Selection]]
 - [[ADR-003 — Content Block Architecture]]
-- [[ADR-006 — Tenant Zero]]
-- `Corveaux V2 - Session 01.md`
+- [[ADR-006 — Tenant Zero]][
+- [[Corveaux V2 - Session 01]]

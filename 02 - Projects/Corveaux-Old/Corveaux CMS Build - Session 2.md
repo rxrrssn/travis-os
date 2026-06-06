@@ -87,15 +87,6 @@ When auth work begins, reinstall from the outer `package.json` and decide whethe
 
 ---
 
-## What's Next (Session 3 Candidates)
-
-- Page editor UI (block drag/drop ordering, block content editing)
-- KB article editor (rich text, tag/category management)
-- Auth layer (NextAuth or Clerk) — outer `package.json` has `next-auth` and `@auth/prisma-adapter` already identified
-- Multi-tenant theme rendering (CSS vars from tenant theme JSON)
-- Tenant admin settings (domain, nav config, branding)
-- Review cycle dashboard (overdue content, trigger reviews)
-- Switch SQLite → NeonDB for production
 
 ---
 

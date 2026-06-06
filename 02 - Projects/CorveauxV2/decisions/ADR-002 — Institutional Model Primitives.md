@@ -58,4 +58,4 @@ The model must represent universities, community colleges, system offices, found
 - [[ADR-001 — Entry Wedge Selection]]
 - [[ADR-003 — Content Block Architecture]]
 - [[ADR-004 — Platform Tenant Architecture]]
-- `Corveaux V2 - Session 01.md`
+- [[Corveaux V2 - Session 01]]

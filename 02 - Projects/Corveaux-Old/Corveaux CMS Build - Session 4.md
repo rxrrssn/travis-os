@@ -73,11 +73,3 @@ tags:
 
 **Route isolation:** `t/[slug]/(public)/` route group for public site, `t/[slug]/admin/` independent layout tree
 
-## Remaining Work
-
-- **Platform admin**: No tenant creation UI yet (tenants assumed to exist via seed/direct DB)
-- **KB**: Category creation UI (currently read-only sidebar)
-- **Tag management UI**
-- **Auth** (NextAuth) — all pages unprotected
-- **Cross-column DnD** — blocks change column via dropdown for now, not drag across column boundaries
-- **Switch to NeonDB for production**

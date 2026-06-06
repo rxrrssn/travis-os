@@ -16,7 +16,7 @@ tags:
 
 ## What It Is
 
-Corveaux LLC is Travis's private Delaware LLC -- a SaaS / EdTech company. Solo founder.
+Corveaux LLC is Travis's private Delaware LLC — a SaaS / EdTech company. Solo founder.
 
 Not just an SIS or CRM. The intended institutional nervous system for colleges, especially community colleges and workforce institutions.
 
@@ -24,7 +24,11 @@ Name history: Vetra -> Corvux -> Corveaux
 
 ## Development Status (as of 2026-06-05)
 
-Active platform build — 12 sessions completed. Codebase on `master` branch (private GitHub). Sessions 1–11 committed. Session 12 work (2026-05-28) is applied to local dev DB but not yet committed.
+**V1 is archived. V2 is the active build.** See [[Corveaux V2]] for the current project document and all active ADRs, specs, and session notes.
+
+V1 reached Session 13 before being superseded by a full strategic reset and architectural rewrite.
+
+V1 platform build — 12 sessions completed. Codebase on `master` branch (private GitHub). Sessions 1–11 committed. Session 12 work (2026-05-28) is applied to local dev DB but not yet committed.
 
 **Modules with working UI:**
 - CMS: Sites, Pages (DnD editor), Content Blocks (WYSIWYG), Knowledge Base
@@ -96,7 +100,7 @@ Everything else references the same underlying object. No sync drift. No duplica
 
 ### Do It Once, Reuse Everywhere
 
-Workflows, webpages, directories, open positions -- created once, referenced everywhere. If something needs to appear in multiple places it is referenced, not recreated. Eliminates repetitive work and ensures consistency automatically.
+Workflows, webpages, directories, open positions — created once, referenced everywhere. If something needs to appear in multiple places it is referenced, not recreated. Eliminates repetitive work and ensures consistency automatically.
 
 ### The System Does the Work
 
@@ -110,7 +114,7 @@ The platform handles: routing, orchestration, nudging, provisioning, compliance,
 
 ## Platform Scope
 
-Corveaux unifies as native modules -- not integrations:
+Corveaux unifies as native modules — not integrations:
 
 - SIS
 - LMS
@@ -141,11 +145,15 @@ Corveaux unifies as native modules -- not integrations:
 ### First Tenants
 
 - Corveaux LLC (the company itself)
-- Corveaux University -- demo environment and institutional support hub
+- Corveaux University — demo environment and institutional support hub
 
 ### Technical Stack
 
-Next.js, Tailwind CSS, PostgreSQL, Prisma, multi-tenant app shell architecture, tenant-aware theming, RBAC everywhere, strong workflow/event architecture.
+**V2 stack (current, see [[ADR-009 — Tech Stack]]):**
+TypeScript throughout. Next.js + React. PostgreSQL. Prisma. Microsoft Entra ID + local recovery auth. Trigger.dev for background job orchestration. Anthropic behind provider interface. PostgreSQL FTS. S3-compatible storage. OpenTelemetry + Sentry. Docker + Coolify.
+
+**V1 stack (archived):**
+Next.js, Tailwind CSS, PostgreSQL, Prisma, SQLite for local dev, NeonDB/Turso for production (planned but never deployed). Multi-tenant app shell architecture, tenant-aware theming, RBAC everywhere.
 
 Preferences: full-stack ownership, minimal third-party dependency, operational simplicity, deeply integrated UX.
 
@@ -219,16 +227,16 @@ Executive leadership, finance, AP, AR, and legal. Operates as the visionary and 
 HR, benefits, employee onboarding, and internal culture operations.
 
 ### Office of Intelligence
-Oversees performance, analytics, and metrics -- both internally (platform health, company operations) and externally in support of institutional partners. The team responsible for turning data into operational insight across every layer of the company.
+Oversees performance, analytics, and metrics — both internally (platform health, company operations) and externally in support of institutional partners. The team responsible for turning data into operational insight across every layer of the company.
 
 ### Office of Institutional Partnerships
 Manages all institutional relationships. Does not use traditional account managers.
 
-Instead, institutions are supported by **Pods** -- cross-functional teams assigned to each institution. A Pod includes at minimum:
+Instead, institutions are supported by **Pods** — cross-functional teams assigned to each institution. A Pod includes at minimum:
 
-- **Partnership Manager (PM)** -- primary point of contact for the institution; owns the relationship end-to-end
-- **Institutional Success Partner (ISP)** -- strategic alignment, platform adoption, ongoing success
-- **Implementation Partner (IP)** -- onboarding, configuration, technical deployment
+- **Partnership Manager (PM)** — primary point of contact for the institution; owns the relationship end-to-end
+- **Institutional Success Partner (ISP)** — strategic alignment, platform adoption, ongoing success
+- **Implementation Partner (IP)** — onboarding, configuration, technical deployment
 
 Additional Pod roles may be defined as the model matures.
 
@@ -249,7 +257,7 @@ This keeps cross-functional teams coherent around institutional outcomes while p
 
 Corveaux is not a middleware marketplace.
 
-Ellucian's model invites third-party vendors to fill gaps between segmented systems and band-aid them together with APIs and integrations. That model is the problem Corveaux is solving -- not a template to follow.
+Ellucian's model invites third-party vendors to fill gaps between segmented systems and band-aid them together with APIs and integrations. That model is the problem Corveaux is solving — not a template to follow.
 
 Corveaux is one TRUE system:
 - No batch processing
@@ -260,7 +268,7 @@ Corveaux is one TRUE system:
 
 When something changes in Corveaux, every part of the platform that references that data reflects the change immediately. There is no sync job, no webhook delay, no middleware translating between systems.
 
-This is only possible because everything is native -- not integrated.
+This is only possible because everything is native — not integrated.
 
 Politically, Corveaux cannot say "rip out Banner tomorrow." The external message is continuity and gradual modernization. The internal reality is progressive system-of-record displacement. See [[Corveaux GTM Strategy]] for the full transitional coexistence model (Observe -> Orchestrate -> Absorb).
 

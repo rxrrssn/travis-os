@@ -22,25 +22,39 @@ One Reality. Many Projections.
 
 ## Systems
 
-**Platform stack (to be decided by Day 30):**
-- Crawler: Crawl4AI or Firecrawl (evaluate against SLCC)
-- Storage: Postgres + JSONB (tenant-namespaced)
-- LLM: claude-sonnet-4-6 (extraction), claude-opus-4-8 (synthesis)
-- Framework: TBD
+**Platform stack (decided 2026-06-05, see [[ADR-009 — Tech Stack]]):**
+
+| Layer | Choice |
+|---|---|
+| Language | TypeScript |
+| Frontend | Next.js + React |
+| Backend | Next.js API routes |
+| Database | PostgreSQL |
+| ORM | Prisma |
+| Auth | Microsoft Entra ID + local recovery auth |
+| Background Jobs | Trigger.dev (see [[ADR-011 — Background Job Platform]]) |
+| AI | Anthropic behind provider interface |
+| Search | PostgreSQL FTS |
+| Storage | S3-compatible |
+| Observability | OpenTelemetry + Sentry |
+| Infrastructure | Docker + Coolify |
+
+**Tenant isolation:** Database-per-tenant or schema-per-tenant. Shared-schema with RLS is rejected for production. See [[ADR-010 — Tenant Isolation Architecture]].
 
 **Related vault notes:**
-- [[CLAUDE.md]] — root vault context
 - [[Corveaux]] — full product history and development log
 
 ## Current State
 
-**Stage:** Pre-implementation. Strategic planning complete (V4 approved 2026-06-05).
+**Stage:** Pre-implementation. Strategic planning complete. Tech stack decided. All pre-implementation ADRs filed.
 
 **What exists:**
 - V4 strategic plan (approved)
-- Claude project memory (5 files)
-- CLAUDE.md in codebase
+- Claude project memory
+- CLAUDE.md and CLAUDE.local.md in codebase
 - Vault project structure (this document)
+- ADR-001 through ADR-011
+- research/, specs/, validation/ scaffold directories
 
 **What does not exist yet:**
 - Code
@@ -58,7 +72,9 @@ The canonical layer is built on five primitive types:
 - **Policies** — Eligibility, Governance, Approval Rules, Access Rules, Authority Rules
 - **Time** — Every fact exists within time. Historical, current, and future state simultaneously.
 
-Content blocks are projections of these primitives, not the canonical layer.
+One canonical instance per concept. One Person. One Course. One Department. One Policy. Everything else is a reference or a projection.
+
+Content blocks are projections of these primitives. Content blocks are not canonical.
 
 ## Risks
 
@@ -76,25 +92,29 @@ Content blocks are projections of these primitives, not the canonical layer.
 - Corveaux-as-Tenant-Zero is a compelling live demo from day one
 - Web + Catalog + Directory wedge is low-risk and high-visibility
 - Staged adoption model reduces procurement friction
-- Expansion path is clear: Knowledge Layer → Governance → Identity → Workflow → Operational → IOS
+- Expansion path is clear: Knowledge Layer -> Governance -> Identity -> Workflow -> Operational -> IOS
 
 ## Decisions
 
-See `decisions/` folder for full ADRs.
+See decisions/ folder for full ADRs (ADR-001 through ADR-011).
 
 Key decisions made 2026-06-05:
 - Entry wedge: Web + Catalog + Directory (unified extraction sources)
 - Institutional model: canonical primitives, not flat object store
-- Content blocks: blocks are canonical, pages are not
+- Content blocks: projections of canonical primitives, not canonical themselves
 - Tenant architecture: Platform Layer / Institutional Layer separation
+- Tenant isolation: database-per-tenant or schema-per-tenant (see [[ADR-010 — Tenant Isolation Architecture]])
 - Authority model: capability-based, no tenant-type checks
 - Tenant Zero: Corveaux Must Run Corveaux
 - LLM: implementation detail, not product headline
 - Generated tenant: production survival from day one, not disposable
+- Tech stack: TypeScript, Next.js, PostgreSQL, Prisma, Entra ID, Trigger.dev, Docker + Coolify
+- Background jobs: Trigger.dev
 
 ## Next Actions
 
-- [ ] Decide tech stack (language, framework, crawler) — Day 15
+- [ ] Initialize Next.js project — Day 15
+- [ ] Design PostgreSQL schema for institutional model primitives — Day 15
 - [ ] Implement institutional model v1 and content block schema v1 — Day 30
 - [ ] Run extraction pipeline against SLCC — Day 30
 - [ ] Pass accuracy gate (>90% material facts) — Day 30
@@ -111,5 +131,5 @@ Key decisions made 2026-06-05:
 - [[Corveaux]] — V1 development history, prior sessions
 - [[SLCC Overview]] — Control case institution
 - [[Contact Center]] — Institutional complexity the product is designed to solve
-- `sessions/Corveaux V2 - Session 01.md` — Initial architecture planning session
-- `decisions/` — All ADRs
+- [[Corveaux V2 - Session 01]] — Initial architecture planning session
+- [[Corveaux V2 - Session 02 — Tech Stack and Vault Infrastructure]] — Tech stack, vault infrastructure, architectural doctrine

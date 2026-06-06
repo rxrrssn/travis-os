@@ -324,4 +324,4 @@ The initial sale and the eventual Institutional Operating System sale may involv
 - [[GTM Hypothesis]]  
 - [[ADR-001 — Entry Wedge Selection]]  
 - [[ADR-004 — Platform Tenant Architecture]]  
-- [[Competitive Landscape]]
+- [[competitive-landscape]]

@@ -100,17 +100,7 @@ parseSiteNav(navConfig)
 
 ---
 
-## Deferred to Session 9+
 
-- **Tag management UI** — create, rename, delete tags; assign tags from article editor
-- **Cross-column DnD** — drag blocks across column boundaries
-- **NeonDB migration** — swap libsql for `@prisma/adapter-neon`
-- **Tenant theme in admin UI** — apply tenant CSS vars to admin shell
-- **Public page column layout rendering** — public pages ignore column layout; all blocks render in a single column
-- **RBAC enforcement** — auth checks login state only; role/permission checks pending
-- **Platform nav editor** — currently navConfig JSON edited via raw site settings; no visual nav builder
-- **Preview in tenant admin** — `editHref` in PreviewBanner points to platform admin by default; should detect tenant context
-- **`middleware.ts` → `proxy.ts` rename** — Next.js 16 deprecation warning; low priority
 
 ---
 

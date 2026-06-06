@@ -85,25 +85,7 @@ The middleware imports from `auth.config.ts` only. The full `auth.ts` is used in
 
 ---
 
-## Deferred to Session 7+
 
-- **Tag management UI** — create, rename, delete tags; assign tags from article editor
-- **Cross-column DnD** — drag blocks across column boundaries
-- **NeonDB migration** — swap libsql for `@prisma/adapter-neon`
-- **Tenant theme in admin UI** — apply tenant CSS vars to admin shell
-- **Public page rendering from `page.layout`** — public site ignores column layout currently
-- **`proxy.ts` migration** — rename `middleware.ts` once NextAuth v5 has guidance
-- **Role-based access control enforcement** — middleware currently only checks authentication (is logged in), not authorization (which tenants, which roles); full RBAC is a larger piece
-
----
-
-## Starting Point for Session 7
-
-- Dev server: `cd corveaux && npm run dev`
-- Login: `demo@corveaux.app` / `demo1234`
-- DB: SQLite at `prisma/dev.db`
-- After schema changes: `npx prisma migrate dev && npx prisma generate` → restart dev server
-- Tenant slug for testing: `corveaux-university`
 [[Corveaux]]
 [[Corveaux CMS Build - Session 6 Plan]]
 [[Corveaux CMS Build - Session 5]]

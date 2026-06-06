@@ -80,26 +80,7 @@ The developer has access to a Touch Bar MacBook Pro, which is sufficient for ins
 - Use the Touch Bar MacBook Pro for Xcode, iOS Simulator, and final Apple tooling when needed.
 - Create a demo tenant and demo accounts before App Store submission.
 
-## Next Actions
 
-- [ ] Reserve/confirm Apple Developer Program account under the correct business/entity identity.
-- [ ] Reserve/confirm Google Play Console account under the correct business/entity identity.
-- [ ] Define the v1 mobile scope for staff users.
-- [ ] Define the v1 mobile scope for student users.
-- [ ] Create a demo tenant for app review.
-- [ ] Create demo staff and student accounts for app review.
-- [ ] Draft privacy policy, terms, support URL, and review notes for App Store submission.
-- [ ] Decide final app name: CRVX MOBILE, Corveaux Mobile, or Corveaux Companion.
-- [ ] Scaffold Expo app.
-- [ ] Connect Expo app to Corveaux auth/session flow.
-- [ ] Implement tenant-aware login and branding.
-- [ ] Implement push notification proof of concept.
-- [ ] Implement mobile inbox/messages proof of concept.
-- [ ] Implement task/action list proof of concept.
-- [ ] Implement knowledge/resource lookup proof of concept.
-- [ ] Set up EAS Build profiles for development, preview, and production.
-- [ ] Test iOS Simulator flow on Touch Bar MacBook Pro.
-- [ ] Test Android emulator or physical Android device flow.
 
 ## Related Notes
 

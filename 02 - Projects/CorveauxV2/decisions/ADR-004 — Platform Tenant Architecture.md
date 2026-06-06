@@ -52,14 +52,28 @@ The rendering engine is shared infrastructure but executes in an institution-sco
 
 ## Consequences
 
-- Postgres with tenant-namespaced schemas or row-level security from Day 1; mixing tenant data at the schema level is a security risk
 - The rendering engine must be stateless and institution-scoped
 - Corveaux Tenant Zero operates through the institutional layer; the only thing that makes Corveaux different is the `platform.operator` authority scope
 - Future resellers or system-office partners could be granted `platform.operator` scope without code changes — the capability model supports this
 - Shared services (CDN, search infrastructure) must be institution-scoped at the storage/index level
 
+## Revision (2026-06-05)
+
+The original Consequences section referenced "row-level security" as an acceptable isolation mechanism alongside schema-per-tenant.
+
+This has been superseded by ADR-010.
+
+The correct production position:
+- Database-per-tenant, or
+- Schema-per-tenant with strict operational controls
+
+Shared-schema with RLS is rejected as a production isolation boundary. It is acceptable only for local development, tests, and prototypes.
+
+See ADR-010 for the full isolation surface requirements (database, cache, jobs, storage, search, AI context).
+
 ## Related
 
 - [[ADR-005 — Capability-Based Authority Model]]
 - [[ADR-006 — Tenant Zero]]
-- `Corveaux V2 - Session 01.md`
+- [[ADR-010 — Tenant Isolation Architecture]]
+- [[Corveaux V2 - Session 01]]

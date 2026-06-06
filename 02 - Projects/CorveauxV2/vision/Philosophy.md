@@ -59,6 +59,28 @@ Authority is canonical.
 
 ---
 
+## One Instance Per Concept
+
+One PERSON. One COURSE. One DEPARTMENT. One POLICY. One KNOWLEDGE BLOCK.
+
+Everything else is a reference or a contextualized view.
+
+No sync drift. No duplicates. No orphaned records.
+
+The canonical layer holds one instance. Every projection, rendering, workflow, and experience is a reference back to that instance — not a copy of it.
+
+---
+
+## People Change, Roles Persist
+
+Governance and provisioning are role-based, not person-based.
+
+When a person leaves, the role remains. Authority, ownership, and accountability transfer through the role. Nothing is orphaned.
+
+An institution does not lose its institutional memory because a person changed jobs.
+
+---
+
 ## Reintroducing Institutions to Themselves
 
 Institutions have published enormous amounts of information about themselves. That information lives in silos. The website team doesn't know what the catalog says. The advisor doesn't know what the website says. The prospective student can't reconcile any of it.

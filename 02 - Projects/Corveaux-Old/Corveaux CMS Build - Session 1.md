@@ -89,15 +89,7 @@ Components:
 
 ---
 
-## What's Next (Session 2 Candidates)
 
-- Page editor UI (block drag/drop ordering, block content editing)
-- KB article editor (rich text editing, tag/category management)
-- Tenant admin settings (theme, domain, nav config)
-- Review cycle dashboard (show overdue content, trigger reviews)
-- Auth layer (NextAuth or Clerk integration)
-- Multi-tenant theme rendering (CSS custom properties from tenant theme JSON)
-- Switch from SQLite to NeonDB for production
 
 ---
 

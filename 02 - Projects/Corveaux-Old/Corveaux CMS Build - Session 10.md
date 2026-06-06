@@ -67,12 +67,7 @@ The seeded site navigation now targets `Platform`, `Services`, `Policies`, and `
 
 The existing Next.js warning that `middleware.ts` is deprecated in favor of `proxy.ts` remains outstanding and was not introduced by this work.
 
-## Follow-Up Recommendations
 
-- Import the published policy pages into CMS-managed Corveaux pages so all public content is administered through the platform.
-- Add a richer hero composition option if the branded mark/card arrangement from the static marketing site should be reproduced exactly in the CMS.
-- Address the `middleware.ts` to `proxy.ts` transition once the NextAuth routing approach is confirmed.
-- Continue with RBAC enforcement so CMS ownership and tenant roles are authorization controls rather than informational metadata.
 
 ## Related
 

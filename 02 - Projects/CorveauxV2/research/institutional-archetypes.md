@@ -308,7 +308,7 @@ This research is complete when:
   
 - [[ADR-002 — Institutional Model Primitives]]  
 - [[ADR-004 — Platform Tenant Architecture]]  
-- [[ADR-005 — Policy and Governance Model]]  
+- [[ADR-005 — Capability-Based Authority Model]]
 - [[ADR-008 — Generated Tenant Lifecycle]]  
 - [[Corveaux V2]]  
 - [[SLCC Validation Run]]

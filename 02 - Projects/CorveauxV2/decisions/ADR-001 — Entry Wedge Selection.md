@@ -52,4 +52,4 @@ The political sensitivity around catalog arises only when proposing to *publish*
 
 - [[ADR-002 — Institutional Model Primitives]]
 - [[ADR-003 — Content Block Architecture]]
-- `Corveaux V2 - Session 01.md`
+- [[Corveaux V2 - Session 01]]

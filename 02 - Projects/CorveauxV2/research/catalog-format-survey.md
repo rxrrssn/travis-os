@@ -284,5 +284,5 @@ The survey is complete when:
 - [[ADR-002 — Institutional Model Primitives]]  
 - [[ADR-007 — LLM Strategy Positioning]]  
 - [[ADR-009 — Tech Stack]]  
-- [[Extraction Pipeline Spec]]  
+- [[extraction-pipeline-spec]]  
 - [[SLCC Validation Run]]

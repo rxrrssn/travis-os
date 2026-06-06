@@ -75,12 +75,3 @@ All five tenant admin modules are functional:
 - `/t/[slug]/admin/settings` — CSS theming + branding
 - `/t/[slug]/(public)` — Public site with tenant CSS vars applied
 
-## Remaining Work
-
-- **Platform admin**: No tenant creation UI (tenants assumed to exist via seed/direct DB)
-- **KB**: Category creation UI (currently read-only sidebar)
-- **Tag management UI**
-- **Auth** (NextAuth) — all pages unprotected
-- **Cross-column DnD** — blocks change column via dropdown for now
-- **Switch to NeonDB for production**
-- **Tenant theme system** — currently only affects public site, not admin UI

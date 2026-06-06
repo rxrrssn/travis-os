@@ -29,4 +29,4 @@ tags: [corveaux, competitive, market]
 ## Related
 
 - [[GTM Hypothesis]]
-- [[ADR-001 -- Entry Wedge Selection]]
+- [[ADR-001 — Entry Wedge Selection]]

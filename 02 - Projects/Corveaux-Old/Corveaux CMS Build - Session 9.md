@@ -160,16 +160,7 @@ Eliminated ~200 LOC of duplication by extracting shared modules:
 - Internal tenant slug: `corveaux`
 - Primary site slug: `main`
 
-**Open items to pick up:**
 
-- **Build the corveaux.app page** — create the actual blocks (HERO, SECTION_HEADER, FEATURE_GRID, PULLQUOTE, SERVICE_GRID, LINK_GRID) in the page editor and assemble the homepage
-- **Cross-column DnD** — drag blocks across column boundaries in tenant admin
-- **NeonDB migration** — swap libsql for `@prisma/adapter-neon`
-- **RBAC enforcement** — auth checks login only; role checks pending
-- **Platform nav editor** — visual nav builder; currently navConfig is raw JSON in site settings
-- **Preview in tenant admin** — `editHref` in PreviewBanner defaults to platform admin path; detect tenant context
-- **Tag management UI** — create/rename/delete tags; assign from article editor
-- **`middleware.ts` → `proxy.ts` rename** — Next.js 16 deprecation warning
 
 [[Corveaux]]
 [[Corveaux CMS Build - Session 8]]

@@ -52,4 +52,4 @@ The key rule: **No `if tenant == "corveaux"` in the codebase.** If the code need
 
 - [[ADR-004 — Platform Tenant Architecture]]
 - [[ADR-006 — Tenant Zero]]
-- `Corveaux V2 - Session 01.md`
+- [[Corveaux V2 - Session 01]]

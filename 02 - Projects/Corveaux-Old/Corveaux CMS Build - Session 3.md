@@ -179,14 +179,6 @@ The canonical content update action is at `src/lib/actions/blocks.ts`.
 
 ---
 
-## What's Next (Session 4 Candidates)
-
-- **Tenant theme system** — CSS custom properties from `Tenant.theme` JSON applied in `/t/[slug]/layout.tsx`; admin UI for editing theme colors/fonts per site
-- **Auth layer** — NextAuth or Clerk; outer `package.json` has `next-auth` + `@auth/prisma-adapter` pre-identified; replace `findFirst` tenant lookups with session-derived tenant
-- **Tag management** — KB articles have tags in schema but no UI to add/manage them (needed for related articles to work)
-- **Category management** — No UI to create KB categories; currently seeded only
-- **Switch to NeonDB** — production PostgreSQL; update `prisma.config.ts` datasource and env vars
-- **Review cycle dashboard** — schema has `ReviewCycle` model; no UI yet
 
 ---
 

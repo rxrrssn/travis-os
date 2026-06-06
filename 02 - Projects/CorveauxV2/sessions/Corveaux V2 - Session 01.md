@@ -149,6 +149,6 @@ None. Codebase is a blank slate. First blocker will appear at Day 15 tech stack 
 
 - [[Corveaux]] — full V1 development history
 - [[SLCC Overview]] — control case institution
-- `Corveaux V2.md` — main project document
+- [[Corveaux V2]] — main project document
 - `decisions/ADR-001` through `decisions/ADR-008` — decisions made this session
 - V4 Strategic Plan: `C:\Users\razor\.claude\plans\corveaux-v2-planning-cheerful-breeze.md`

@@ -68,4 +68,4 @@ Be specific and honest: Claude API (Anthropic), no training on customer data, da
 ## Related
 
 - [[ADR-001 — Entry Wedge Selection]]
-- `Corveaux V2 - Session 01.md`
+- [[Corveaux V2 - Session 01]]

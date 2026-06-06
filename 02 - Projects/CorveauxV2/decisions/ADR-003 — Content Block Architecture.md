@@ -85,5 +85,5 @@ No page is canonical. No content block is canonical.
 
 - [[ADR-002 — Institutional Model Primitives]]
 - [[ADR-004 — Platform Tenant Architecture]]
-- `Corveaux V2 - Session 01.md`
-- `Corveaux V2 - Session 02 -- Tech Stack and Vault Infrastructure.md`
+- [[Corveaux V2 - Session 01]]
+- [[Corveaux V2 - Session 02 — Tech Stack and Vault Infrastructure]]

@@ -69,4 +69,4 @@ The Office of Institutional Continuity is the most critical DepartmentBlock for 
 
 - [[ADR-004 — Platform Tenant Architecture]]
 - [[ADR-005 — Capability-Based Authority Model]]
-- `Corveaux V2 - Session 01.md`
+- [[Corveaux V2 - Session 01]]
