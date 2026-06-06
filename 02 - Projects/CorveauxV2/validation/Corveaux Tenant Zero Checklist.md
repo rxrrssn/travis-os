@@ -40,7 +40,7 @@ Corveaux Must Run Corveaux.
 
 ## Founder & CEO
 
-- [ ] Exists as Position entity
+- [x] Exists as Position entity — `position:founder-ceo-corveaux` (seeded Session 03)
 
 ## Platform Engineer
 
@@ -60,7 +60,7 @@ Corveaux Must Run Corveaux.
 
 ## Travis Hornbuckle
 
-- [ ] Exists as Person entity
+- [x] Exists as Person entity — `person:travis-hornbuckle` (seeded Session 03)
 - [ ] Has platformId
 - [ ] Has identity relationship
 
@@ -84,11 +84,11 @@ Corveaux Must Run Corveaux.
 
 ## Founder Relationship
 
-- [ ] Travis holds Founder & CEO
+- [x] Travis holds Founder & CEO — `holds_position` relationship seeded (Session 03)
 
 ## Office Assignment
 
-- [ ] Founder & CEO belongs to Office of the System
+- [ ] Founder & CEO belongs to Office of the System — Office of the System not yet seeded
 
 ---
 
@@ -96,7 +96,7 @@ Corveaux Must Run Corveaux.
 
 ## Source Precedence
 
-- [ ] Exists
+- [x] Exists — seeded as `Policy(type="source_precedence")` in Session 06: catalog (1) > directory (2) > website (3), tiebreaker: confidence
 
 ## Publishing Policy
 

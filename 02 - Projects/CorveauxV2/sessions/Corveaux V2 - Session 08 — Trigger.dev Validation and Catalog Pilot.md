@@ -74,5 +74,6 @@ Projected full SLCC catalog (132 programs): ~$17
 ## Related
 
 - [[ADR-014 — Fan-out Scalability and batchTriggerAndWait]]
-- [[Project Stage]]
-- [[metrics.md]]
+- [[extraction-pipeline-spec]]
+- [[metrics]]
+- [[SLCC Validation Run]]

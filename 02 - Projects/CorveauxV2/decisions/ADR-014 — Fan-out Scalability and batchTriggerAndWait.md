@@ -79,6 +79,6 @@ Travis Hornbuckle (sole decision-maker, Session 08)
 
 ## Related
 
-- [[Session 08]] — root cause investigation and fix
+- [[Corveaux V2 - Session 08 — Trigger.dev Validation and Catalog Pilot]] — root cause investigation and fix
 - [[ADR-011 — Background Job Platform]] — Trigger.dev selection rationale
-- [[Extraction Pipeline Spec]]
+- [[extraction-pipeline-spec]]

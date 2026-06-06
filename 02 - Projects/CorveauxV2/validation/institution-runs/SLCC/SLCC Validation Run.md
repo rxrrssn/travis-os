@@ -1,11 +1,4 @@
----
-type: validation
-domain: corveaux
-status: pending
-date: 2026-06-05
-tags: [corveaux, slcc, validation, day-30]
----
----
+﻿---
 type: validation
 domain: corveaux
 status: pending
@@ -219,5 +212,5 @@ Only then may generated tenant work begin.
 
 ## Related
 
-- [[ADR-001 — Entry Wedge Selection]]
+- [[ADR-001 â€” Entry Wedge Selection]]
 - [[extraction-pipeline-spec]]

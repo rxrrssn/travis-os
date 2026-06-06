@@ -206,45 +206,45 @@ Expected fields:
   
 ### SLCC Control Case  
   
-- [ ] What catalog platform does SLCC use?  
-- [ ] What supporting systems are visible publicly?  
-- [ ] What portions of the catalog are publicly accessible?  
+- [x] What catalog platform does SLCC use? — **Acalog CMS** (confirmed Session 06). Static HTML pages, not JavaScript-rendered. `catalog.slcc.edu` is the public catalog host.
+- [x] What supporting systems are visible publicly? — Acalog catalog at `catalog.slcc.edu`. No public LMS or SIS integration visible.
+- [x] What portions of the catalog are publicly accessible? — Programs (132), courses (~100+), degrees and certificates, academic policies. All public, no auth required.
   
 ### Structure  
   
-- [ ] Are catalog pages paginated or single-page?  
-- [ ] What is the URL pattern structure for program pages?  
-- [ ] What is the URL pattern structure for course pages?  
-- [ ] Are identifiers stable across academic years?  
+- [x] Are catalog pages paginated or single-page? — **Single page per entity.** List pages (programs alphabetically, course descriptions) are discovery pages. Individual program and course pages are single-page with full data.
+- [x] What is the URL pattern structure for program pages? — `catalog.slcc.edu/preview_program.php?catoid=28&poid=XXXX` where `catoid` is the catalog year ID and `poid` is the program ID. URL canonicalization required: `catoid` and `poid` may appear in either order.
+- [x] What is the URL pattern structure for course pages? — `catalog.slcc.edu/preview_course.php?catoid=28&coid=XXXX` (assumed from pattern; not yet fully validated via crawl).
+- [ ] Are identifiers stable across academic years? — Unknown. `poid` is stable within `catoid=28`. Behavior across catalog year changes (new `catoid`) not yet investigated.
   
 ### Machine Readability  
   
-- [ ] Is there a machine-readable source available?  
-- [ ] XML?  
-- [ ] JSON?  
-- [ ] RSS?  
-- [ ] API?  
-- [ ] Embedded structured data?  
+- [x] Is there a machine-readable source available? — **No machine-readable source found.** Extraction is via HTML page parsing.
+- [x] XML? — No
+- [x] JSON? — No
+- [x] RSS? — No
+- [x] API? — None found publicly. Acalog has a vendor API but SLCC has not exposed it.
+- [x] Embedded structured data? — No (no JSON-LD, Schema.org, or microdata observed in pages)
   
 ### Extraction  
   
-- [ ] What fields are consistently present?  
-- [ ] What fields are inconsistently present?  
-- [ ] Which entities require LLM extraction?  
-- [ ] Which entities can be parsed deterministically?  
+- [x] What fields are consistently present? — Program name, degree type, total credit hours, required course list, program description (Session 08 pilot: all 6 programs had these fields).
+- [ ] What fields are inconsistently present? — Learning outcomes, accreditation status, contact info, prerequisites, effective date. Observed in some programs; not universal.
+- [x] Which entities require LLM extraction? — All. Program name, description, credits, degree type, courses, learning outcomes — none are parseable deterministically from HTML structure alone.
+- [x] Which entities can be parsed deterministically? — `poid` and `catoid` from URL only. All data fields require LLM.
   
 ### Change Management  
   
-- [ ] How frequently do URLs change?  
-- [ ] How are catalog versions published?  
-- [ ] Are historical catalogs preserved?  
-- [ ] How are effective dates represented?  
+- [ ] How frequently do URLs change? — Unknown. `catoid` likely increments each academic year.
+- [ ] How are catalog versions published? — Unknown. Appears to be annual with `catoid` version bump.
+- [ ] Are historical catalogs preserved? — Unknown. Prior `catoid` values may resolve or may 404.
+- [ ] How are effective dates represented? — Implicit in catalog year (`catoid`). No explicit effective date field observed on program pages.
   
 ### Validation  
   
-- [ ] Which catalog elements are material facts?  
-- [ ] Which catalog elements require citation?  
-- [ ] Which catalog elements require confidence scoring?  
+- [x] Which catalog elements are material facts? — Program name, degree type, total credit hours, required courses with credits. These are the Day 30 accuracy gate targets.
+- [x] Which catalog elements require citation? — All extracted facts per architectural rule: every observation requires a `citationText` verbatim from the source page.
+- [x] Which catalog elements require confidence scoring? — All. Minimum threshold 0.50; Day 30 gate target avg ≥ 0.90.  
   
 ---  
   
@@ -252,7 +252,7 @@ Expected fields:
   
 | Institution | Platform | Program Pages | Course Pages | Structured Data | API | Notes |  
 |------------|----------|---------------|--------------|-----------------|-----|-------|  
-| SLCC | TBD | TBD | TBD | TBD | TBD | Day 30 control case |  
+| SLCC | Acalog CMS | `preview_program.php?catoid=28&poid=XXXX` | `preview_course.php?catoid=28&coid=XXXX` | None | None | 132 programs, ~100 courses. Static HTML. Session 08 pilot: 6 programs extracted at 0.965 avg confidence. |  
   
 ---  
   

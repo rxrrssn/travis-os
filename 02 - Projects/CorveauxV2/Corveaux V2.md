@@ -46,7 +46,7 @@ One Reality. Many Projections.
 
 ## Current State
 
-**Stage:** Implementation in progress. Canonical layer complete. Extraction pipeline next.
+**Stage:** Day 30 pipeline complete. Full catalog extraction pending. Day 30 gate assessment in progress.
 
 **What exists:**
 - Next.js project (TypeScript, App Router, PostgreSQL, Prisma)
@@ -58,17 +58,20 @@ One Reality. Many Projections.
 - TypeScript type registry: EntityTypes, RelationshipTypes, EventTypes, BlockTypes, RenderingContexts
 - Zod schemas for all 8 content block types
 - Tenant Zero seeded: Corveaux org, Travis person, Founder & CEO position, 2 relationships, ontology config
-- ADR-001 through ADR-013
+- ADR-001 through ADR-014
 - Specs: extraction-pipeline-spec, content-block-schema (both complete and active)
 - Specs: generated-tenant-spec, role-aware-rendering-spec (scaffolds, to be written before Day 60)
+- Auth layer: NextAuth v5, MicrosoftEntraID provider, JWT/session with entraOid, middleware
+- Extraction pipeline: Trigger.dev orchestration (4 tasks), Crawlee crawler, Claude extractor, promotion engine, block regeneration
+- Validated end-to-end: Trigger.dev pilot run complete — 9 pages, 6 programs, 0.965 avg confidence, $0.776
 
 **What does not exist yet:**
-- Extraction pipeline implementation (Trigger.dev, Crawlee, Claude extractor, promotion engine)
-- Auth layer (Entra ID)
-- Content block generator / regeneration engine
+- Full 132-page SLCC catalog extraction (pilot done, full run pending)
+- Entra ID browser verification (implemented, untested in browser)
 - Role-aware rendering
 - Generated tenant
 - Search layer
+- S3 crawl storage (local tmp/ only)
 
 ## Institutional Model Primitives
 
@@ -104,7 +107,7 @@ Content blocks are projections of these primitives. Content blocks are not canon
 
 ## Decisions
 
-See decisions/ folder for full ADRs (ADR-001 through ADR-013).
+See decisions/ folder for full ADRs (ADR-001 through ADR-014).
 
 Key decisions:
 - Entry wedge: Web + Catalog + Directory (unified extraction sources)
@@ -123,12 +126,12 @@ Key decisions:
 ## Next Actions
 
 **Day 30 (~2026-07-05)**
-- [ ] Implement extraction pipeline: Trigger.dev setup, Crawlee crawler, Claude extractor, ExtractionObservation writer
-- [ ] Implement promotion engine: source precedence Policy, temporal canonical updates, conflict detection
-- [ ] Implement content block generator: assemble blocks from current canonical state per block type
-- [ ] Implement auth layer (Entra ID)
-- [ ] Run extraction pipeline against SLCC
-- [ ] Pass accuracy gate (>90% material facts) — see [[SLCC Validation Run]]
+- [x] Implement extraction pipeline: Trigger.dev setup, Crawlee crawler, Claude extractor, ExtractionObservation writer (Sessions 05–08)
+- [x] Implement promotion engine: source precedence Policy, temporal canonical updates, conflict detection (Sessions 05–07)
+- [x] Implement content block generator: assemble blocks from current canonical state per block type (Session 07)
+- [x] Implement auth layer (Entra ID) (Session 06)
+- [ ] Run full extraction pipeline against SLCC — pilot complete (9 pages), full 132-page run pending
+- [ ] Pass accuracy gate (>90% material facts) — manual accuracy review pending after full run
 
 **Day 60 (~2026-08-05)**
 - [ ] Write generated-tenant-spec and role-aware-rendering-spec
@@ -148,3 +151,9 @@ Key decisions:
 - [[Contact Center]] — Institutional complexity the product is designed to solve
 - [[Corveaux V2 - Session 01]] — Initial architecture planning session
 - [[Corveaux V2 - Session 02 — Tech Stack and Vault Infrastructure]] — Tech stack, vault infrastructure, architectural doctrine
+- [[Corveaux V2 - Session 03 — Canonical Schema and Tenant Zero]] — Canonical schema, tenant isolation, Tenant Zero seed
+- [[Corveaux V2 - Session 04 — Content Block Zod Schemas]] — Content block schema, Zod validation
+- [[Corveaux V2 - Session 05 — Extraction Pipeline Implementation]] — Full extraction pipeline: crawl, extract, write, promote
+- [[Corveaux V2 - Session 06 — Auth Layer and SLCC Smoke Test]] — Entra ID auth, first SLCC smoke test
+- [[Corveaux V2 - Session 07 — Catalog Extraction and Promoter Fixes]] — P2002 fix, type leakage fix, HTML stripping
+- [[Corveaux V2 - Session 08 — Trigger.dev Validation and Catalog Pilot]] — Trigger.dev end-to-end, catalog pilot, extraction economics
