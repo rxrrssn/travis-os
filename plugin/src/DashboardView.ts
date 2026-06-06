@@ -554,30 +554,36 @@ export class DashboardView extends ItemView {
 
   // Returns the color for a file at `path`.
   // Top-level folder → exact FOLDER_COLORS entry.
-  // Nested sub-folders → same hue as parent, progressively lighter/softer so
-  // all notes in a tree stay visually related but distinct from one another.
+  // Nested sub-folders → hue within ±25° of parent (family feel, sibling contrast),
+  // lightness 60–88% spread wide enough that siblings look clearly different.
   private folderColor(path: string): string {
     const parts = path.split('/');
     parts.pop(); // drop filename
     if (!parts.length) return FOLDER_COLORS.default;
 
     const topFolder = parts[0];
-    const baseColor = FOLDER_COLORS[topFolder] ?? FOLDER_COLORS.default;
-    if (parts.length === 1) return baseColor;
+    if (parts.length === 1) return FOLDER_COLORS[topFolder] ?? FOLDER_COLORS.default;
 
     const hue = FOLDER_HUES[topFolder];
-    if (hue === undefined) return baseColor;
+    if (hue === undefined) return FOLDER_COLORS[topFolder] ?? FOLDER_COLORS.default;
 
-    const depth   = parts.length;             // 2 = direct child, 3 = grandchild…
-    const subKey  = parts.slice(1).join('/');
-    const hash    = this.strHash(subKey);
+    const depth    = parts.length;              // 2 = direct child, 3 = grandchild…
+    const leafName = parts[parts.length - 1];   // leaf folder name drives sibling spread
+    const hashH    = this.strHash(leafName);    // hue dimension
+    const hashL    = this.strHash(path);        // lightness dimension (independent bits)
 
-    // Each level steps ~8pts lighter; small jitter (0/4/8) keeps siblings apart.
-    const l = Math.min(80, 55 + (depth - 1) * 8 + (hash % 3) * 4);
-    // Saturation drops gently so deep nesting doesn't wash out completely.
-    const s = Math.max(50, 88 - (depth - 1) * 12);
+    // Hue: ±25° rotation keyed on leaf name — siblings spread, parent family preserved.
+    const h = (hue + (hashH % 51) - 25 + 360) % 360;
 
-    return `hsl(${hue}, ${s}%, ${l}%)`;
+    // Lightness: 60–88% range; deeper levels start slightly higher (lighter base).
+    const lMin   = 60 + (depth - 2) * 8;
+    const lRange = Math.max(18, 30 - (depth - 2) * 4);
+    const l      = Math.min(88, lMin + (hashL % lRange));
+
+    // Saturation: rich at depth 2, fades with depth so deepest nesting stays legible.
+    const s = Math.max(45, 82 - (depth - 2) * 18);
+
+    return `hsl(${h}, ${s}%, ${l}%)`;
   }
 
   private strHash(s: string): number {
