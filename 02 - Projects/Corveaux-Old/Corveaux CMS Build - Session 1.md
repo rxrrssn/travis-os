@@ -1,7 +1,7 @@
 ---
 type: session-note
 domain: corveaux
-status: active
+status: complete
 date: 2026-05-24
 tags:
   - cms

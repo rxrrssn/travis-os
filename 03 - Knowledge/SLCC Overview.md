@@ -57,5 +57,5 @@ Utah HB 265 Phase 1 resulted in academic affairs budget cuts and program closure
 [[Mainstay Brutus]]
 [[TDX]]
 [[Power Platform]]
-[[Corvux]]
+[[Corveaux]]
 [[One Voice One Brutus]]
