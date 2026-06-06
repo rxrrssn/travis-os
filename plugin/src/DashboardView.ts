@@ -3,18 +3,46 @@ import * as d3 from 'd3';
 
 export const DASHBOARD_VIEW_TYPE = 'travis-os-dashboard';
 
-const TYPE_COLORS: Record<string, string> = {
-  daily:     '#00ff88',
-  project:   '#ff6b35',
-  knowledge: '#00d4ff',
-  system:    '#7b2fff',
-  person:    '#ffd700',
-  reference: '#ff4b91',
-  strategy:  '#ff8c00',
-  default:   '#4a9eff',
+// Folder-based colors — distinct hue per top-level vault folder.
+// Nested sub-folders derive lighter/softer variants of the parent hue.
+const FOLDER_COLORS: Record<string, string> = {
+  '00 - Inbox':     '#00d4ff',  // cyan
+  '01 - Daily':     '#00ff88',  // green
+  '02 - Projects':  '#ff6b35',  // orange
+  '03 - Knowledge': '#4a9eff',  // blue
+  '04 - People':    '#ffd700',  // gold
+  '06 - Systems':   '#7b2fff',  // purple
+  '08 - Reference': '#ff4b91',  // pink
+  '99 - Templates': '#444444',  // dim
+  default:          '#888888',
 };
 
-const LEGEND_ORDER  = ['project', 'system', 'knowledge', 'person', 'reference', 'strategy', 'daily'];
+// Hues for sub-folder derivation (HSL).  Matches FOLDER_COLORS above.
+const FOLDER_HUES: Record<string, number> = {
+  '00 - Inbox':      188,
+  '01 - Daily':      150,
+  '02 - Projects':    20,
+  '03 - Knowledge':  210,
+  '04 - People':      45,
+  '06 - Systems':    270,
+  '08 - Reference':  330,
+};
+
+const FOLDER_LABELS: Record<string, string> = {
+  '00 - Inbox':     'INBOX',
+  '01 - Daily':     'DAILY',
+  '02 - Projects':  'PROJECTS',
+  '03 - Knowledge': 'KNOWLEDGE',
+  '04 - People':    'PEOPLE',
+  '06 - Systems':   'SYSTEMS',
+  '08 - Reference': 'REFERENCE',
+  '99 - Templates': 'TEMPLATES',
+};
+
+const FOLDER_ORDER = [
+  '01 - Daily', '02 - Projects', '03 - Knowledge',
+  '04 - People', '06 - Systems', '08 - Reference',
+];
 const TASK_FOLDERS  = ['02 - Projects', '01 - Daily'];
 const TOKEN_LOG     = '00 - Inbox/claude-tokens.json';
 const GRAPH_EXCLUDE = ['plugin/', '.obsidian/'];
@@ -184,9 +212,7 @@ export class DashboardView extends ItemView {
 
     const list = body.createDiv('tos-recent-list');
     for (const file of files) {
-      const meta  = this.obsApp.metadataCache.getFileCache(file);
-      const type  = meta?.frontmatter?.type ?? 'default';
-      const color = TYPE_COLORS[type] ?? TYPE_COLORS.default;
+      const color = this.folderColor(file.path);
 
       const row = list.createDiv('tos-recent-row');
       const dot = row.createSpan({ cls: 'tos-recent-dot' });
@@ -297,15 +323,15 @@ export class DashboardView extends ItemView {
     const body  = this.panel(col, 'VAULT STATS', 'tos-stats-panel');
     const files = this.obsApp.vault.getMarkdownFiles()
       .filter(f => !GRAPH_EXCLUDE.some(p => f.path.startsWith(p)));
-    const types: Record<string, number> = {};
+    const folderCounts: Record<string, number> = {};
     let openTasks = 0, todayMod = 0;
     const dayStart = Date.now() - (Date.now() % 86_400_000);
 
     for (const f of files) {
-      const meta = this.obsApp.metadataCache.getFileCache(f);
-      const t    = meta?.frontmatter?.type ?? 'default';
-      types[t]   = (types[t] ?? 0) + 1;
-      openTasks  += (meta?.listItems ?? []).filter(i => i.task === ' ').length;
+      const meta   = this.obsApp.metadataCache.getFileCache(f);
+      const folder = f.path.split('/')[0];
+      folderCounts[folder] = (folderCounts[folder] ?? 0) + 1;
+      openTasks += (meta?.listItems ?? []).filter(i => i.task === ' ').length;
       if (f.stat.mtime >= dayStart) todayMod++;
     }
 
@@ -315,15 +341,15 @@ export class DashboardView extends ItemView {
     this.stat(sg, String(todayMod),     'MOD TODAY');
 
     const legend = body.createDiv('tos-legend');
-    for (const type of LEGEND_ORDER) {
-      if (!types[type]) continue;
+    for (const folder of FOLDER_ORDER) {
+      if (!folderCounts[folder]) continue;
       const row = legend.createDiv('tos-legend-row');
       const dot = row.createSpan({ cls: 'tos-legend-dot' });
-      const c   = TYPE_COLORS[type] ?? TYPE_COLORS.default;
+      const c   = FOLDER_COLORS[folder] ?? FOLDER_COLORS.default;
       dot.style.background = c;
       dot.style.boxShadow  = `0 0 5px ${c}`;
-      row.createSpan({ cls: 'tos-legend-lbl',   text: type.toUpperCase() });
-      row.createSpan({ cls: 'tos-legend-count', text: String(types[type]) });
+      row.createSpan({ cls: 'tos-legend-lbl',   text: FOLDER_LABELS[folder] ?? folder });
+      row.createSpan({ cls: 'tos-legend-count', text: String(folderCounts[folder]) });
     }
   }
 
@@ -367,8 +393,8 @@ export class DashboardView extends ItemView {
       );
 
     nodeSel.append('circle')
-      .attr('r',    d => d.type === 'daily' ? 3.5 : 5.5)
-      .attr('fill', d => TYPE_COLORS[d.type] ?? TYPE_COLORS.default)
+      .attr('r',    d => d.type === '01 - Daily' ? 3.5 : 5.5)
+      .attr('fill', d => this.folderColor(d.path))
       .attr('class', 'tos-node-circle');
 
     nodeSel.append('title').text(d => d.id);
@@ -524,6 +550,42 @@ export class DashboardView extends ItemView {
     return `${Math.floor(hrs / 24)}d ago`;
   }
 
+  // ── Color helpers ─────────────────────────────────────────────────────────
+
+  // Returns the color for a file at `path`.
+  // Top-level folder → exact FOLDER_COLORS entry.
+  // Nested sub-folders → same hue as parent, progressively lighter/softer so
+  // all notes in a tree stay visually related but distinct from one another.
+  private folderColor(path: string): string {
+    const parts = path.split('/');
+    parts.pop(); // drop filename
+    if (!parts.length) return FOLDER_COLORS.default;
+
+    const topFolder = parts[0];
+    const baseColor = FOLDER_COLORS[topFolder] ?? FOLDER_COLORS.default;
+    if (parts.length === 1) return baseColor;
+
+    const hue = FOLDER_HUES[topFolder];
+    if (hue === undefined) return baseColor;
+
+    const depth   = parts.length;             // 2 = direct child, 3 = grandchild…
+    const subKey  = parts.slice(1).join('/');
+    const hash    = this.strHash(subKey);
+
+    // Each level steps ~8pts lighter; small jitter (0/4/8) keeps siblings apart.
+    const l = Math.min(80, 55 + (depth - 1) * 8 + (hash % 3) * 4);
+    // Saturation drops gently so deep nesting doesn't wash out completely.
+    const s = Math.max(50, 88 - (depth - 1) * 12);
+
+    return `hsl(${hue}, ${s}%, ${l}%)`;
+  }
+
+  private strHash(s: string): number {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) & 0xffffffff;
+    return Math.abs(h);
+  }
+
   // ── Data helpers ──────────────────────────────────────────────────────────
 
   private graphData(): { nodes: GraphNode[]; links: GraphLink[] } {
@@ -534,7 +596,7 @@ export class DashboardView extends ItemView {
     for (const f of this.obsApp.vault.getMarkdownFiles()) {
       if (GRAPH_EXCLUDE.some(prefix => f.path.startsWith(prefix))) continue;
       const meta = this.obsApp.metadataCache.getFileCache(f);
-      const type = meta?.frontmatter?.type ?? 'default';
+      const type = f.path.split('/')[0];
       nodes.push({ id: f.basename, type, path: f.path });
       ids.add(f.basename);
     }
