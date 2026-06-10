@@ -100,7 +100,7 @@ One Reality. Many Projections.
 - Repo is clean and secure: zero tracked secrets, zero prod vulnerabilities, lint migrated to the ESLint CLI, dead Trigger.dev-era scripts removed ([[Corveaux V2 - Session 26 — Repo Hygiene, Security Audit, and ESLint Migration]])
 
 **What does not exist yet:**
-- Role-aware rendering (the projection authoring surfaces exist; audience-conditional rendering does not)
+- (Role-aware rendering now differentiates by audience — ADR-022 Phase 1, Session 29 — driven by a configurable `rendering_visibility` policy)
 - Full generated tenant routes/experience end-to-end
 - (Operation-worker backlog cleared — every TenantOperation type now has a worker: `generate_tenant`, `source.crawl`, `source.cache.purge`, `source.validate`, `extraction.run`, `extraction.retry_failed`, `extraction.promote_run`, `tenant.review`. `extraction.run` is verified live; the rest are built and need a tenant/platform Worker redeploy to go live.)
 - Search layer
@@ -184,7 +184,8 @@ Key decisions:
 - [x] Implement append-only platform/tenant audit events and R2 audit export
 - [x] Build tenant content review + canonical editor with effective dating (Session 24, [[ADR-021 — Effective Dating on Entity and Relationship]])
 - [x] Build tenant page builder, ontology UI, brand/theme editor, Impressionist extraction, configurable footer (Session 25)
-- [ ] Build generated tenant with role-aware rendering — projection authoring surfaces landed (Sessions 24-25); audience-conditional rendering still open
+- [x] Role-aware rendering — audience-conditional rendering now differentiates via a configurable visibility policy (ADR-022 Phase 1c/1b, Session 29). Full generated-tenant experience polish ongoing.
+- [x] Configurable entitlement model (ADR-022 Phase 1): canonical Role/Capability, graph resolution + explanation trace, tenant entitlement config + explain view, governed view-as impersonation (Session 29)
 - [ ] Corveaux website running on Corveaux
 - [x] Implement GitHub-controlled staging and production deployment architecture
 - [ ] Catalog round-trip validation
@@ -226,6 +227,7 @@ Key decisions:
 - [[Corveaux V2 - Session 26 — Repo Hygiene, Security Audit, and ESLint Migration]] — security audit, next lint → ESLint CLI migration, dead Trigger.dev script removal
 - [[Corveaux V2 - Session 27 — Extraction Run Worker Verification]] — extraction.run verified live; extraction.retry_failed + source.cache.purge built
 - [[Corveaux V2 - Session 28 — Status Page and Operation-Worker Backlog]] — shipped status.corveaux.app; cleared the operation-worker backlog (promote_run, source.validate, tenant.review)
+- [[Corveaux V2 - Session 29 — Entitlement Model (ADR-022 Phase 1)]] — configurable entitlements: Role/Capability model, graph resolution + explanation trace, role-aware rendering turned on, tenant entitlement config + explain view, governed view-as impersonation
 - [[ADR-018 — Canonical Attribute Standardization and Relationship-Attached Policies]] — fixed course/program attribute sets, relationship-attached policies, three-phase promotion
 - [[ADR-019 — Cloudflare and Neon Runtime Architecture]] — current infrastructure decision
 - [[ADR-020 — Deployment and Promotion Architecture]] — GitHub-controlled staging and production promotion

@@ -8,7 +8,7 @@ tags: [corveaux, authority, rbac, entitlements, hris, schema, impersonation]
 
 # ADR-022 — Canonical Entitlements, Typed Supporting Tables, and Role and Person Impersonation
 
-> Status: **active** (approved Session 28 — Founder resolved all open questions). Supersedes the under-implemented enforcement half of [[ADR-005 — Capability-Based Authority Model]] and refines [[ADR-012 — Canonical Schema Architecture]].
+> Status: **active** (approved Session 28 — Founder resolved all open questions). **Phase 1 implemented in [[Corveaux V2 - Session 29 — Entitlement Model (ADR-022 Phase 1)]]** (model, resolution + trace, role-aware rendering, entitlement config + explain, view-as impersonation). Phase 2 deferred: typed supporting tables, HRIS population, person impersonation, role inheritance. Supersedes the under-implemented enforcement half of [[ADR-005 — Capability-Based Authority Model]] and refines [[ADR-012 — Canonical Schema Architecture]].
 
 ## Decision
 
