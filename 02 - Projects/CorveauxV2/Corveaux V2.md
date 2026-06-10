@@ -85,6 +85,7 @@ One Reality. Many Projections.
 - Platform operation tables: `TenantSource` and `TenantOperation`; operation state remains durable and separate append-only audit events capture actor, authority, request, resource, purpose, deployment, and schema context
 - TenantOperation worker: `generate_tenant` regenerates projection blocks for active tenant entities and writes `entityCount`, `blocksWritten`, and `generatedAt` into operation result
 - TenantOperation worker: `source.crawl` runs Cartographer from the admin pane, updates source health, writes crawl metadata, and renders discovered/cache/error counts in operation results
+- TenantOperation worker: `extraction.run` — Cloudflare Workflow creates the run, fans out one queue message per page, a queue consumer extracts each page via Claude and writes observations, and a finalizer promotes (archivist) + regenerates blocks (projector) and reports completion; verified live on dev SLCC ([[Corveaux V2 - Session 27 — Extraction Run Worker Verification]])
 - Platform provisioning Workflow creates isolated Neon tenant projects and records non-secret database target metadata.
 - Cloudflare tenant generation Workflow completed an end-to-end live validation, including direct Neon work and authenticated callback to the platform Worker.
 - Separate append-only `PlatformAuditEvent` / `AuditEvent` tables and transactional audit outboxes exist at platform and tenant levels.
@@ -98,7 +99,7 @@ One Reality. Many Projections.
 **What does not exist yet:**
 - Role-aware rendering (the projection authoring surfaces exist; audience-conditional rendering does not)
 - Full generated tenant routes/experience end-to-end
-- Worker for the queued `extraction.run` operation (the one standing code gap; `source.crawl` and `generate_tenant` workers exist), plus retry-failed and cache-purge workers
+- Workers for the queued `extraction.retry_failed` and `source.cache.purge` operations (the `extraction.run`, `source.crawl`, and `generate_tenant` workers exist and `extraction.run` is verified live)
 - Search layer
 - Cloudflare-native crawl/extraction fan-out and queue controls
 - Signed audit batch manifests and hash-chain checkpoints
@@ -173,7 +174,7 @@ Key decisions:
 - [x] Write generated-tenant-spec and role-aware-rendering-spec — ADR-015 + both specs complete (Session 10)
 - [x] Build Platform Admin operator cockpit — tenant/source/extraction views, operation persistence, first worker-backed `generate_tenant` operation (Session 19)
 - [x] Implement operation worker for source crawl
-- [ ] Implement operation worker for extraction run — **the one standing code gap**; old Trigger.dev fan-out entry points were deleted (Session 26), so this must be built fresh in the Cloudflare Workers flow ([[Corveaux V2 - Session 21 — Trigger.dev to Cloudflare Workflows Changeover Plan]])
+- [x] Implement operation worker for extraction run — already built end-to-end (Workflow → Cloudflare Queue fan-out → consumer → finalizer/promotion → callback); **verified live** on dev SLCC (run `00e9ee48`: 3 cached URLs → COMPLETED in ~28s, 5 observations, 2 canonized, $0.018, 0 failures) ([[Corveaux V2 - Session 27 — Extraction Run Worker Verification]])
 - [x] Deploy platform database to Neon through Hyperdrive
 - [x] Provision isolated Neon projects and R2 buckets for Corveaux and SLCC
 - [x] Deploy platform and tenant Cloudflare Workers/Workflows
