@@ -88,6 +88,7 @@ One Reality. Many Projections.
 - TenantOperation worker: `extraction.run` — Cloudflare Workflow creates the run, fans out one queue message per page, a queue consumer extracts each page via Claude and writes observations, and a finalizer promotes (archivist) + regenerates blocks (projector) and reports completion; verified live on dev SLCC ([[Corveaux V2 - Session 27 — Extraction Run Worker Verification]])
 - TenantOperation worker: `extraction.retry_failed` — re-extracts only a prior run's failed pages, reusing the `extraction.run` pipeline and recovering the source's original scope/excluded-type rules (built Session 27; needs a Worker redeploy to go live)
 - TenantOperation worker: `source.cache.purge` — deletes all cached crawl HTML under `crawl/{sourceSlug}/` in the tenant R2 bucket and resets the source cache count, forcing the next crawl/extraction to re-fetch live (built Session 27; needs a Worker redeploy to go live)
+- TenantOperation workers: `extraction.promote_run` (manual re-canonization — archivist + projector over a run), `source.validate` (fetch the source URL, reject WAF/bot-challenge + too-small responses, write `validationStatus` back to the source), and `tenant.review` (review snapshot — entity/relationship/policy/content-block counts) — completing operation-worker coverage (built Session 28; needs a Worker redeploy to go live)
 - Platform provisioning Workflow creates isolated Neon tenant projects and records non-secret database target metadata.
 - Cloudflare tenant generation Workflow completed an end-to-end live validation, including direct Neon work and authenticated callback to the platform Worker.
 - Separate append-only `PlatformAuditEvent` / `AuditEvent` tables and transactional audit outboxes exist at platform and tenant levels.
@@ -101,7 +102,7 @@ One Reality. Many Projections.
 **What does not exist yet:**
 - Role-aware rendering (the projection authoring surfaces exist; audience-conditional rendering does not)
 - Full generated tenant routes/experience end-to-end
-- Workers for the queued `tenant.review`, `source.validate`, and `extraction.promote_run` operations (the `extraction.run`, `extraction.retry_failed`, `source.crawl`, `source.cache.purge`, and `generate_tenant` workers now all exist; `extraction.run` is verified live, and `extraction.retry_failed`/`source.cache.purge` are built but need a Worker redeploy to go live)
+- (Operation-worker backlog cleared — every TenantOperation type now has a worker: `generate_tenant`, `source.crawl`, `source.cache.purge`, `source.validate`, `extraction.run`, `extraction.retry_failed`, `extraction.promote_run`, `tenant.review`. `extraction.run` is verified live; the rest are built and need a tenant/platform Worker redeploy to go live.)
 - Search layer
 - Cloudflare-native crawl/extraction fan-out and queue controls
 - Signed audit batch manifests and hash-chain checkpoints
@@ -223,6 +224,8 @@ Key decisions:
 - [[Corveaux V2 - Session 24 — Tenant Content Review and Canonical Editor]] — tenant content review queue, edit-canonical-then-regenerate, effective dating (ADR-021)
 - [[Corveaux V2 - Session 25 — Page Builder, Impressionist Branding, and Tenant Footer]] — drag-and-drop page builder, page layouts, Impressionist theme extraction, configurable footer
 - [[Corveaux V2 - Session 26 — Repo Hygiene, Security Audit, and ESLint Migration]] — security audit, next lint → ESLint CLI migration, dead Trigger.dev script removal
+- [[Corveaux V2 - Session 27 — Extraction Run Worker Verification]] — extraction.run verified live; extraction.retry_failed + source.cache.purge built
+- [[Corveaux V2 - Session 28 — Status Page and Operation-Worker Backlog]] — shipped status.corveaux.app; cleared the operation-worker backlog (promote_run, source.validate, tenant.review)
 - [[ADR-018 — Canonical Attribute Standardization and Relationship-Attached Policies]] — fixed course/program attribute sets, relationship-attached policies, three-phase promotion
 - [[ADR-019 — Cloudflare and Neon Runtime Architecture]] — current infrastructure decision
 - [[ADR-020 — Deployment and Promotion Architecture]] — GitHub-controlled staging and production promotion
