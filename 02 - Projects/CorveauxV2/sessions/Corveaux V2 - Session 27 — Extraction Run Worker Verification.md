@@ -95,6 +95,41 @@ designed" conflict-resolution path), not extraction errors.
   workers still unbuilt: `extraction.retry_failed`, `source.cache.purge` (and
   `tenant.review` / `source.validate`).
 
+## Addendum — `blocks=0` resolved + two more workers built (same session)
+
+**`blocksWritten=0` was correct, not a bug.** Confirmed in `archivist.ts`
+(`promoteEntityObservation`, ~lines 210–221): when an observation's entity already
+exists with equal attributes, it's marked PROMOTED but **no new entity row is
+created** — it just references the existing one. The verification re-extracted pages
+already covered by the prior full SLCC run, so the 2 "promoted" were idempotent
+re-confirmations of unchanged courses; their `extractionRunId` still points at the
+*original* run, so `regenerateBlocksForExtractionRun(00e9ee48)` correctly found 0 new
+entities → 0 blocks. A first-time extraction, or a *changed* page (which takes the
+`incoming_wins` branch and creates a new run-tagged row), writes blocks.
+
+**`extraction.retry_failed` built** (commit `eb2ede8`). Was created-but-never-
+dispatched with no worker. Made it a first-class operation that rides the proven
+`extraction.run` rails: contract variant + dispatch routing + worker acceptance
+(identical fan-out, two-phase RUNNING). `retryFailedExtractionAction` now builds a
+real manifest from the run's `failedUrls`, recovering the originating source so the
+retry reuses the original scope/excluded-type rules, then dispatches. Extracted a
+shared `deriveExtractionScope()` helper. The generic "Retry Operation" button now
+re-dispatches failed `extraction.run`/`retry_failed` ops too (was `generate_tenant`/
+`source.crawl` only).
+
+**`source.cache.purge` built** (commit `2f4f1b0`). Also created-but-never-dispatched.
+Worker lists + deletes all R2 objects under `crawl/{sourceSlug}/` (paginated,
+1000/batch) and reports `deletedCount`/`purgedAt`; the platform callback resets
+`TenantSource.cacheCount` to 0 so source health stays accurate. It's the operational
+"clear the crawl cache" button — used when a source site changes or the cache is
+poisoned (the WAF Bug 14 situation, previously purged by hand).
+
+**Both new workers need a tenant (and for purge, platform) Worker redeploy to take
+effect** — they're new worker code paths the deployed dev Worker doesn't know yet.
+Root `tsc`, `cf:typecheck`, lint, and both worker bundle dry-runs all clean.
+Remaining unbuilt operation workers: `tenant.review`, `source.validate`,
+`extraction.promote_run`.
+
 ## Related
 
 - [[Corveaux V2 - Session 26 — Repo Hygiene, Security Audit, and ESLint Migration]]

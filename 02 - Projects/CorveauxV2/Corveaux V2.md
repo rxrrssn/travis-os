@@ -86,6 +86,8 @@ One Reality. Many Projections.
 - TenantOperation worker: `generate_tenant` regenerates projection blocks for active tenant entities and writes `entityCount`, `blocksWritten`, and `generatedAt` into operation result
 - TenantOperation worker: `source.crawl` runs Cartographer from the admin pane, updates source health, writes crawl metadata, and renders discovered/cache/error counts in operation results
 - TenantOperation worker: `extraction.run` — Cloudflare Workflow creates the run, fans out one queue message per page, a queue consumer extracts each page via Claude and writes observations, and a finalizer promotes (archivist) + regenerates blocks (projector) and reports completion; verified live on dev SLCC ([[Corveaux V2 - Session 27 — Extraction Run Worker Verification]])
+- TenantOperation worker: `extraction.retry_failed` — re-extracts only a prior run's failed pages, reusing the `extraction.run` pipeline and recovering the source's original scope/excluded-type rules (built Session 27; needs a Worker redeploy to go live)
+- TenantOperation worker: `source.cache.purge` — deletes all cached crawl HTML under `crawl/{sourceSlug}/` in the tenant R2 bucket and resets the source cache count, forcing the next crawl/extraction to re-fetch live (built Session 27; needs a Worker redeploy to go live)
 - Platform provisioning Workflow creates isolated Neon tenant projects and records non-secret database target metadata.
 - Cloudflare tenant generation Workflow completed an end-to-end live validation, including direct Neon work and authenticated callback to the platform Worker.
 - Separate append-only `PlatformAuditEvent` / `AuditEvent` tables and transactional audit outboxes exist at platform and tenant levels.
@@ -99,7 +101,7 @@ One Reality. Many Projections.
 **What does not exist yet:**
 - Role-aware rendering (the projection authoring surfaces exist; audience-conditional rendering does not)
 - Full generated tenant routes/experience end-to-end
-- Workers for the queued `extraction.retry_failed` and `source.cache.purge` operations (the `extraction.run`, `source.crawl`, and `generate_tenant` workers exist and `extraction.run` is verified live)
+- Workers for the queued `tenant.review`, `source.validate`, and `extraction.promote_run` operations (the `extraction.run`, `extraction.retry_failed`, `source.crawl`, `source.cache.purge`, and `generate_tenant` workers now all exist; `extraction.run` is verified live, and `extraction.retry_failed`/`source.cache.purge` are built but need a Worker redeploy to go live)
 - Search layer
 - Cloudflare-native crawl/extraction fan-out and queue controls
 - Signed audit batch manifests and hash-chain checkpoints
