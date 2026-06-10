@@ -142,7 +142,7 @@ Content blocks are projections of these primitives. Content blocks are not canon
 
 ## Decisions
 
-See decisions/ folder for full ADRs (ADR-001 through ADR-021).
+See decisions/ folder for full ADRs (ADR-001 through ADR-022).
 
 Key decisions:
 - Entry wedge: Web + Catalog + Directory (unified extraction sources)
@@ -230,4 +230,5 @@ Key decisions:
 - [[ADR-019 — Cloudflare and Neon Runtime Architecture]] — current infrastructure decision
 - [[ADR-020 — Deployment and Promotion Architecture]] — GitHub-controlled staging and production promotion
 - [[ADR-021 — Effective Dating on Entity and Relationship]] — effectiveFrom/effectiveTo/catalogYear; validTo (record dead) vs effectiveTo (period ended)
+- [[ADR-022 — Canonical Entitlements, Typed Supporting Tables, and Role and Person Impersonation]] — canonical Person/Position/Role/Capability/Policy split; typed supporting tables; tenant-owned, effective-dated, explainable entitlements; role + person impersonation
 - [[institutional-archetypes]] — institutional archetype research (community college, regional university, R1, system office, foundation)
