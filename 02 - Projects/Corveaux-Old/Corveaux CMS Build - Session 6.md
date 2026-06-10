@@ -1,4 +1,4 @@
----
+﻿---
 type: session-note
 domain: corveaux
 status: complete
@@ -16,7 +16,7 @@ tags:
 
 ## What Was Built
 
-### Priority 1 — Auth (NextAuth v5 beta) ✅
+### Priority 1 — Auth (NextAuth v5 beta) âœ…
 
 All admin routes are now protected. Unauthenticated requests to `/admin/**` and `/t/[slug]/admin/**` redirect to `/login`.
 
@@ -56,7 +56,7 @@ The middleware imports from `auth.config.ts` only. The full `auth.ts` is used in
 
 ---
 
-### Priority 2 — Tenant Creation UI ✅
+### Priority 2 — Tenant Creation UI âœ…
 
 **New files:**
 - `src/app/admin/tenants/NewTenantButton.tsx` — Client modal with name, slug (auto-generated from name, editable), and optional domain fields; slug format validated client-side; errors shown inline
@@ -67,7 +67,7 @@ The middleware imports from `auth.config.ts` only. The full `auth.ts` is used in
 
 ---
 
-### Priority 3 — KB Category Management ✅
+### Priority 3 — KB Category Management âœ…
 
 **New files:**
 - `src/app/admin/kb/NewCategoryButton.tsx` — Client modal below category list; name/slug/description fields; slug auto-generated from name; duplicate slug check
@@ -80,8 +80,8 @@ The middleware imports from `auth.config.ts` only. The full `auth.ts` is used in
 
 ## Build Status
 
-- `npx tsc --noEmit` → clean
-- `npm run build` → all 29 routes compiled; middleware active
+- `npx tsc --noEmit` â†’ clean
+- `npm run build` â†’ all 29 routes compiled; middleware active
 
 ---
 

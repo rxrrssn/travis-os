@@ -1,4 +1,4 @@
----
+﻿---
 type: strategy
 domain: corveaux
 status: draft
@@ -98,3 +98,13 @@ Domain-specific systems become optional rather than required.
 Corveaux does not replace software through migration.
 
 Corveaux replaces software through convergence.
+
+## Related
+
+- [[GTM Hypothesis]]
+- [[Product Brief]]
+- [[The End State]]
+- [[What Corveaux Will Not Become]]
+- [[Institutional Maturity Model]]
+- [[ADR-001 — Entry Wedge Selection]]
+- [[generated-tenant-spec]]

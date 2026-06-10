@@ -27,3 +27,5 @@ Named in multiple student testimonials (Spring 2025):
 [[Online Success Coaching]]
 [[Megan Brandly]]
 [[Seini Pahulu]]
+[[Bruin Connect Transition]]
+[[OSC Executive Summary and Program Report Spring 2026]]

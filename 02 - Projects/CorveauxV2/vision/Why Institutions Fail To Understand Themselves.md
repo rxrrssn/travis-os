@@ -87,3 +87,13 @@ Communication improves.
 The institution becomes capable of understanding itself again.
 
 That is the hypothesis Corveaux exists to validate.
+
+## Related
+
+- [[Why Corveaux Exists]]
+- [[Philosophy]]
+- [[Institutional Governance]]
+- [[Institutional Maturity Model]]
+- [[The End State]]
+- [[Product Brief]]
+- [[Corveaux V2]]

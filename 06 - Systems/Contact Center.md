@@ -52,6 +52,8 @@ Main number: 801-957-4073
 
 See [[Contact Center Annual Report 2024-25]] for full detail.
 
+Key people: [[Seini Pahulu]] (Director), [[Annalise Karr]] (Manager).
+
 ## Current Problems
 
 Phone environment is heavily fragmented:
@@ -85,7 +87,7 @@ Active analysis areas: transfer depth, IVR overhead, operational inefficiency, s
 
 ## Active Initiative (as of 2026-05-23)
 
-Analyzing institutional call flows and IVR overhead across the college.
+Analyzing institutional call flows and IVR overhead across the college. See [[IVR Call Routing Analysis]] for full detail.
 
 Evaluation scope:
 - Transfer depth across departments
@@ -107,3 +109,10 @@ RingCentral (PBX). CTI integration experiments in progress via TDX.
 [[TDX]]
 [[One Voice One Brutus]]
 [[Power Platform]]
+[[Seini Pahulu]]
+[[Annalise Karr]]
+[[Bruin Connect Transition]]
+[[IVR Call Routing Analysis]]
+[[Contact Center Annual Report 2024-25]]
+[[Brutus Engagement Report Spring 2026]]
+[[Mainstay Brutus]]

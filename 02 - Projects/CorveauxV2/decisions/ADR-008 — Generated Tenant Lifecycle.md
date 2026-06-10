@@ -1,4 +1,4 @@
----
+﻿---
 type: decision
 domain: corveaux
 status: active
@@ -28,23 +28,23 @@ The intended lifecycle is:
 
 ```
 Institutional Discovery
-        ↓
+        â†“
 Institutional Model
-        ↓
+        â†“
 Content Block Generation
-        ↓
+        â†“
 Generated Tenant (the mirror — institution's first encounter)
-        ↓
+        â†“
 Role-Aware Experiences (demonstrated live)
-        ↓
+        â†“
 Departmental Validation (institution claims ownership of blocks)
-        ↓
+        â†“
 Governance Activation (approval workflows, ownership assignments)
-        ↓
+        â†“
 Production Launch (sections of website go live on Corveaux)
-        ↓
+        â†“
 Full Production (all public-facing content on Corveaux)
-        ↓
+        â†“
 Legacy System Retirement
 ```
 

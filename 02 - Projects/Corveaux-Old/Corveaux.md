@@ -1,4 +1,4 @@
----
+﻿---
 type: concept
 domain: corveaux
 status: active
@@ -28,7 +28,7 @@ Name history: Vetra -> Corvux -> Corveaux
 
 V1 reached Session 13 before being superseded by a full strategic reset and architectural rewrite.
 
-V1 platform build — 12 sessions completed. Codebase on `master` branch (private GitHub). Sessions 1–11 committed. Session 12 work (2026-05-28) is applied to local dev DB but not yet committed.
+V1 platform build — 12 sessions completed. Codebase on `master` branch (private GitHub). Sessions 1â€“11 committed. Session 12 work (2026-05-28) is applied to local dev DB but not yet committed.
 
 **Modules with working UI:**
 - CMS: Sites, Pages (DnD editor), Content Blocks (WYSIWYG), Knowledge Base
@@ -184,7 +184,7 @@ Proactive lifecycle orchestration:
 - Persistence workflows
 - Engagement scoring
 
-Informed by Travis's work with Mainstay, Navigate360, and Contact Center operations.
+Informed by Travis's work with [[Mainstay Brutus|Mainstay]], [[Navigate360 Transition|Navigate360]], and [[Contact Center]] operations.
 
 ### Identity / IAM
 
@@ -299,10 +299,13 @@ Not "software for colleges." A digital institution layer.
 ## Related
 
 [[SLCC Overview]]
+[[Travis SLCC Positioning]]
 [[One Voice One Brutus]]
 [[Mainstay Brutus]]
 [[TDX]]
 [[Contact Center]]
+[[Online Success Coaching]]
+[[HB 265]]
 [[Corveaux Pricing Model]]
 [[Corveaux GTM Strategy]]
 [[Corveaux Data Portability]]

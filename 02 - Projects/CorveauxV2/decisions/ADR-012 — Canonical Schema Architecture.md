@@ -1,4 +1,4 @@
----
+﻿---
 type: decision
 domain: data-architecture
 status: active
@@ -14,8 +14,8 @@ One master schema definition. One database per tenant (production) or one Postgr
 
 Two Prisma schema files. Two generated clients. Two migration paths.
 
-- `prisma/platform.schema.prisma` → `corveaux_platform` schema → `tenants` table only
-- `prisma/tenant.schema.prisma` → `corveaux_tenant_zero` (and future tenants) → all canonical primitives
+- `prisma/platform.schema.prisma` â†’ `corveaux_platform` schema â†’ `tenants` table only
+- `prisma/tenant.schema.prisma` â†’ `corveaux_tenant_zero` (and future tenants) â†’ all canonical primitives
 
 Three identifier layers on every entity:
 - `id` — internal UUID, database PK, FK target, never exposed
@@ -88,8 +88,8 @@ Travis Hornbuckle (Founder & CEO) — approved in Session 03
 - `tenant_ontology_entity_types`, `tenant_ontology_fields`, `tenant_ontology_identifier_types`
 
 **Local dev:**
-- `corveaux_platform` PostgreSQL schema → platform tables
-- `corveaux_tenant_zero` PostgreSQL schema → Tenant Zero canonical tables
+- `corveaux_platform` PostgreSQL schema â†’ platform tables
+- `corveaux_tenant_zero` PostgreSQL schema â†’ Tenant Zero canonical tables
 
 ## Related
 

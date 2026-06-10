@@ -1,4 +1,4 @@
----
+﻿---
 type: decision
 domain: corveaux
 status: active
@@ -50,7 +50,7 @@ The model must represent universities, community colleges, system offices, found
 - The initial implementation will use Postgres + JSONB for the object store, with the primitive types modeled as typed records
 - Content blocks are projections of these primitives, assembled for specific rendering contexts (website, catalog, assistant, portal, search)
 - The graph DB decision is deferred until relationship traversal queries become frequent enough to justify it
-- Schema round-trip fidelity (catalog → primitives → catalog) is required; the field set must support catalog-quality rendering from Day 1
+- Schema round-trip fidelity (catalog â†’ primitives â†’ catalog) is required; the field set must support catalog-quality rendering from Day 1
 - Any future domain (SIS, LMS, HR, Finance) must be representable as entities, relationships, events, policies, and time — no special domains
 
 ## Related

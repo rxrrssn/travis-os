@@ -186,7 +186,7 @@ The existing Next.js `middleware.ts` deprecation warning remains.
 ## Related
 
 [[Corveaux]]
-[[RBAC]]
+[[Corveaux Auth Architecture - Tenant Resolver]]
 [[Corveaux CMS Build - Session 10]]
 [[Corveaux CMS Build - Session 9]]
 [[Corveaux Regulatory Surface]]
@@ -195,7 +195,7 @@ The existing Next.js `middleware.ts` deprecation warning remains.
 
 Date: 2026-05-27
 
-Related: [[Corveaux]], [[Corveaux CMS Build - Session 11]], [[RBAC]]
+Related: [[Corveaux]], [[Corveaux CMS Build - Session 11]], [[Corveaux Auth Architecture - Tenant Resolver]]
 
 ### What Changed
 
@@ -240,7 +240,7 @@ Related: [[Corveaux]], [[Corveaux CMS Build - Session 11]], [[RBAC]]
 
 Date: 2026-05-27
 
-Related: [[Corveaux]], [[Corveaux CMS Build - Session 11]], [[RBAC]]
+Related: [[Corveaux]], [[Corveaux CMS Build - Session 11]], [[Corveaux Auth Architecture - Tenant Resolver]]
 
 ### What Changed
 
@@ -296,7 +296,7 @@ Post-reset People Core checks:
 
 Date: 2026-05-27
 
-Related: [[Corveaux]], [[Corveaux CMS Build - Session 11]], [[RBAC]]
+Related: [[Corveaux]], [[Corveaux CMS Build - Session 11]], [[Corveaux Auth Architecture - Tenant Resolver]]
 
 ### What Changed
 

@@ -1,4 +1,4 @@
----
+﻿---
 type: daily
 date: 2026-06-05
 ---
@@ -80,5 +80,5 @@ None at session close.
 - [[ADR-012 — Canonical Schema Architecture]]
 - [[ADR-013 — Canonical Type Registry]]
 - [[ADR-010 — Tenant Isolation Architecture]]
-- [[specs/extraction-pipeline-spec]]
-- [[specs/content-block-schema]]
+- [[extraction-pipeline-spec]]
+- [[content-block-schema]]

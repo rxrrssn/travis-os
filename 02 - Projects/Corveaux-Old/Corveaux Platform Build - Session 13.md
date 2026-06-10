@@ -1,4 +1,4 @@
----
+﻿---
 type: session-note
 domain: corveaux
 status: complete
@@ -28,35 +28,35 @@ SLCC's catalog (catalog.slcc.edu) was reviewed as reference before designing the
 ### `CatSubject`
 Course prefix/discipline area (e.g. MATH, BIOL, CS). Links to `Organization` so academic departments own their subject areas.
 
-Fields: `tenantId`, `orgId → Organization`, `code`, `name`, `description`, `isActive`, `sortOrder`
+Fields: `tenantId`, `orgId â†’ Organization`, `code`, `name`, `description`, `isActive`, `sortOrder`
 
 Unique: `[tenantId, code]`
 
 ### `CatCourse`
 Canonical course record. One instance per course per tenant.
 
-Fields: `tenantId`, `subjectId → CatSubject`, `number` (e.g. "1010"), `title`, `description`, `credits`, `creditMin`, `creditMax`, `level` (DEVELOPMENTAL | UNDERGRADUATE | GRADUATE), `status` (ACTIVE | INACTIVE | PENDING), `isGenEd`, `genEdAreas` (JSON array), `notes`
+Fields: `tenantId`, `subjectId â†’ CatSubject`, `number` (e.g. "1010"), `title`, `description`, `credits`, `creditMin`, `creditMax`, `level` (DEVELOPMENTAL | UNDERGRADUATE | GRADUATE), `status` (ACTIVE | INACTIVE | PENDING), `isGenEd`, `genEdAreas` (JSON array), `notes`
 
 Unique: `[tenantId, subjectId, number]`
 
 ### `CatCourseRequisite`
 Typed prerequisite/corequisite relationship between two courses. Never embedded as strings — explicit FK relationships.
 
-Fields: `tenantId`, `courseId → CatCourse`, `requisiteId → CatCourse`, `requisiteType` (PREREQUISITE | COREQUISITE | RECOMMENDED), `canConcurrent`, `minGrade`, `notes`
+Fields: `tenantId`, `courseId â†’ CatCourse`, `requisiteId â†’ CatCourse`, `requisiteType` (PREREQUISITE | COREQUISITE | RECOMMENDED), `canConcurrent`, `minGrade`, `notes`
 
 Unique: `[tenantId, courseId, requisiteId, requisiteType]`
 
 ### `CatProgram`
 Degree or certificate. Links to `Organization` (administering department). Never stores course data — references `CatCourse` through `CatProgramCourse`.
 
-Fields: `tenantId`, `orgId → Organization`, `title`, `slug`, `degreeType` (AA | AS | AAS | AAS_CTE | TECH_CERT | ACADEMIC_CERT | APE | BS | BA | TRANSFER), `description`, `totalCredits`, `minGPA`, `outcomes`, `catalogYear`, `status`, `notes`
+Fields: `tenantId`, `orgId â†’ Organization`, `title`, `slug`, `degreeType` (AA | AS | AAS | AAS_CTE | TECH_CERT | ACADEMIC_CERT | APE | BS | BA | TRANSFER), `description`, `totalCredits`, `minGPA`, `outcomes`, `catalogYear`, `status`, `notes`
 
 Unique: `[tenantId, slug]`
 
 ### `CatProgramCourse`
 Join table between program and course. Tracks requirement type and optional group label (for elective groups).
 
-Fields: `tenantId`, `programId → CatProgram`, `courseId → CatCourse`, `requirementType` (REQUIRED | CORE | ELECTIVE | RECOMMENDED), `groupLabel`, `sortOrder`, `notes`
+Fields: `tenantId`, `programId â†’ CatProgram`, `courseId â†’ CatCourse`, `requirementType` (REQUIRED | CORE | ELECTIVE | RECOMMENDED), `groupLabel`, `sortOrder`, `notes`
 
 Unique: `[tenantId, programId, courseId]`
 
@@ -121,22 +121,22 @@ Hierarchy under `corveaux-demo-college`:
 
 ```
 Corveaux Community College
-├── College of STEM
-│   ├── Department of Mathematics
-│   ├── Department of Computer Science
-│   ├── Department of Biology
-│   └── Department of Chemistry
-├── College of Humanities & Social Sciences
-│   ├── Department of English
-│   ├── Department of History
-│   ├── Department of Communication
-│   ├── Department of Psychology
-│   └── Department of Sociology
-├── College of Business
-│   ├── Department of Accounting
-│   └── Department of Business
-└── College of Health Sciences
-    └── Department of Nursing & Allied Health
+â”œâ”€â”€ College of STEM
+â”‚   â”œâ”€â”€ Department of Mathematics
+â”‚   â”œâ”€â”€ Department of Computer Science
+â”‚   â”œâ”€â”€ Department of Biology
+â”‚   â””â”€â”€ Department of Chemistry
+â”œâ”€â”€ College of Humanities & Social Sciences
+â”‚   â”œâ”€â”€ Department of English
+â”‚   â”œâ”€â”€ Department of History
+â”‚   â”œâ”€â”€ Department of Communication
+â”‚   â”œâ”€â”€ Department of Psychology
+â”‚   â””â”€â”€ Department of Sociology
+â”œâ”€â”€ College of Business
+â”‚   â”œâ”€â”€ Department of Accounting
+â”‚   â””â”€â”€ Department of Business
+â””â”€â”€ College of Health Sciences
+    â””â”€â”€ Department of Nursing & Allied Health
 ```
 
 ### Subjects (12)
@@ -184,13 +184,13 @@ Corveaux Community College
 
 ### Prerequisite Chains
 
-- ENGL: 0900 → 1010 → 1020 → 2100/2200/2400
-- MATH: 0900 → 1010/1050 → 1060 (coreq) → 2010 → 2020 → 2030
-- CS: 1400 → 1410 → 2420/2450; 2810 → 2820; 2420 requires MATH 1050
-- BIOL: 1610 → 1620; 1610 → 2060 → 2065; 1610 → 2100
-- CHEM: MATH 1050 → 1110 → 1120
-- PSYC: 1010 → 2100, 2300
-- ACCT: 1010 (recommended) → 1110 → 1120; 1110 → 2010
+- ENGL: 0900 â†’ 1010 â†’ 1020 â†’ 2100/2200/2400
+- MATH: 0900 â†’ 1010/1050 â†’ 1060 (coreq) â†’ 2010 â†’ 2020 â†’ 2030
+- CS: 1400 â†’ 1410 â†’ 2420/2450; 2810 â†’ 2820; 2420 requires MATH 1050
+- BIOL: 1610 â†’ 1620; 1610 â†’ 2060 â†’ 2065; 1610 â†’ 2100
+- CHEM: MATH 1050 â†’ 1110 â†’ 1120
+- PSYC: 1010 â†’ 2100, 2300
+- ACCT: 1010 (recommended) â†’ 1110 â†’ 1120; 1110 â†’ 2010
 
 ### Programs (6)
 

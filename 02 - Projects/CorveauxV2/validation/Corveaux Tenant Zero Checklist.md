@@ -12,47 +12,47 @@ Corveaux Must Run Corveaux.
 
 ## Office of the System
 
-- [ ] Exists as Organization entity
-- [ ] Has canonicalKey
-- [ ] Has platformId
+- [x] Exists as Organization entity — `organization:office-of-the-system` (seeded Session 09)
+- [x] Has canonicalKey
+- [x] Has platformId
 
 ## Office of the Platform
 
-- [ ] Exists as Organization entity
-- [ ] Has canonicalKey
-- [ ] Has platformId
+- [x] Exists as Organization entity — `organization:office-of-the-platform` (seeded Session 09)
+- [x] Has canonicalKey
+- [x] Has platformId
 
 ## Office of People & Culture
 
-- [ ] Exists as Organization entity
+- [x] Exists as Organization entity — `organization:office-of-people-and-culture` (seeded Session 09)
 
 ## Office of Institutional Continuity
 
-- [ ] Exists as Organization entity
+- [x] Exists as Organization entity — `organization:office-of-institutional-continuity` (seeded Session 09)
 
 ## Office of Intelligence
 
-- [ ] Exists as Organization entity
+- [x] Exists as Organization entity — `organization:office-of-intelligence` (seeded Session 09)
 
 ---
 
 # Positions
 
-## Founder & CEO
+## Founder & Chief Systems Officer
 
-- [x] Exists as Position entity — `position:founder-ceo-corveaux` (seeded Session 03)
+- [x] Exists as Position entity — `position:founder-ceo-corveaux` (seeded Session 03, renamed Session 09)
 
 ## Platform Engineer
 
-- [ ] Exists as Position entity
+- [x] Exists as Position entity — `position:platform-engineer` (seeded Session 09)
 
 ## Implementation Lead
 
-- [ ] Exists as Position entity
+- [x] Exists as Position entity — `position:implementation-lead` (seeded Session 09)
 
 ## Institutional Analyst
 
-- [ ] Exists as Position entity
+- [x] Exists as Position entity — `position:institutional-analyst` (seeded Session 09)
 
 ---
 
@@ -61,8 +61,8 @@ Corveaux Must Run Corveaux.
 ## Travis Hornbuckle
 
 - [x] Exists as Person entity — `person:travis-hornbuckle` (seeded Session 03)
-- [ ] Has platformId
-- [ ] Has identity relationship
+- [x] Has platformId — `0cf7f20c-57c6-4538-8124-4b418ccf6d35` (confirmed Session 09)
+- [x] Has identity relationship — `has_identity` → `identity:travis-primary` (seeded Session 09)
 
 ---
 
@@ -70,14 +70,14 @@ Corveaux Must Run Corveaux.
 
 ## Primary Identity
 
-- [ ] Exists as Identity entity
-- [ ] Linked to Travis
+- [x] Exists as Identity entity — `identity:travis-primary` (seeded Session 09)
+- [x] Linked to Travis — `has_identity` relationship (seeded Session 09)
 
 ## Entra Identity
 
-- [ ] Exists as Identifier
-- [ ] Linked to Identity
-
+- [x] Exists as Identifier — `entra_object_id` and `entra_email` persisted; `external_id` no longer pending ([[Corveaux V2 - Session 11 — Tenant Zero Auth Validation]])
+- [x] Linked to Identity — identifiers attached to `identity:travis-primary` ([[Corveaux V2 - Session 11 — Tenant Zero Auth Validation]])
+- [x] Resolves platform authority — `person:travis-hornbuckle` → `holds_position` → `position:founder-ceo-corveaux` with `authority_scope: "platform"` → `platform.operator` ([[Corveaux V2 - Session 11 — Tenant Zero Auth Validation]])
 ---
 
 # Relationships
@@ -88,7 +88,7 @@ Corveaux Must Run Corveaux.
 
 ## Office Assignment
 
-- [ ] Founder & CEO belongs to Office of the System — Office of the System not yet seeded
+- [x] Founder & Chief Systems Officer belongs to Office of the System — `part_of` relationship seeded (Session 09)
 
 ---
 
@@ -100,11 +100,11 @@ Corveaux Must Run Corveaux.
 
 ## Publishing Policy
 
-- [ ] Exists
+- [x] Exists — `Policy(type="publishing")` (seeded Session 09)
 
 ## Ontology Governance Policy
 
-- [ ] Exists
+- [x] Exists — `Policy(type="ontology_governance")` (seeded Session 09)
 
 ---
 
@@ -112,16 +112,16 @@ Corveaux Must Run Corveaux.
 
 ## Organization Blocks
 
-- [ ] Office of the System block generated
-- [ ] Office of the Platform block generated
+- [x] Office of the System block generated — `department_block:organization:office-of-the-system` (seeded Session 09, DRAFT)
+- [x] Office of the Platform block generated — `department_block:organization:office-of-the-platform` (seeded Session 09, DRAFT)
 
 ## Person Block
 
-- [ ] Travis profile block generated
+- [x] Travis profile block generated — `contact_block:person:travis-hornbuckle` (seeded Session 09, DRAFT)
 
 ## Position Block
 
-- [ ] Founder & CEO block generated
+- [x] Founder & Chief Systems Officer block generated — `department_block:position:founder-ceo-corveaux` (seeded Session 09, DRAFT)
 
 ---
 
@@ -187,3 +187,13 @@ No hardcoded Corveaux logic.
 No `if tenant == "corveaux"` branches.
 
 Corveaux successfully operates as Tenant Zero.
+
+## Related
+
+- [[Corveaux Institution Model]]
+- [[ADR-006 — Tenant Zero]]
+- [[ADR-004 — Platform Tenant Architecture]]
+- [[ADR-005 — Capability-Based Authority Model]]
+- [[ADR-012 — Canonical Schema Architecture]]
+- [[generated-tenant-spec]]
+- [[Corveaux V2 - Session 03 — Canonical Schema and Tenant Zero]]

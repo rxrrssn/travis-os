@@ -113,7 +113,7 @@ Dashboard vision: one dashboard per program objective, covering outreach totals,
 ## Key People
 
 - [[Megan Brandly]] -- Assistant Director; oversees 5 coaches
-- Coaches: Charlotte, Meti, Magen Despain (confirmed from student testimonials)
+- Coaches: Charlotte, Meti, [[Magen Despain]] (confirmed from student testimonials)
 - [[Seini Pahulu]] -- Director (30% allocation to OSC; also runs inbound/outbound Contact Center)
 
 ## Related

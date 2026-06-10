@@ -83,3 +83,13 @@ The more time employees spend fighting systems, the less time they spend helping
 If the system can do more of the administrative work, people can focus more of their attention on the people they serve.
 
 That is ultimately why Corveaux exists.
+
+## Related
+
+- [[Founder Letter]]
+- [[Why Institutions Fail To Understand Themselves]]
+- [[Why Higher Education First]]
+- [[Philosophy]]
+- [[Product Brief]]
+- [[The End State]]
+- [[Corveaux V2]]

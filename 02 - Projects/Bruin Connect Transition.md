@@ -16,7 +16,7 @@ tags:
 
 ## Context
 
-Following Utah HB 265 Phase 1, academic affairs underwent budget cuts and program closures. Leadership now has heightened focus on demonstrating metrics from student-facing teams -- OSC and the Contact Center specifically.
+Following [[HB 265|Utah HB 265]] Phase 1, academic affairs underwent budget cuts and program closures. Leadership now has heightened focus on demonstrating metrics from student-facing teams -- OSC and the Contact Center specifically.
 
 The institution is simultaneously evaluating a structural shift in how students access support. This project is a two-document proposal package going to AVP/VP and director level for sign-off:
 
@@ -210,3 +210,8 @@ Full-year PBX data pulled and consolidated in Excel via Power Query. Two-table m
 [[Contact Center Annual Report 2024-25]]
 [[SLCC Overview]]
 [[HB 265]]
+[[TDX]]
+[[Power Platform]]
+[[Mainstay Brutus]]
+[[One Voice One Brutus]]
+[[Navigate360 Transition]]

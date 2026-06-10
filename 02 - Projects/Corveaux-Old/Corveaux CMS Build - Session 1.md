@@ -97,4 +97,4 @@ Components:
 
 [[Corveaux]]
 [[Corveaux GTM Strategy]]
-[[Corveaux Design Language]]
+[[Corveaux CMS Build - Session 2]]

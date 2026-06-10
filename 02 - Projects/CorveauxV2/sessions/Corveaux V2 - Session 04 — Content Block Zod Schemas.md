@@ -1,4 +1,4 @@
----
+﻿---
 type: daily
 date: 2026-06-05
 ---
@@ -35,5 +35,5 @@ Completing the final deliverable from the content block schema design: Zod valid
 
 ## Related
 
-- [[specs/content-block-schema]]
+- [[content-block-schema]]
 - [[Corveaux V2 - Session 03 — Canonical Schema and Tenant Zero]]

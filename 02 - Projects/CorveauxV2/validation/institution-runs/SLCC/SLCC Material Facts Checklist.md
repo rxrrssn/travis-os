@@ -1,4 +1,4 @@
-# SLCC Material Facts Checklist — Day 30 Validation
+﻿# SLCC Material Facts Checklist — Day 30 Validation
 
 **Project:** Corveaux V2  
 **Purpose:** Manual scoring checklist for the SLCC Day 30 validation gate.  
@@ -285,7 +285,7 @@ Validate that raw extraction is safely separated from canonical state.
 | Every observation has `sourceUrl` | Exact page URL |  |  |
 | Every observation has `confidence` | Decimal 0.000–1.000 |  |  |
 | No confidence below 0.50 written | True |  |  |
-| Status transitions valid | pending → promoted/conflict/rejected |  |  |
+| Status transitions valid | pending â†’ promoted/conflict/rejected |  |  |
 | Promoted observations have `promotedRecordId` | Non-null |  |  |
 | Promoted observations have `promotedRecordType` | entity/relationship/policy/event |  |  |
 | Rejected observations do not affect canonical state | True |  |  |
@@ -317,7 +317,7 @@ Validate that raw extraction is safely separated from canonical state.
 - [ ] Source precedence policy applied
 - [ ] Conflicts detected where applicable
 - [ ] Content blocks generated
-- [ ] Manual accuracy score ≥ 90%
+- [ ] Manual accuracy score â‰¥ 90%
 - [ ] Every promoted fact has citation/provenance
 - [ ] No hallucinated material facts found in reviewed sample
 
@@ -345,9 +345,9 @@ Decision:
 
 ## Related
 
-- `validation/slcc-source-inventory.md`
-- `specs/extraction-pipeline-spec.md`
-- `specs/content-block-schema.md`
-- `ADR-001 — Entry Wedge Selection`
-- `ADR-002 — Institutional Model Primitives`
-- `ADR-012 — Canonical Schema Architecture`
+- [[SLCC Source Inventory]]
+- [[extraction-pipeline-spec]]
+- [[content-block-schema]]
+- [[ADR-001 — Entry Wedge Selection]]
+- [[ADR-002 — Institutional Model Primitives]]
+- [[ADR-012 — Canonical Schema Architecture]]

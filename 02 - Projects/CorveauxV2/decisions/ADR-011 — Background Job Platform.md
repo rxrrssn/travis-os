@@ -1,12 +1,15 @@
----
+﻿---
 type: decision
 domain: corveaux
-status: active
+status: superseded
 date: 2026-06-05
 tags: [corveaux, infrastructure, background-jobs, extraction-pipeline]
 ---
 
 # ADR-011 — Background Job Platform
+
+> [!status] Partially superseded on 2026-06-09
+> Cloudflare Workflows is now the execution substrate for platform provisioning and tenant generation. Trigger.dev remains the active substrate for crawling and extraction until Cloudflare-native fan-out, concurrency, retry, and idempotency behavior passes the SLCC validation corpus. See [[ADR-019 — Cloudflare and Neon Runtime Architecture]].
 
 ## Decision
 
@@ -129,11 +132,12 @@ The extraction pipeline is the first instance of this pattern. It is not the rea
 
 ## Status
 
-Accepted
+Superseded in part by ADR-019. Retained as historical rationale and as the current crawl/extraction implementation.
 
 ## Related
 
 - [[ADR-009 — Tech Stack]]
 - [[ADR-010 — Tenant Isolation Architecture]]
+- [[ADR-019 — Cloudflare and Neon Runtime Architecture]]
 - [[extraction-pipeline-spec]]
 - [[Corveaux V2 - Session 02 — Tech Stack and Vault Infrastructure]]

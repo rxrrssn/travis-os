@@ -34,7 +34,7 @@ This is a strength and a risk -- institutionally, the ideal state is rarely imme
 
 ## The Seini Dynamic
 
-Seini (Director, Contact Center) acts as a stabilizing and translating force. Travis pushes conceptual and operational boundaries. Seini helps shape that into execution the institution can absorb.
+[[Seini Pahulu]] (Director, Contact Center) acts as a stabilizing and translating force. Travis pushes conceptual and operational boundaries. Seini helps shape that into execution the institution can absorb.
 
 This dynamic is productive: Travis generates system-level thinking, Seini provides institutional reality calibration.
 
@@ -48,5 +48,10 @@ When helping Travis on SLCC work:
 ## Related
 
 [[Seini Pahulu]]
+[[Annalise Karr]]
+[[Megan Brandly]]
 [[Contact Center]]
+[[Online Success Coaching]]
+[[Bruin Connect Transition]]
+[[IVR Call Routing Analysis]]
 [[SLCC Overview]]

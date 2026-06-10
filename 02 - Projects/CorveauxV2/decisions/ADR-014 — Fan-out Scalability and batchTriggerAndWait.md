@@ -1,4 +1,4 @@
----
+﻿---
 type: decision
 domain: extraction-pipeline
 status: active

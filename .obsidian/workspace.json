@@ -4,35 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "87b3112a36940c3f",
+        "id": "f35487591a2b087c",
         "type": "tabs",
         "children": [
           {
-            "id": "c413a3f155f1843a",
+            "id": "ae9488f415d2c032",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 07 — Catalog Extraction and Promoter Fixes.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Corveaux V2 - Session 07 — Catalog Extraction and Promoter Fixes"
-            }
-          },
-          {
-            "id": "8cdf6e2b1b969a16",
-            "type": "leaf",
-            "state": {
-              "type": "travis-os-dashboard",
+              "type": "empty",
               "state": {},
-              "icon": "layout-dashboard",
-              "title": "Travis OS"
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -64,11 +49,11 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "\"Tenan",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
-                "extraContext": false,
+                "extraContext": true,
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
@@ -89,8 +74,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "4ab2c3837098b50a",
@@ -202,49 +186,47 @@
       "command-palette:Open command palette": false,
       "bases:Create new base": false,
       "templater-obsidian:Templater": false,
-      "omnisearch:Omnisearch": false,
       "obsidian-excalidraw-plugin:New drawing": false,
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "8cdf6e2b1b969a16",
+  "active": "ae9488f415d2c032",
   "lastOpenFiles": [
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 6 Plan.md.tmp.11100.6a1c7915c511",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 5.md.tmp.11100.a21422a11f82",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 3.md.tmp.11100.e8a692edb216",
-    "02 - Projects/Corveaux-Old/Corveaux CMS Build - Session 1.md.tmp.11100.484cef54aeb8",
-    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 08 — Trigger.dev Validation and Catalog Pilot.md.tmp.11100.31846b0654c6",
-    "02 - Projects/CorveauxV2/decisions/ADR-014 — Fan-out Scalability and batchTriggerAndWait.md.tmp.11100.e55fe2a71ca0",
-    "02 - Projects/CorveauxV2/validation/institution-runs/SLCC/SLCC Validation Run.md",
-    "02 - Projects/CorveauxV2/research/catalog-format-survey.md.tmp.11100.f473ed8bfb8f",
-    "02 - Projects/CorveauxV2/research/catalog-format-survey.md.tmp.11100.07c37d4147ed",
-    "02 - Projects/CorveauxV2/validation/Corveaux Tenant Zero Checklist.md.tmp.11100.6eba1776c55c",
-    "02 - Projects/CorveauxV2/validation/Corveaux Tenant Zero Checklist.md.tmp.11100.df5c4bd509fe",
-    "02 - Projects/CorveauxV2/validation/Corveaux Tenant Zero Checklist.md.tmp.11100.4184b0e3fb38",
-    "02 - Projects/CorveauxV2/decisions/ADR-014 — Fan-out Scalability and batchTriggerAndWait.md",
-    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 07 — Catalog Extraction and Promoter Fixes.md",
-    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 08 — Trigger.dev Validation and Catalog Pilot.md",
-    "02 - Projects/CorveauxV2/metrics.md",
-    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 06 — Auth Layer and SLCC Smoke Test.md",
-    "02 - Projects/CorveauxV2/validation/institution-runs/SLCC/SLCC Source Inventory.md",
-    "02 - Projects/CorveauxV2/validation/institution-runs/SLCC/SLCC Material Facts Checklist.md",
-    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 05 — Extraction Pipeline Implementation.md",
-    "02 - Projects/CorveauxV2/vision/Institutional Governance.md",
-    "02 - Projects/CorveauxV2/decisions/ADR-006 — Tenant Zero.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 22 — Cloudflare and Neon Deployment Closeout.md",
+    "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.14872.cabeff3223b8",
+    "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.14872.382d42465363",
+    "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.14872.8a222ed1e4e1",
+    "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.14872.88da2654d562",
+    "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.14872.f0481c1e2a75",
+    "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.14872.d4a731df0087",
+    "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.14872.88eabb839979",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 26 — Repo Hygiene, Security Audit, and ESLint Migration.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 26 — Repo Hygiene, Security Audit, and ESLint Migration.md.tmp.14872.ac6a9410506e",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 23 — GitHub Deployment Pipeline and Staging Stabilization.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 21 — Trigger.dev to Cloudflare Workflows Changeover Plan.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-020 — Deployment and Promotion Architecture.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-019 — Cloudflare and Neon Runtime Architecture.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-018 — Canonical Attribute Standardization and Relationship-Attached Policies.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 20.5 — Brand Identity Applied to Auth and Platform Admin.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 20.5 — Brand Identity Applied to Auth and Platform Admin.md.tmp.2604.a642cf88aa47",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 20 — Module Identity Renames and Admin Vocabulary Sweep.md.tmp.2604.0f43bf5f3930",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 20 — Module Identity Renames and Admin Vocabulary Sweep.md",
+    "02 - Projects/sessions/2026-06-07 — Corveaux V2 Session 19 — Platform Admin and Tenant Operations.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 19 — Platform Admin and Tenant Operations.md",
     "02 - Projects/CorveauxV2/Corveaux V2.md",
-    "02 - Projects/CorveauxV2/validation/Corveaux Tenant Zero Checklist.md",
-    "02 - Projects/Corveaux-Old/Corveaux.md",
-    "CLAUDE.md",
-    "02 - Projects/CorveauxV2/vision/The End State.md",
-    "02 - Projects/CorveauxV2/vision/Why Institutions Fail To Understand Themselves.md",
-    "02 - Projects/CorveauxV2/vision/Corveaux 2035.md",
-    "02 - Projects/CorveauxV2/vision/Why Higher Education First.md",
-    "02 - Projects/CorveauxV2/vision/Corveaux Constitution.md",
-    "02 - Projects/CorveauxV2/vision/Institutional Maturity Model.md",
-    "02 - Projects/CorveauxV2/vision/Vendor Displacement Strategy.md",
-    "02 - Projects/CorveauxV2/vision/What Corveaux Will Not Become.md",
-    "02 - Projects/CorveauxV2/vision/GTM Hypothesis.md",
-    "02 - Projects/CorveauxV2/vision/Philosophy.md",
+    "02 - Projects/CorveauxV2/validation/day-30-gate-resample-random-20-manual.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 17 — Day 30 Gate Live Re-Sample.md",
+    "02 - Projects/CorveauxV2/validation/day-30-gate-resample-findings.md",
+    "02 - Projects/CorveauxV2/validation/day-30-gate-assessment.md",
+    "02 - Projects/CorveauxV2/metrics.md",
+    "02 - Projects/CorveauxV2/catalog-review.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 16 — R2 Cleanup Close-Out and WAF Cache Poisoning Fix.md",
+    "Corveaux V2 - Session 04 - Content Block Zod Schemas.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 15 — Cartographer and Cache-Aware Crawling.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-017 — Cache-Aware Crawling and Extraction.md",
+    "02 - Projects/CorveauxV2/decisions/ADR-016 — Topological Extraction Order and Content Quality Pipeline.md",
+    "02 - Projects/Corveaux-Old/Corveaux Auth Architecture - Tenant Resolver.md",
+    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 14 — Day 30 Gate Defect Remediation.md",
     "Untitled.canvas"
   ]
 }

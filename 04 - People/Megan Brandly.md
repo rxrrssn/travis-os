@@ -21,5 +21,10 @@ Reports into the Contact Center umbrella (proposed: Bruin Connect). Oversees the
 ## Related
 
 [[Seini Pahulu]]
+[[Annalise Karr]]
+[[Magen Despain]]
 [[Online Success Coaching]]
 [[Bruin Connect Transition]]
+[[Navigate360 Transition]]
+[[OSC Executive Summary and Program Report Spring 2026]]
+[[OSC White Paper Fall 2025]]

@@ -105,7 +105,7 @@ Natural second move. Once Corveaux owns content, knowledge blocks, and departmen
 - AI assistants
 - Segmentation
 
-Directly aligned with Mainstay / Contact Center expertise and the One Voice philosophy.
+Directly aligned with [[Mainstay Brutus|Mainstay]] / [[Contact Center]] expertise and the [[One Voice One Brutus|One Voice]] philosophy.
 
 ### 3. Student Success / Advising
 
@@ -122,7 +122,7 @@ Corveaux becomes operational infrastructure:
 - Onboarding workflows
 - Internal service routing
 
-The TDX philosophy, generalized institution-wide.
+The [[TDX]] philosophy, generalized institution-wide.
 
 ### 5. SIS / ERP Core
 
@@ -152,3 +152,8 @@ Internally it is: progressive system-of-record displacement.
 [[Corveaux Pricing Model]]
 [[Corveaux Data Portability]]
 [[Corveaux Regulatory Surface]]
+[[SLCC Overview]]
+[[Mainstay Brutus]]
+[[Contact Center]]
+[[One Voice One Brutus]]
+[[TDX]]

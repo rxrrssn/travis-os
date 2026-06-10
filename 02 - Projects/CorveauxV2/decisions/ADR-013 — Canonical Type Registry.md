@@ -1,4 +1,4 @@
----
+﻿---
 type: decision
 domain: data-architecture
 status: active
@@ -57,7 +57,7 @@ Vendor displacement depends on a coherent canonical ontology. Without it, each i
 The test for a new canonical type:
 > "Would swapping the label change what institutional operations you can perform with this entity?"
 
-If swapping "Student" → "Person" changes nothing operationally, they are the same canonical type. If swapping "Housing Unit" → "Organization" would break institutional logic, they are distinct types.
+If swapping "Student" â†’ "Person" changes nothing operationally, they are the same canonical type. If swapping "Housing Unit" â†’ "Organization" would break institutional logic, they are distinct types.
 
 ## Stakeholders
 

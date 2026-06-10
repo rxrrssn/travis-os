@@ -1,4 +1,4 @@
----
+﻿---
 type: strategy
 domain: corveaux
 status: draft
@@ -85,3 +85,13 @@ Higher education is the stress test.
 Higher education is where Corveaux proves the model.
 
 It is not where the model ends.
+
+## Related
+
+- [[Why Corveaux Exists]]
+- [[SLCC Overview]]
+- [[SLCC Validation Run]]
+- [[SLCC Source Inventory]]
+- [[GTM Hypothesis]]
+- [[Product Brief]]
+- [[ADR-001 — Entry Wedge Selection]]

@@ -59,3 +59,7 @@ Utah HB 265 Phase 1 resulted in academic affairs budget cuts and program closure
 [[Power Platform]]
 [[Corveaux]]
 [[One Voice One Brutus]]
+[[Travis SLCC Positioning]]
+[[Bruin Connect Transition]]
+[[Navigate360 Transition]]
+[[IVR Call Routing Analysis]]

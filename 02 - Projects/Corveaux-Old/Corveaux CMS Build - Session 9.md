@@ -1,4 +1,4 @@
----
+﻿---
 type: session-note
 domain: corveaux
 status: complete
@@ -16,7 +16,7 @@ tags:
 
 ## What Was Built
 
-### TipTap WYSIWYG Editor ✅
+### TipTap WYSIWYG Editor âœ…
 
 Replaced raw textarea for RICH_TEXT blocks with a full TipTap editor.
 
@@ -29,23 +29,23 @@ BlockEditForm imports from `@/components/editor/RichTextEditor`. The old `src/co
 
 ---
 
-### Block Content Previews in Collapsed BlockCard Headers ✅
+### Block Content Previews in Collapsed BlockCard Headers âœ…
 
 When a BlockCard is collapsed, the header now shows a content preview:
-- HERO → headline text
-- RICH_TEXT → stripped plain text (120 char truncated)
-- CARD → title
-- CALLOUT → title + body
-- SECTION_HEADER → headline
-- FEATURE_GRID → section headline or first item headline
-- PULLQUOTE → first 80 chars of quote
-- SERVICE_GRID / LINK_GRID → section headline
+- HERO â†’ headline text
+- RICH_TEXT â†’ stripped plain text (120 char truncated)
+- CARD â†’ title
+- CALLOUT â†’ title + body
+- SECTION_HEADER â†’ headline
+- FEATURE_GRID â†’ section headline or first item headline
+- PULLQUOTE â†’ first 80 chars of quote
+- SERVICE_GRID / LINK_GRID â†’ section headline
 
 Falls back to `block.key` in monospace if no preview is extractable.
 
 ---
 
-### Brand Asset Management ✅
+### Brand Asset Management âœ…
 
 **File upload API:** `src/app/api/upload/route.ts`
 - Auth-gated POST handler
@@ -61,7 +61,7 @@ Falls back to `block.key` in monospace if no preview is extractable.
 
 ---
 
-### Branding Propagation ✅
+### Branding Propagation âœ…
 
 Theme CSS vars (`--t-primary`, `--t-nav-bg`, `--t-nav-text`, `--t-bg`, `--t-surface`, `--t-heading`, `--t-body`) now applied consistently:
 
@@ -73,7 +73,7 @@ Platform admin (`/admin`) pulls branding from the INTERNAL tenant — same `tena
 
 ---
 
-### Logo + Tenant Name Always Together ✅
+### Logo + Tenant Name Always Together âœ…
 
 All sidebars and headers show logo (or initial badge fallback) AND tenant name simultaneously.
 
@@ -83,30 +83,30 @@ All sidebars and headers show logo (or initial badge fallback) AND tenant name s
 
 ---
 
-### Responsive Public Nav ✅
+### Responsive Public Nav âœ…
 
 `src/components/platform/PublicHeader.tsx` (new client component):
 - Desktop: horizontal nav links
-- Mobile: hamburger button (Menu/X toggle) → dropdown nav
+- Mobile: hamburger button (Menu/X toggle) â†’ dropdown nav
 - CSS vars inherited from server-rendered parent wrapper; no prop drilling needed
 
 ---
 
-### Root KB Routes ✅
+### Root KB Routes âœ…
 
 `src/app/kb/page.tsx` and `src/app/kb/[articleSlug]/page.tsx` — public KB pages at the platform root, using `getInternalTenant()` + `getPrimarySiteForTenant()`. Same layout as tenant KB pages but scoped to the INTERNAL tenant.
 
 ---
 
-### Slug Change ✅
+### Slug Change âœ…
 
-`corveaux-university` → `corveaux`
+`corveaux-university` â†’ `corveaux`
 
 Seed handles gracefully: `updateMany({ where: { slug: 'corveaux-university', tenantType: 'INTERNAL' }, data: { slug: 'corveaux' } })` runs before the upsert.
 
 ---
 
-### New Block Types ✅
+### New Block Types âœ…
 
 Five new block types added to match the corveaux.app layout. All wired through: `src/types/content.ts`, `src/components/blocks/BlockRenderer.tsx`, `src/components/admin/BlockEditForm.tsx`, both `NewBlockButton.tsx` files, both `BlockCard.tsx` files, both `BlockPicker.tsx` files.
 
@@ -125,7 +125,7 @@ Five new block types added to match the corveaux.app layout. All wired through: 
 
 ---
 
-### Codebase Refactor ✅
+### Codebase Refactor âœ…
 
 Eliminated ~200 LOC of duplication by extracting shared modules:
 
@@ -138,13 +138,13 @@ Eliminated ~200 LOC of duplication by extracting shared modules:
 - `BLOCK_TYPE_LABELS` — display name mapping for all 9 types
 - `BLOCK_EMPTY_CONTENT` — default JSON content per type (now includes all 9 types including new ones)
 
-14 files updated to import from these shared modules. `npx tsc --noEmit` → clean.
+14 files updated to import from these shared modules. `npx tsc --noEmit` â†’ clean.
 
 ---
 
 ## Build Status
 
-- `npx tsc --noEmit` → clean
+- `npx tsc --noEmit` â†’ clean
 - Corveaux repo: all changes staged; committed to `master`
 - Vault: session 9 note committed to `main`
 

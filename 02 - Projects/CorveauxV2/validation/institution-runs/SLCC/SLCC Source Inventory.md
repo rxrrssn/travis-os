@@ -1,4 +1,4 @@
-# SLCC Source Inventory — Day 30 Validation
+﻿# SLCC Source Inventory — Day 30 Validation
 
 **Project:** Corveaux V2  
 **Purpose:** Seed source targets for the first SLCC extraction smoke test and Day 30 validation run.  
@@ -171,8 +171,8 @@ This should be stored as a `Policy(type="source_precedence")`, not hardcoded.
 
 ## Related
 
-- `specs/extraction-pipeline-spec.md`
-- `validation/slcc-material-facts-checklist.md`
-- `ADR-001 — Entry Wedge Selection`
-- `ADR-002 — Institutional Model Primitives`
-- `ADR-011 — Background Job Platform`
+- [[extraction-pipeline-spec]]
+- [[SLCC Material Facts Checklist]]
+- [[ADR-001 — Entry Wedge Selection]]
+- [[ADR-002 — Institutional Model Primitives]]
+- [[ADR-011 — Background Job Platform]]

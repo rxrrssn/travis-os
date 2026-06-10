@@ -1,4 +1,4 @@
----
+﻿---
 type: constitution
 domain: corveaux
 status: draft
@@ -86,3 +86,13 @@ Every decision must answer:
 > Does this make it easier or harder for Corveaux to model and operate the institution?
 
 If harder, reconsider.
+
+## Related
+
+- [[Philosophy]]
+- [[Institutional Governance]]
+- [[The End State]]
+- [[What Corveaux Will Not Become]]
+- [[Corveaux Institution Model]]
+- [[ADR-002 — Institutional Model Primitives]]
+- [[ADR-005 — Capability-Based Authority Model]]

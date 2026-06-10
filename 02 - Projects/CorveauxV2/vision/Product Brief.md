@@ -1,4 +1,4 @@
----
+﻿---
 type: concept
 domain: corveaux
 status: active
@@ -43,7 +43,7 @@ The first product is the Institutional Knowledge Layer.
 Not because it is the final vision. Because it is the easiest manifestation of the vision.
 
 **Components:**
-1. Institutional Discovery — Website + Catalog + Directory → Institutional Model
+1. Institutional Discovery — Website + Catalog + Directory â†’ Institutional Model
 2. Content Block Generation — Institutional knowledge becomes reusable blocks
 3. Role-Aware Rendering — One institutional reality, rendered differently for each audience
 4. Governance Layer — Ownership, approval, auditability, review cycles

@@ -1,4 +1,4 @@
-import { App, ItemView, Notice, TFile, WorkspaceLeaf } from 'obsidian';
+import { App, ItemView, TFile, WorkspaceLeaf } from 'obsidian';
 import * as d3 from 'd3';
 
 export const DASHBOARD_VIEW_TYPE = 'travis-os-dashboard';
@@ -45,17 +45,15 @@ const FOLDER_ORDER = [
 ];
 const TASK_FOLDERS  = ['02 - Projects', '01 - Daily'];
 const TOKEN_LOG     = '00 - Inbox/claude-tokens.json';
-const GRAPH_EXCLUDE = ['plugin/', '.obsidian/'];
-const MAX_SESSIONS  = 6;
+const GRAPH_EXCLUDE = ['plugin/', '.obsidian/', '99 - Templates/'];
 const SIM_W = 800;
 const SIM_H = 480;
 
-interface GraphNode extends d3.SimulationNodeDatum { id: string; type: string; path: string; }
+interface GraphNode extends d3.SimulationNodeDatum { id: string; type: string; path: string; degree: number; }
 interface GraphLink extends d3.SimulationLinkDatum<GraphNode> { source: string | GraphNode; target: string | GraphNode; }
 interface TokenSession { date: string; tokens_in: number; tokens_out: number; total: number; session_label?: string; }
 interface TokenLog { daily_limit?: number; monthly_limit: number; sessions: TokenSession[]; }
 interface LiveTokens { session: number; today: number; allTime: number; }
-interface SessionInfo { id: string; mtime: Date; preview: string; }
 
 export class DashboardView extends ItemView {
   private sim: d3.Simulation<GraphNode, GraphLink> | null = null;
@@ -88,13 +86,10 @@ export class DashboardView extends ItemView {
     const right = grid.createDiv('tos-col-right');
 
     await this.buildDailyPanel(left);
-    this.buildCapturePanel(left);
     this.buildRecentPanel(left);
     await this.buildTasksPanel(left);
-    await this.buildTokenPanel(left);
     await this.buildStatsPanel(left);
     await this.buildGraphPanel(right);
-    this.buildSessionPanel(right);
   }
 
   // ── Header ───────────────────────────────────────────────────────────────
@@ -159,45 +154,6 @@ export class DashboardView extends ItemView {
   }
 
   // ── Quick Capture ─────────────────────────────────────────────────────────
-
-  private buildCapturePanel(col: HTMLElement) {
-    const body = this.panel(col, 'QUICK CAPTURE', 'tos-capture-panel');
-
-    const textarea = body.createEl('textarea') as HTMLTextAreaElement;
-    textarea.addClass('tos-capture-input');
-    textarea.placeholder = 'capture a thought...';
-    textarea.rows = 3;
-
-    const row = body.createDiv('tos-capture-row');
-    const btn  = row.createEl('button', { cls: 'tos-capture-btn', text: 'CAPTURE' });
-    row.createSpan({ cls: 'tos-capture-hint', text: 'ctrl+enter' });
-
-    const capture = async () => {
-      const text = textarea.value.trim();
-      if (!text) return;
-
-      const m   = (window as any).moment;
-      const now = m ? m() : new Date();
-      const ts  = m ? now.format('YYYY-MM-DD HH-mm-ss') : new Date().toISOString().slice(0, 19).replace(/[T:]/g, '-');
-      const title    = text.split('\n')[0].slice(0, 40).replace(/[\\/:*?"<>|]/g, '');
-      const dateStr  = m ? now.format('YYYY-MM-DD HH:mm') : new Date().toLocaleString();
-      const fileName = `00 - Inbox/${ts} ${title}.md`;
-
-      try {
-        await this.obsApp.vault.create(fileName, `---\ntype: capture\ndate: ${dateStr}\n---\n\n${text}\n`);
-        textarea.value = '';
-        btn.setText('CAPTURED');
-        btn.addClass('tos-capture-ok');
-        setTimeout(() => { btn.setText('CAPTURE'); btn.removeClass('tos-capture-ok'); }, 1600);
-      } catch {
-        btn.setText('ERROR');
-        setTimeout(() => btn.setText('CAPTURE'), 1600);
-      }
-    };
-
-    btn.addEventListener('click', capture);
-    textarea.addEventListener('keydown', e => { if (e.key === 'Enter' && e.ctrlKey) { e.preventDefault(); capture(); } });
-  }
 
   // ── Recent Notes ──────────────────────────────────────────────────────────
 
@@ -393,8 +349,10 @@ export class DashboardView extends ItemView {
       );
 
     nodeSel.append('circle')
-      .attr('r',    d => d.type === '01 - Daily' ? 3.5 : 5.5)
+      .attr('r',    d => this.nodeRadius(d))
       .attr('fill', d => this.folderColor(d.path))
+      .attr('stroke', d => this.folderStrokeColor(d.path))
+      .attr('stroke-width', 3)
       .attr('class', 'tos-node-circle');
 
     nodeSel.append('title').text(d => d.id);
@@ -411,135 +369,6 @@ export class DashboardView extends ItemView {
   }
 
   // ── Session Panel ─────────────────────────────────────────────────────────
-
-  private buildSessionPanel(col: HTMLElement) {
-    const wrap = col.createDiv('tos-panel tos-session-panel');
-    wrap.createDiv({ cls: 'tos-panel-title', text: 'CLAUDE SESSIONS' });
-    const body = wrap.createDiv('tos-session-body');
-
-    const topRow = body.createDiv('tos-session-actions');
-    const newBtn = topRow.createEl('button', { cls: 'tos-session-new', text: '+ NEW SESSION' });
-    const conBtn = topRow.createEl('button', { cls: 'tos-session-con', text: 'CONTINUE LAST' });
-    newBtn.addEventListener('click', () => this.launchClaude('new', newBtn as HTMLButtonElement));
-    conBtn.addEventListener('click', () => this.launchClaude('continue', conBtn as HTMLButtonElement));
-
-    const sessions = this.getSessions();
-
-    if (!sessions.length) {
-      body.createDiv({ cls: 'tos-empty', text: 'NO SESSIONS FOUND' });
-      return;
-    }
-
-    const list = body.createDiv('tos-session-list');
-    for (const s of sessions.slice(0, MAX_SESSIONS)) {
-      const row = list.createDiv('tos-session-row');
-
-      const info = row.createDiv('tos-session-info');
-      info.createDiv({ cls: 'tos-session-date', text: this.fmtDate(s.mtime) });
-      info.createDiv({ cls: 'tos-session-id',   text: s.id.slice(0, 8) });
-      if (s.preview) info.createDiv({ cls: 'tos-session-preview', text: s.preview });
-
-      const btn = row.createEl('button', { cls: 'tos-resume-btn', text: 'RESUME' });
-      btn.addEventListener('click', () => this.launchClaude(s.id, btn as HTMLButtonElement));
-    }
-  }
-
-  private getSessions(): SessionInfo[] {
-    try {
-      const fs   = require('fs')   as typeof import('fs');
-      const path = require('path') as typeof import('path');
-      const os   = require('os')   as typeof import('os');
-
-      const projectHash = this.vaultPath().replace(/\\/g, '-').replace(/:/g, '-');
-      const claudeDir   = path.join(os.homedir(), '.claude', 'projects', projectHash);
-      if (!fs.existsSync(claudeDir)) return [];
-
-      return (fs.readdirSync(claudeDir) as string[])
-        .filter((f: string) => f.endsWith('.jsonl'))
-        .map((f: string) => {
-          const full  = path.join(claudeDir, f);
-          const id    = f.slice(0, -6);
-          const mtime = new Date(fs.statSync(full).mtimeMs);
-          let preview = '';
-
-          try {
-            const lines = (fs.readFileSync(full, 'utf8') as string).split('\n');
-            for (const line of lines.slice(0, 40)) {
-              if (!line.trim()) continue;
-              try {
-                const obj = JSON.parse(line);
-                if (obj.type === 'user' && typeof obj.message?.content === 'string') {
-                  preview = obj.message.content.slice(0, 72).replace(/\n/g, ' ');
-                  break;
-                }
-              } catch { /* skip */ }
-            }
-          } catch { /* skip */ }
-
-          return { id, mtime, preview };
-        })
-        .sort((a: SessionInfo, b: SessionInfo) => b.mtime.getTime() - a.mtime.getTime());
-    } catch {
-      return [];
-    }
-  }
-
-  private launchClaude(mode: string, btn?: HTMLButtonElement) {
-    const fs   = require('fs')   as typeof import('fs');
-    const path = require('path') as typeof import('path');
-    const os   = require('os')   as typeof import('os');
-    const { exec, execSync } = require('child_process') as typeof import('child_process');
-
-    const vault = this.vaultPath();
-
-    // Resolve absolute path to claude.cmd to avoid Electron PATH gaps
-    let claudeBin = 'claude';
-    try {
-      const lines = (execSync('where claude', { shell: true }) as Buffer)
-        .toString().split(/\r?\n/).map((l: string) => l.trim()).filter(Boolean);
-      claudeBin = lines.find((l: string) => l.toLowerCase().endsWith('.cmd'))
-               ?? lines.find((l: string) => l.toLowerCase().endsWith('.exe'))
-               ?? lines[0]
-               ?? 'claude';
-    } catch { /* fallback to 'claude' */ }
-
-    const claudeArg =
-      mode === 'new'      ? '' :
-      mode === 'continue' ? '--continue' :
-                            `--resume ${mode}`;
-
-    // Write a temp .ps1 file -- eliminates ALL quoting issues
-    const scriptPath = path.join(os.tmpdir(), `travis-os-${Date.now()}.ps1`);
-    fs.writeFileSync(
-      scriptPath,
-      `Set-Location '${vault.replace(/'/g, "''")}'\r\n& '${claudeBin.replace(/'/g, "''")}' ${claudeArg}\r\n`,
-      'utf8'
-    );
-
-    if (btn) { btn.disabled = true; btn.setText('LAUNCHING...'); }
-    const btnLabel = mode === 'new' ? '+ NEW SESSION' : mode === 'continue' ? 'CONTINUE LAST' : 'RESUME';
-    const restore  = (label: string) => { if (btn) { btn.disabled = false; btn.setText(label); } };
-    const cleanup  = () => { try { fs.unlinkSync(scriptPath); } catch { /* ignore */ } };
-
-    const psArgs = `-NoExit -NoProfile -ExecutionPolicy Bypass -File "${scriptPath}"`;
-    const wtCmd  = `start "" wt.exe new-tab -- powershell.exe ${psArgs}`;
-    const psCmd  = `start "" powershell.exe ${psArgs}`;
-
-    exec(wtCmd, { shell: true }, (err) => {
-      if (!err) { restore(btnLabel); setTimeout(cleanup, 15_000); return; }
-
-      exec(psCmd, { shell: true }, (err2) => {
-        cleanup();
-        if (!err2) { restore(btnLabel); return; }
-        restore('ERROR');
-        new Notice(`Travis OS: failed to open terminal\n${err2.message}`, 8000);
-      });
-    });
-  }
-
-  private fmtDate(d: Date): string {
-    return d.toISOString().slice(0, 16).replace('T', '  ');
-  }
 
   private relTime(mtime: number): string {
     const mins = Math.floor((Date.now() - mtime) / 60_000);
@@ -592,6 +421,23 @@ export class DashboardView extends ItemView {
     return Math.abs(h);
   }
 
+  private folderStrokeColor(path: string): string {
+    const parts = path.split('/');
+    parts.pop();
+    if (!parts.length) return FOLDER_COLORS.default;
+
+    const folderPath = parts.join('/');
+    const h = this.strHash(folderPath) % 360;
+    const s = 88;
+    const l = parts.length === 1 ? 54 : Math.min(78, 52 + parts.length * 7);
+    return `hsl(${h}, ${s}%, ${l}%)`;
+  }
+
+  private nodeRadius(node: GraphNode): number {
+    const base = node.type === '01 - Daily' ? 3.5 : 5;
+    return Math.min(16, base + Math.sqrt(node.degree) * 2.2);
+  }
+
   // ── Data helpers ──────────────────────────────────────────────────────────
 
   private graphData(): { nodes: GraphNode[]; links: GraphLink[] } {
@@ -603,7 +449,7 @@ export class DashboardView extends ItemView {
       if (GRAPH_EXCLUDE.some(prefix => f.path.startsWith(prefix))) continue;
       const meta = this.obsApp.metadataCache.getFileCache(f);
       const type = f.path.split('/')[0];
-      nodes.push({ id: f.basename, type, path: f.path });
+      nodes.push({ id: f.basename, type, path: f.path, degree: 0 });
       ids.add(f.basename);
     }
 
@@ -618,59 +464,17 @@ export class DashboardView extends ItemView {
       }
     }
 
-    return { nodes, links };
-  }
-
-  private readLiveTokens(): LiveTokens | null {
-    try {
-      const fs   = require('fs')   as typeof import('fs');
-      const path = require('path') as typeof import('path');
-      const os   = require('os')   as typeof import('os');
-
-      const projectHash = this.vaultPath().replace(/\\/g, '-').replace(/:/g, '-');
-      const claudeDir   = path.join(os.homedir(), '.claude', 'projects', projectHash);
-      if (!fs.existsSync(claudeDir)) return null;
-
-      const now       = Date.now();
-      const dayStart  = now - (now % 86_400_000);
-
-      const files = (fs.readdirSync(claudeDir) as string[])
-        .filter((f: string) => f.endsWith('.jsonl'))
-        .map((f: string) => ({ name: f, mtime: fs.statSync(path.join(claudeDir, f)).mtimeMs }))
-        .sort((a: { mtime: number }, b: { mtime: number }) => b.mtime - a.mtime);
-
-      if (!files.length) return null;
-
-      const sessionFile = files[0].name;
-      let session = 0, today = 0, allTime = 0;
-
-      for (const { name, mtime } of files) {
-        const content   = fs.readFileSync(path.join(claudeDir, name), 'utf8') as string;
-        const isSession = name === sessionFile;
-        const isToday   = mtime >= dayStart;
-
-        for (const line of content.split('\n')) {
-          if (!line.trim()) continue;
-          try {
-            const obj = JSON.parse(line);
-            const u   = obj?.message?.usage;
-            if (!u) continue;
-            // Include all token types: fresh input, cache creation, cache reads, output
-            const t = (u.input_tokens ?? 0)
-                    + (u.cache_creation_input_tokens ?? 0)
-                    + (u.cache_read_input_tokens ?? 0)
-                    + (u.output_tokens ?? 0);
-            allTime += t;
-            if (isSession) session += t;
-            if (isToday)   today   += t;
-          } catch { /* malformed line */ }
-        }
-      }
-
-      return { session, today, allTime };
-    } catch {
-      return null;
+    const byId = new Map(nodes.map(node => [node.id, node]));
+    for (const link of links) {
+      const sourceId = typeof link.source === 'string' ? link.source : link.source.id;
+      const targetId = typeof link.target === 'string' ? link.target : link.target.id;
+      const source = byId.get(sourceId);
+      const target = byId.get(targetId);
+      if (source) source.degree++;
+      if (target) target.degree++;
     }
+
+    return { nodes, links };
   }
 
   private async openTasks(): Promise<Array<{ text: string; path: string }>> {
@@ -695,22 +499,21 @@ export class DashboardView extends ItemView {
     return results;
   }
 
+  private readLiveTokens(): LiveTokens | null {
+    return null;
+  }
+
   private async readTokenLog(): Promise<TokenLog | null> {
-    const f = this.obsApp.vault.getAbstractFileByPath(TOKEN_LOG);
-    if (!(f instanceof TFile)) return null;
-    try { return JSON.parse(await this.obsApp.vault.read(f)) as TokenLog; }
-    catch { return null; }
+    return null;
   }
 
   private monthlyUsed(log: TokenLog): number {
-    const m = (window as any).moment;
-    const start = m ? m().startOf('month').format('YYYY-MM-DD') : new Date().toISOString().slice(0, 7) + '-01';
-    return log.sessions.filter(s => s.date >= start).reduce((n, s) => n + s.total, 0);
+    return log.sessions.reduce((n, s) => n + s.total, 0);
   }
 
   private fmtTok(n: number): string {
     if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(2)}M`;
-    if (n >= 1_000)     return `${(n / 1_000).toFixed(1)}k`;
+    if (n >= 1_000) return `${(n / 1_000).toFixed(1)}k`;
     return String(n);
   }
 

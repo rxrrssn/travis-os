@@ -1,13 +1,13 @@
----
+﻿---
 type: spec
 domain: corveaux
-status: draft
-date: 2026-06-05
+status: active
+date: 2026-06-06
 tags: [corveaux, rendering, role-aware, spec]
 ---
 # Role-Aware Rendering Spec  
   
-**Status:** Draft. To be written before Day 60.  
+**Status:** Complete. Decided Session 09 (2026-06-06). See [[ADR-015 — Rendering Architecture]].  
   
 ## Purpose  
   
@@ -113,14 +113,42 @@ Different projection.
   
 ---  
   
-## Open Questions  
-  
-- [ ] Is this implemented through React Server Components, middleware, client-side rendering, or a combination?  
-- [ ] What is the routing structure?  
-- [ ] How does demo mode work without exposing administrative views?  
-- [ ] Is audience awareness represented through metadata, rendering rules, policies, or a combination?  
-- [ ] Which rendering decisions belong in the policy layer versus the rendering layer?  
-- [ ] How is personalization distinguished from audience-aware rendering?  
+## Implementation (Decided ADR-015, 2026-06-06)
+
+### Rendering Implementation
+
+- [x] Is this implemented through React Server Components, middleware, client-side rendering, or a combination? — **React Server Components, resolved server-side. No client-side context switching.** Middleware injects `x-audience-context` request header from auth state. RSC reads the header via `headers()` from `next/headers`. All block filtering and field visibility is applied server-side before the response reaches the client. Client receives only the fields it is permitted to render.
+
+### Routing Structure
+
+- [x] What is the routing structure? — **Two App Router route groups:**
+  - `(tenant)` — public routes; no auth required for visitor context; CDN-cacheable; institution's public identity. URLs: `/programs/[slug]`, `/courses/[slug]`, `/departments/[slug]`, `/services/[slug]`, `/policies/[slug]`, `/contacts/[slug]`, `/search`.
+  - `(platform)` — administrative routes; auth required; governance metadata visible; never indexed. URLs: `/admin/programs/[slug]`, `/admin/gaps`, `/admin/blocks`, `/admin/ownership`.
+  - Public URL (`/programs/[slug]`) is the institutional identity of the entity. Admin URL (`/admin/programs/[slug]`) is the platform operator view of that entity. Two routes, same underlying block, different projection scope.
+
+### Demo Mode
+
+- [x] How does demo mode work without exposing administrative views? — **Demo mode is the public `(tenant)` route.** No separate demo infrastructure, no demo tokens, no special-case logic. The public visitor projection of the institution IS the demo. For demonstrating specific audience perspectives (e.g., "what a prospective student sees"), a `?context=` query parameter on public routes unlocks additional non-administrative contexts (`visitor`, `prospective_student`, `current_student`). The param is constrained in RSC — it cannot unlock `administrator`, `staff`, or `faculty`. Administrative metadata never reaches unauthenticated routes regardless of query params.
+
+### Audience Awareness Mechanism
+
+- [x] Is audience awareness represented through metadata, rendering rules, policies, or a combination? — **A combination of two distinct mechanisms with distinct responsibilities:**
+  - `renderingContexts: string[]` on the content block — **targeting**. Answers: should this block appear in this context at all? Set at block generation time. Static per block.
+  - Policy record (`policyType: "rendering_visibility"`) — **field visibility**. Answers: within this context, which fields from `block.content` are visible? Evaluated at render time in RSC via `applyFieldVisibility()`. Dynamic per policy version.
+
+### Policy Layer vs Rendering Layer
+
+- [x] Which rendering decisions belong in the policy layer versus the rendering layer? —
+  - **Policy layer:** which `content` fields are visible within a given context for a given block type. These are governance decisions that can change without code deployment.
+  - **Rendering layer (RSC):** which blocks appear on a given page; layout and component composition; how fields are displayed (typography, order, component type). These are implementation decisions encoded in React components.
+  - The rendering layer never decides what is true. It decides how truth is presented. The policy layer never decides how truth is presented. It decides which truths are permitted in a given context.
+
+### Personalization vs Audience-Aware Rendering
+
+- [x] How is personalization distinguished from audience-aware rendering? —
+  - **Audience-aware rendering** (V1 — implemented by this spec): context is the unit of variation. All people in the same context receive the same projection. Output is deterministic and context-identical. CDN-cacheable per context. No individual data required.
+  - **Personalization** (V2 — deferred): the individual is the unit of variation. A current student sees their remaining requirements, their specific advisor, their deadline. Requires identity resolution (session → person entity → institutional relationships). Cannot be CDN-cached. Requires SIS identity integration.
+  - The boundary rule: if a rendering decision requires knowing which specific authenticated person is making the request (not just their context), it is personalization. It belongs in V2, after SIS integration. No V1 code may assume personalization is available.  
   
 ---  
   
@@ -128,17 +156,19 @@ Different projection.
   
 This spec is complete when:  
   
-- Audience context is formally defined  
-- Rendering decision points are identified  
-- Routing strategy is defined  
-- Demo mode is defined  
-- Governance and security implications are understood  
-- The same institutional reality can render appropriately for all supported audiences  
+- [x] Audience context is formally defined — six contexts defined in Rendering Contexts Registry (content-block-schema.md)
+- [x] Rendering decision points are identified — targeting via `renderingContexts`; field visibility via Policy; layout via RSC components
+- [x] Routing strategy is defined — `(tenant)` public + `(platform)` admin route groups; see ADR-015
+- [x] Demo mode is defined — public `(tenant)` route IS demo mode; `?context=` param for audience switching
+- [x] Governance and security implications are understood — admin metadata structurally isolated to `(platform)` routes; middleware enforces auth gate; RSC enforces field visibility; `?context=` constrained to non-admin contexts
+- [x] The same institutional reality can render appropriately for all supported audiences — one block, multiple `renderingContexts` targets, Policy-driven field visibility per context  
   
 ---  
   
 ## Related  
   
 - [[ADR-003 — Content Block Architecture]]  
+- [[ADR-015 — Rendering Architecture]]
 - [[generated-tenant-spec]]  
 - [[ADR-009 — Tech Stack]]
+- [[content-block-schema]]

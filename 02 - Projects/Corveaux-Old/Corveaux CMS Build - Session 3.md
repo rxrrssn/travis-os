@@ -1,4 +1,4 @@
----
+﻿---
 type: session-note
 domain: corveaux
 status: complete
@@ -45,7 +45,7 @@ Built a standalone block editor at `/admin/blocks/[blockId]/edit/`.
 ## Blocks List — Tenant Scoping + Edit Links
 
 `src/app/admin/blocks/page.tsx`:
-- Added tenant scoping: `const tenant = await prisma.tenant.findFirst(...)` → `where: { tenantId: tenant.id }`
+- Added tenant scoping: `const tenant = await prisma.tenant.findFirst(...)` â†’ `where: { tenantId: tenant.id }`
 - Block cards are now `<Link href="/admin/blocks/[id]/edit">` — clicking any card opens the editor
 
 ---
@@ -75,7 +75,7 @@ The action also normalizes slugs on save (lowercase, strip non-alphanumeric) and
 ## Pages List — Tenant Scoping
 
 `src/app/admin/pages/page.tsx`:
-- Added `tenant = prisma.tenant.findFirst(...)` → `where: { tenantId: tenant.id }` on the `findMany`
+- Added `tenant = prisma.tenant.findFirst(...)` â†’ `where: { tenantId: tenant.id }` on the `findMany`
 
 ---
 
@@ -112,8 +112,8 @@ New fields added to the editor:
 
 **`src/app/admin/kb/[articleId]/edit/page.tsx`**
 Now loads `departmentContext`, `services`, `tags`, and `relatedArticles` from the server. Related articles query:
-1. If article has tags → find other articles sharing at least one tag (same tenant, max 8)
-2. Else if article has departmentContext → find other articles in same department (same tenant, max 8)
+1. If article has tags â†’ find other articles sharing at least one tag (same tenant, max 8)
+2. Else if article has departmentContext â†’ find other articles in same department (same tenant, max 8)
 
 ---
 
@@ -132,8 +132,8 @@ Crawls an existing website and migrates its content into Corveaux as a new site 
 2. Extracts site name from `<title>` or `og:title` if not provided
 3. Discovers internal links (same-origin `<a href>`), skips media/asset extensions
 4. Deduplicates by path, caps at 30 pages
-5. For each page: fetches HTML, extracts content from `<main>` → `<article>` → `#content` → `.content` → `<body>` fallback, strips scripts/styles/nav/header/footer
-6. Creates: `Site` → `Page` → `ContentBlock (RICH_TEXT)` → `PageBlock` — all in DRAFT status
+5. For each page: fetches HTML, extracts content from `<main>` â†’ `<article>` â†’ `#content` â†’ `.content` â†’ `<body>` fallback, strips scripts/styles/nav/header/footer
+6. Creates: `Site` â†’ `Page` â†’ `ContentBlock (RICH_TEXT)` â†’ `PageBlock` — all in DRAFT status
 7. Redirects to `/admin/sites/[siteId]` on completion
 
 **Timeout:** 10s per page fetch (via `AbortSignal.timeout`)

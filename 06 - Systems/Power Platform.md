@@ -25,9 +25,9 @@ tags:
 
 - PBX exports (RingCentral)
 - Student systems
-- Coaching systems (Starfish / Navigate360)
-- Chatbot data (Mainstay)
-- TDX
+- Coaching systems (Starfish / [[Navigate360 Transition|Navigate360]])
+- Chatbot data ([[Mainstay Brutus|Mainstay]])
+- [[TDX]]
 - Canvas
 - CRM exports
 
@@ -56,3 +56,5 @@ Strong preference for operational reporting over vanity dashboards.
 [[Contact Center]]
 [[Online Success Coaching]]
 [[SLCC Overview]]
+[[Navigate360 Transition]]
+[[Mainstay Brutus]]

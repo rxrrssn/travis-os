@@ -1,4 +1,4 @@
----
+﻿---
 type: decision
 domain: corveaux
 status: active

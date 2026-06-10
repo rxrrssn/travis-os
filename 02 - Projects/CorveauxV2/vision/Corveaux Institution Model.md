@@ -1,4 +1,4 @@
-# Corveaux Institution Model (Tenant Zero)
+﻿# Corveaux Institution Model (Tenant Zero)
 
 ## Purpose
 
@@ -277,3 +277,14 @@ Corveaux Tenant Zero is considered valid when:
 - No special-case logic exists
 
 Success means Corveaux can represent and operate itself using only the canonical institutional model.
+
+## Related
+
+- [[Corveaux Tenant Zero Checklist]]
+- [[ADR-006 — Tenant Zero]]
+- [[ADR-004 — Platform Tenant Architecture]]
+- [[ADR-005 — Capability-Based Authority Model]]
+- [[ADR-012 — Canonical Schema Architecture]]
+- [[Corveaux Constitution]]
+- [[Institutional Governance]]
+- [[Corveaux V2]]

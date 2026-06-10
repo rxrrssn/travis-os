@@ -82,7 +82,10 @@ Proposed dashboards per objective:
 
 [[Online Success Coaching]]
 [[Megan Brandly]]
+[[Seini Pahulu]]
 [[Bruin Connect Transition]]
 [[HB 265]]
 [[Power Platform]]
 [[TDX]]
+[[SLCC Overview]]
+[[OSC Executive Summary and Program Report Spring 2026]]

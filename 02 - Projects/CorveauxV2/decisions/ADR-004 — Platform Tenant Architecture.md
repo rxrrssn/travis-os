@@ -1,4 +1,4 @@
----
+﻿---
 type: decision
 domain: corveaux
 status: active
@@ -71,9 +71,28 @@ Shared-schema with RLS is rejected as a production isolation boundary. It is acc
 
 See ADR-010 for the full isolation surface requirements (database, cache, jobs, storage, search, AI context).
 
+## Implementation Revision (2026-06-09)
+
+The conceptual Platform Layer / Institutional Layer split is now reflected in deployed infrastructure:
+
+- Platform Layer:
+  - dedicated Neon platform project
+  - Cloudflare platform Worker
+  - Hyperdrive connection
+  - tenant provisioning Workflow
+  - platform audit R2 bucket
+- Institutional Layer, per tenant:
+  - isolated Neon project
+  - dedicated tenant Worker and Workflow
+  - private tenant data bucket
+  - private tenant audit bucket
+
+Corveaux Tenant Zero and SLCC Validation are deployed using this shape. The platform registry stores non-secret resource metadata and dispatches tenant-scoped work; tenant credentials remain in tenant Worker secret storage.
+
 ## Related
 
 - [[ADR-005 — Capability-Based Authority Model]]
 - [[ADR-006 — Tenant Zero]]
 - [[ADR-010 — Tenant Isolation Architecture]]
+- [[ADR-019 — Cloudflare and Neon Runtime Architecture]]
 - [[Corveaux V2 - Session 01]]

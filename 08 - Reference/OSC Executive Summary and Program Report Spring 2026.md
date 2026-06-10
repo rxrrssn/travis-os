@@ -197,7 +197,7 @@ Coach informs of deadlines/resources: 52% Strongly Agree, 31% Agree
 
 Qualitative themes: emotional validation, academic encouragement, accountability support, resource connection, feeling like "a real person" in an online environment.
 
-Named coaches in testimonials: Charlotte (SP24, FA24), Meti (FA24), Magen Despain (SP25)
+Named coaches in testimonials: Charlotte (SP24, FA24), Meti (FA24), [[Magen Despain]] (SP25)
 
 ---
 
@@ -241,8 +241,11 @@ Collaborates with: DSA (grade reports), SLCC Online and eLearning Services (Canv
 [[Online Success Coaching]]
 [[Megan Brandly]]
 [[Seini Pahulu]]
+[[Magen Despain]]
 [[Bruin Connect Transition]]
+[[Navigate360 Transition]]
 [[HB 265]]
 [[TDX]]
 [[Power Platform]]
+[[SLCC Overview]]
 [[OSC White Paper Fall 2025]]

@@ -1,4 +1,4 @@
----
+﻿---
 type: session-note
 domain: corveaux
 status: complete
@@ -54,9 +54,9 @@ A secondary Turbopack cache artifact also surfaced: an old compiled version of `
 - `src/app/t/[slug]/admin/pages/[pageId]/edit/PageMetaForm.tsx` — added `useRouter`, `onLayoutChange` prop, radio `onChange` calls callback, `router.refresh()` post-save
 
 **Verified** (Playwright headless, all three claims):
-1. Load → canvas shows correct saved layout ✅
-2. Radio click → canvas updates immediately, no save needed ✅
-3. Save + navigate away + navigate back → layout persisted ✅
+1. Load â†’ canvas shows correct saved layout âœ…
+2. Radio click â†’ canvas updates immediately, no save needed âœ…
+3. Save + navigate away + navigate back â†’ layout persisted âœ…
 
 ## Current State
 
@@ -67,7 +67,7 @@ All five tenant admin modules are functional:
 - `/t/[slug]/admin` — Tenant dashboard
 - `/t/[slug]/admin/sites` — Site CRUD
 - `/t/[slug]/admin/pages` — Page list + create
-- `/t/[slug]/admin/pages/[pageId]/edit` — Page editor with DnD column layout, WYSIWYG, ownership ✓ FIXED
+- `/t/[slug]/admin/pages/[pageId]/edit` — Page editor with DnD column layout, WYSIWYG, ownership âœ“ FIXED
 - `/t/[slug]/admin/blocks` — Block list + create
 - `/t/[slug]/admin/blocks/[blockId]/edit` — Block editor with WYSIWYG + ownership
 - `/t/[slug]/admin/kb` — KB article list + create
@@ -75,3 +75,10 @@ All five tenant admin modules are functional:
 - `/t/[slug]/admin/settings` — CSS theming + branding
 - `/t/[slug]/(public)` — Public site with tenant CSS vars applied
 
+---
+
+## Related
+
+[[Corveaux]]
+[[Corveaux CMS Build - Session 4]]
+[[Corveaux CMS Build - Session 6 Plan]]

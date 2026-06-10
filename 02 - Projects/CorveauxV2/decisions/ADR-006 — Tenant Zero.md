@@ -1,4 +1,4 @@
----
+﻿---
 type: decision
 domain: corveaux
 status: active
@@ -51,7 +51,7 @@ Corveaux's institutional model maps naturally to the standard primitives:
 **Policies (Policy entities):**
 - Terms of Service, Privacy Policy, SLA, Data Processing Agreement, Acceptable Use Policy
 
-The Office of Institutional Continuity is the most critical DepartmentBlock for prospect-facing rendering — it shows external institutions what their relationship with Corveaux will look like: Discovery → Onboarding → Implementation → Support → Renewal.
+The Office of Institutional Continuity is the most critical DepartmentBlock for prospect-facing rendering — it shows external institutions what their relationship with Corveaux will look like: Discovery â†’ Onboarding â†’ Implementation â†’ Support â†’ Renewal.
 
 ## Stakeholders
 

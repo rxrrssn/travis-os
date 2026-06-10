@@ -1,4 +1,4 @@
----
+﻿---
 type: vision
 domain: corveaux
 status: active
@@ -162,3 +162,13 @@ And if Corveaux succeeds, I hope it succeeds because it helped more people creat
 — Travis Hornbuckle
 Founder & Chief Systems Officer, Corveaux
 June 2026
+
+## Related
+
+- [[Why Corveaux Exists]]
+- [[Why Institutions Fail To Understand Themselves]]
+- [[Why Higher Education First]]
+- [[The End State]]
+- [[Product Brief]]
+- [[Philosophy]]
+- [[Corveaux V2]]

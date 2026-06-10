@@ -28,16 +28,16 @@ One Reality. Many Projections.
 |---|---|
 | Language | TypeScript |
 | Frontend | Next.js + React |
-| Backend | Next.js API routes |
-| Database | PostgreSQL |
+| Backend | Next.js API routes + Cloudflare Workers/Workflows |
+| Database | Neon PostgreSQL |
 | ORM | Prisma |
 | Auth | Microsoft Entra ID + local recovery auth |
-| Background Jobs | Trigger.dev (see [[ADR-011 — Background Job Platform]]) |
+| Background Jobs | Cloudflare Workers/Workflows (Trigger.dev fully removed, Session 25) |
 | AI | Anthropic behind provider interface |
 | Search | PostgreSQL FTS |
-| Storage | S3-compatible |
+| Storage | Cloudflare R2, isolated data/audit buckets per tenant |
 | Observability | OpenTelemetry + Sentry |
-| Infrastructure | Docker + Coolify |
+| Infrastructure | Cloudflare + Neon; local Docker PostgreSQL retained for rollback/development |
 
 **Tenant isolation:** Database-per-tenant or schema-per-tenant. Shared-schema with RLS is rejected for production. See [[ADR-010 — Tenant Isolation Architecture]].
 
@@ -46,7 +46,23 @@ One Reality. Many Projections.
 
 ## Current State
 
-**Stage:** Day 30 pipeline complete. Full catalog extraction pending. Day 30 gate assessment in progress.
+**Stage (as of 2026-06-10):** Day 30 is closed and Day 60 is underway. The Cloudflare + Neon production-shaped foundation is live. The platform database runs on Neon through Cloudflare Hyperdrive. Corveaux Tenant Zero and SLCC Validation run in separate Neon projects with separate Cloudflare Workers and private R2 data/audit buckets. GitHub Actions now owns CI, automatic staging deployment, and approval-gated production promotion of staging-verified SHAs. The Next.js frontend is packaged for Cloudflare Workers through OpenNext. See [[ADR-020 — Deployment and Promotion Architecture]]. The tenant-admin authoring layer is now substantial: content review + canonical editor with effective dating ([[Corveaux V2 - Session 24 — Tenant Content Review and Canonical Editor]], [[ADR-021 — Effective Dating on Entity and Relationship]]), and a drag-and-drop page builder, ontology UI, brand/theme editor, and Impressionist visual-identity extraction ([[Corveaux V2 - Session 25 — Page Builder, Impressionist Branding, and Tenant Footer]]). The application repo was given a hygiene + security pass and migrated off the deprecated `next lint` ([[Corveaux V2 - Session 26 — Repo Hygiene, Security Audit, and ESLint Migration]]).
+
+### Live Infrastructure Baseline
+
+- Platform Neon project in `aws-us-east-1`; platform schema migrated and row-count verified.
+- Platform Worker deployed with Hyperdrive, provisioning Workflow, and platform audit R2 binding.
+- Corveaux Tenant Zero and SLCC Validation each have:
+  - an isolated Neon project
+  - a dedicated tenant Worker
+  - a private R2 data bucket
+  - a private R2 audit bucket
+- Platform/admin runtime uses the pooled Neon platform endpoint.
+- Tenant Workers connect directly to their assigned Neon tenant database.
+- Audit events are append-only in PostgreSQL, use transactional outboxes, retain for seven years by default, and export to R2.
+- `tenant_region` and `tenant_residency_requirement` are provisioning inputs persisted in the platform registry.
+- Production dependency audit reports zero known vulnerabilities after targeted transitive overrides.
+- This is a compliance-capable technical baseline, not a claim of FERPA or SOC 2 Type II compliance. Contracts, policies, control ownership, access reviews, incident response, evidence collection, backup/restore testing, and an operating period remain required.
 
 **What exists:**
 - Next.js project (TypeScript, App Router, PostgreSQL, Prisma)
@@ -57,21 +73,36 @@ One Reality. Many Projections.
 - Four institutional services: EntityService, RelationshipService, EventService, PolicyService
 - TypeScript type registry: EntityTypes, RelationshipTypes, EventTypes, BlockTypes, RenderingContexts
 - Zod schemas for all 8 content block types
-- Tenant Zero seeded: Corveaux org, Travis person, Founder & CEO position, 2 relationships, ontology config
-- ADR-001 through ADR-014
-- Specs: extraction-pipeline-spec, content-block-schema (both complete and active)
-- Specs: generated-tenant-spec, role-aware-rendering-spec (scaffolds, to be written before Day 60)
-- Auth layer: NextAuth v5, MicrosoftEntraID provider, JWT/session with entraOid, middleware
-- Extraction pipeline: Trigger.dev orchestration (4 tasks), Crawlee crawler, Claude extractor, promotion engine, block regeneration
-- Validated end-to-end: Trigger.dev pilot run complete — 9 pages, 6 programs, 0.965 avg confidence, $0.776
+- Tenant Zero seeded and rewritten (Session 09): Corveaux org, Travis person, Founder & CEO position, relationships, ontology config
+- ADR-001 through ADR-017
+- Specs: extraction-pipeline-spec, content-block-schema, generated-tenant-spec, role-aware-rendering-spec (all complete and active)
+- Auth layer: NextAuth v5, MicrosoftEntraID provider, JWT/session with entraOid, canonical Tenant Zero identity linking, authority-scoped audience context, middleware ([[Corveaux V2 - Session 11 — Tenant Zero Auth Validation]])
+- Extraction pipeline: Cloudflare Workers dispatch (Trigger.dev removed, Session 25), topologically-ordered (courses → programs → documents) per [[ADR-016 — Topological Extraction Order and Content Quality Pipeline]], custom cache-aware Cartographer crawler (Crawlee removed), Claude extractor, promotion engine, block regeneration
+- R2-backed crawl cache with read-back wired into both discovery and extraction, shared via deterministic `pageKey(sourceSlug, canonicalUrl)` ([[ADR-017 — Cache-Aware Crawling and Extraction]])
+- **Day 30 gate: CLOSED (Session 17, 2026-06-07).** Run 001 (conditional pass, five defects fixed in Session 14) → Cartographer rebuild + WAF fix (Sessions 15-16) → Run 002 → live re-sample scored 96.5% combined accuracy, corroborated by the user's own independent random-20 manual review at 99.4% (zero FAILs, [[day-30-gate-resample-random-20-manual]]) — both well clear of the ≥90% bar. The three defect classes found (Bugs 15-17) were squashed same-session (Bug 15 code-fixed+verified, Bugs 16-17 prompt-mitigated pending re-verification). The user formally authorized close-out after confirming their manual review was complete. **Day 60 generated-tenant work is now unblocked.**
+- ADR-018 canonical extraction shape: fixed course/program attribute sets, relationship-attached policies, bounded extraction policy taxonomy, three-phase promotion ordering, and canonical attribute enforcement
+- Platform Admin operator cockpit: `/admin`, tenant/source/extraction-run views, tenant/source/extraction controls, tenant-level manual pipeline, operation history/audit trail, operation result visibility, and manual retry
+- Platform operation tables: `TenantSource` and `TenantOperation`; operation state remains durable and separate append-only audit events capture actor, authority, request, resource, purpose, deployment, and schema context
+- TenantOperation worker: `generate_tenant` regenerates projection blocks for active tenant entities and writes `entityCount`, `blocksWritten`, and `generatedAt` into operation result
+- TenantOperation worker: `source.crawl` runs Cartographer from the admin pane, updates source health, writes crawl metadata, and renders discovered/cache/error counts in operation results
+- Platform provisioning Workflow creates isolated Neon tenant projects and records non-secret database target metadata.
+- Cloudflare tenant generation Workflow completed an end-to-end live validation, including direct Neon work and authenticated callback to the platform Worker.
+- Separate append-only `PlatformAuditEvent` / `AuditEvent` tables and transactional audit outboxes exist at platform and tenant levels.
+- Protected admin views and admin actions produce audit events with actor, authority, request, resource, and purpose context.
+- GitHub Actions deployment architecture: PR CI, automatic staging from `master`, approval-gated production promotion, Neon pre-deploy restore branches, migration compatibility checks, smoke tests, and durable deployment evidence.
+- Tenant content review + canonical editor: tenant-scoped review queue, edit canonical `Entity`/`Relationship` records then regenerate affected `ContentBlock`s, with `validTo` (supersede) vs `effectiveTo` (institutional period ended) as distinct actions ([[Corveaux V2 - Session 24 — Tenant Content Review and Canonical Editor]], [[ADR-021 — Effective Dating on Entity and Relationship]])
+- Tenant page builder: `TenantPage` model, `@dnd-kit` drag-and-drop, four section types (hero, rich-text, entity-list, cta-banner), page-layout picker, home-page promotion, draft preview, shared `TenantBuiltPage` server renderer ([[Corveaux V2 - Session 25 — Page Builder, Impressionist Branding, and Tenant Footer]])
+- Tenant ontology UI, brand/theme editor, Impressionist visual-identity extraction (Claude reads source HTML → `themeConfig` → scoped `<style>`), logo/favicon upload to tenant R2 media bucket, and a configurable multi-column tenant footer (Session 25)
+- Repo is clean and secure: zero tracked secrets, zero prod vulnerabilities, lint migrated to the ESLint CLI, dead Trigger.dev-era scripts removed ([[Corveaux V2 - Session 26 — Repo Hygiene, Security Audit, and ESLint Migration]])
 
 **What does not exist yet:**
-- Full 132-page SLCC catalog extraction (pilot done, full run pending)
-- Entra ID browser verification (implemented, untested in browser)
-- Role-aware rendering
-- Generated tenant
+- Role-aware rendering (the projection authoring surfaces exist; audience-conditional rendering does not)
+- Full generated tenant routes/experience end-to-end
+- Worker for the queued `extraction.run` operation (the one standing code gap; `source.crawl` and `generate_tenant` workers exist), plus retry-failed and cache-purge workers
 - Search layer
-- S3 crawl storage (local tmp/ only)
+- Cloudflare-native crawl/extraction fan-out and queue controls
+- Signed audit batch manifests and hash-chain checkpoints
+- Formal FERPA contractual approval and SOC 2 Type II operating evidence
 
 ## Institutional Model Primitives
 
@@ -107,7 +138,7 @@ Content blocks are projections of these primitives. Content blocks are not canon
 
 ## Decisions
 
-See decisions/ folder for full ADRs (ADR-001 through ADR-014).
+See decisions/ folder for full ADRs (ADR-001 through ADR-021).
 
 Key decisions:
 - Entry wedge: Web + Catalog + Directory (unified extraction sources)
@@ -119,24 +150,39 @@ Key decisions:
 - Tenant Zero: Corveaux Must Run Corveaux
 - LLM: implementation detail, not product headline
 - Generated tenant: production survival from day one, not disposable
-- Tech stack: TypeScript, Next.js, PostgreSQL, Prisma, Entra ID, Trigger.dev, Docker + Coolify
+- Tech stack: TypeScript, Next.js, Prisma, Cloudflare Workers/Workflows/R2/Hyperdrive, Neon PostgreSQL, Entra ID (Trigger.dev removed in Session 25; crawl/extraction now dispatch through Cloudflare Workers)
 - Canonical schema: one master schema, no `tenant_id`, three identifier layers (see [[ADR-012 — Canonical Schema Architecture]])
 - Type registry: TypeScript constants are authoritative, DB metadata deferred to V3 (see [[ADR-013 — Canonical Type Registry]])
+- Extraction order: topological (courses before programs) to eliminate scope-leakage stubs (see [[ADR-016 — Topological Extraction Order and Content Quality Pipeline]])
+- Crawl caching: cache-first, R2-backed, shared between discovery and extraction via deterministic page keys (see [[ADR-017 — Cache-Aware Crawling and Extraction]])
 
 ## Next Actions
 
 **Day 30 (~2026-07-05)**
-- [x] Implement extraction pipeline: Trigger.dev setup, Crawlee crawler, Claude extractor, ExtractionObservation writer (Sessions 05–08)
-- [x] Implement promotion engine: source precedence Policy, temporal canonical updates, conflict detection (Sessions 05–07)
+- [x] Implement extraction pipeline: Trigger.dev setup, crawler, Claude extractor, ExtractionObservation writer (Sessions 05-08)
+- [x] Implement promotion engine: source precedence Policy, temporal canonical updates, conflict detection (Sessions 05-07)
 - [x] Implement content block generator: assemble blocks from current canonical state per block type (Session 07)
 - [x] Implement auth layer (Entra ID) (Session 06)
-- [ ] Run full extraction pipeline against SLCC — pilot complete (9 pages), full 132-page run pending
-- [ ] Pass accuracy gate (>90% material facts) — manual accuracy review pending after full run
+- [x] Run full extraction pipeline against SLCC — Run 001 complete (conditional pass, five defects found and fixed in Session 14); Cartographer rebuilt with R2 caching (Session 15) and a WAF cache-poisoning bug fixed (Session 16); Run 002 complete (Session 17)
+- [x] Score live re-sample of 20 courses + 20 programs against ground truth — 96.5% combined material-fact accuracy, clears the >90% bar (Session 17, [[day-30-gate-resample-findings]])
+- [x] User's independent random-20 manual review — scored 99.4% combined, zero FAILs, corroborates the self-check (Session 17, [[day-30-gate-resample-random-20-manual]])
+- [x] Squash the three defect classes (Bugs 15-17) found in the self-check — Bug 15 (citation/identity mismatch) fixed with a code-level guardrail and verified against the live offending page; Bugs 16-17 (unit-normalization, prerequisite omissions) mitigated via `EXTRACTION_SYSTEM_PROMPT` additions, pending empirical re-verification on the next run (Session 17, `known_bugs` memory)
+- [x] Formally close the Day 30 gate — **CLOSED 2026-06-07**, user-authorized after confirming their independent manual review (99.4%, corroborating the self-check's 96.5%)
 
 **Day 60 (~2026-08-05)**
-- [ ] Write generated-tenant-spec and role-aware-rendering-spec
-- [ ] Build generated tenant with role-aware rendering
+- [x] Write generated-tenant-spec and role-aware-rendering-spec — ADR-015 + both specs complete (Session 10)
+- [x] Build Platform Admin operator cockpit — tenant/source/extraction views, operation persistence, first worker-backed `generate_tenant` operation (Session 19)
+- [x] Implement operation worker for source crawl
+- [ ] Implement operation worker for extraction run — **the one standing code gap**; old Trigger.dev fan-out entry points were deleted (Session 26), so this must be built fresh in the Cloudflare Workers flow ([[Corveaux V2 - Session 21 — Trigger.dev to Cloudflare Workflows Changeover Plan]])
+- [x] Deploy platform database to Neon through Hyperdrive
+- [x] Provision isolated Neon projects and R2 buckets for Corveaux and SLCC
+- [x] Deploy platform and tenant Cloudflare Workers/Workflows
+- [x] Implement append-only platform/tenant audit events and R2 audit export
+- [x] Build tenant content review + canonical editor with effective dating (Session 24, [[ADR-021 — Effective Dating on Entity and Relationship]])
+- [x] Build tenant page builder, ontology UI, brand/theme editor, Impressionist extraction, configurable footer (Session 25)
+- [ ] Build generated tenant with role-aware rendering — projection authoring surfaces landed (Sessions 24-25); audience-conditional rendering still open
 - [ ] Corveaux website running on Corveaux
+- [x] Implement GitHub-controlled staging and production deployment architecture
 - [ ] Catalog round-trip validation
 - [ ] First external buyer conversation
 
@@ -157,3 +203,25 @@ Key decisions:
 - [[Corveaux V2 - Session 06 — Auth Layer and SLCC Smoke Test]] — Entra ID auth, first SLCC smoke test
 - [[Corveaux V2 - Session 07 — Catalog Extraction and Promoter Fixes]] — P2002 fix, type leakage fix, HTML stripping
 - [[Corveaux V2 - Session 08 — Trigger.dev Validation and Catalog Pilot]] — Trigger.dev end-to-end, catalog pilot, extraction economics
+- [[Corveaux V2 - Session 09 — Competitive Intelligence Research]] — Tenant Zero seed rewrite, competitive landscape research
+- [[Corveaux V2 - Session 10 — Rendering Architecture Decision]] — ADR-015, generated-tenant-spec, role-aware-rendering-spec
+- [[Corveaux V2 - Session 11 — Tenant Zero Auth Validation]] — Auth layer validation end-to-end
+- [[Corveaux V2 - Session 12 — Topological Extraction Architecture]] — ADR-016, topological extraction redesign for the Day 30 gate
+- [[Corveaux V2 - Session 14 — Day 30 Gate Defect Remediation]] — Fixed all five Day 30 gate assessment defects
+- [[Corveaux V2 - Session 15 — Cartographer and Cache-Aware Crawling]] — ADR-017, Cartographer rebuild, R2 cache read-back
+- [[Corveaux V2 - Session 16 — R2 Cleanup Close-Out and WAF Cache Poisoning Fix]] — R2 migration close-out, WAF cache-poisoning bug found and fixed, Run 002 launched
+- [[Corveaux V2 - Session 17 — Day 30 Gate Live Re-Sample]] — Run 002 completion, live re-sample of 20 courses + 20 programs scored 96.5% against ground truth, six defects found and logged
+- [[Corveaux V2 - Session 19 — Platform Admin and Tenant Operations]] — Platform Admin, TenantSource/TenantOperation, canonical admin auth, generate_tenant worker, operation result visibility and retry
+- [[Corveaux V2 - Session 20 — Module Identity Renames and Admin Vocabulary Sweep]] — module renames (Interpreter/Archivist/Projector), admin vocabulary sweep (map/interpret/project/Canonize)
+- [[Corveaux V2 - Session 20.5 — Brand Identity Applied to Auth and Platform Admin]] — Corveaux brand palette/imagery applied to /login, /auth-status, and the platform admin shell
+- [[Corveaux V2 - Session 21 — Trigger.dev to Cloudflare Workflows Changeover Plan]] — migration plan, since fully executed (Trigger.dev removed)
+- [[Corveaux V2 - Session 22 — Cloudflare and Neon Deployment Closeout]] — live platform/tenant deployment, audit hardening, tenant split, and validation
+- [[Corveaux V2 - Session 23 — GitHub Deployment Pipeline and Staging Stabilization]] — GitHub Actions deploy pipeline, staging stabilization (ADR-019/ADR-020)
+- [[Corveaux V2 - Session 24 — Tenant Content Review and Canonical Editor]] — tenant content review queue, edit-canonical-then-regenerate, effective dating (ADR-021)
+- [[Corveaux V2 - Session 25 — Page Builder, Impressionist Branding, and Tenant Footer]] — drag-and-drop page builder, page layouts, Impressionist theme extraction, configurable footer
+- [[Corveaux V2 - Session 26 — Repo Hygiene, Security Audit, and ESLint Migration]] — security audit, next lint → ESLint CLI migration, dead Trigger.dev script removal
+- [[ADR-018 — Canonical Attribute Standardization and Relationship-Attached Policies]] — fixed course/program attribute sets, relationship-attached policies, three-phase promotion
+- [[ADR-019 — Cloudflare and Neon Runtime Architecture]] — current infrastructure decision
+- [[ADR-020 — Deployment and Promotion Architecture]] — GitHub-controlled staging and production promotion
+- [[ADR-021 — Effective Dating on Entity and Relationship]] — effectiveFrom/effectiveTo/catalogYear; validTo (record dead) vs effectiveTo (period ended)
+- [[institutional-archetypes]] — institutional archetype research (community college, regional university, R1, system office, foundation)

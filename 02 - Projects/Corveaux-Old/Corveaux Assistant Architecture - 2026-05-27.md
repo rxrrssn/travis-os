@@ -1,4 +1,4 @@
-# Corveaux Assistant Architecture
+﻿# Corveaux Assistant Architecture
 *Documented 2026-05-27*
 
 ---
@@ -204,10 +204,10 @@ No full workflow orchestration yet — escalation message + contact today, intel
 
 ```
 Tenant Admin
-└── Assistant
-    ├── Identity (name, greeting, tagline, avatar)
-    ├── Communication Style (tone, warmth, verbosity, citations, links, emoji)
-    └── Channels & Escalation (web, portal, SMS, Teams, escalation config)
+â””â”€â”€ Assistant
+    â”œâ”€â”€ Identity (name, greeting, tagline, avatar)
+    â”œâ”€â”€ Communication Style (tone, warmth, verbosity, citations, links, emoji)
+    â””â”€â”€ Channels & Escalation (web, portal, SMS, Teams, escalation config)
 ```
 
 Future sections:
@@ -235,7 +235,7 @@ NOT:
 
 1. Wire Claude API inference layer to AssistantConfig presentation settings
 2. Build public-facing assistant widget (web channel)
-3. Implement conversation session persistence (cookie → DB)
+3. Implement conversation session persistence (cookie â†’ DB)
 4. Knowledge Base grounding (KB article retrieval)
 5. Authenticated portal assistant (Person context injection)
 6. Analytics dashboard (conversation volume, escalation rate, unanswered questions)

@@ -70,3 +70,5 @@ Reduce: app sprawl, manual routing, process duplication.
 [[Online Success Coaching]]
 [[Power Platform]]
 [[SLCC Overview]]
+[[Bruin Connect Transition]]
+[[Navigate360 Transition]]

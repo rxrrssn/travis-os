@@ -1,4 +1,4 @@
----
+﻿---
 type: session
 project: corveaux-v2
 session: 01
@@ -43,7 +43,7 @@ The vision clarified from "interesting product" to "platform company with a defi
 - Generated tenant designed for production survival from Day 1
 - Content blocks as first-class objects (blocks are canonical, pages are not)
 - Corveaux as Tenant Zero — Corveaux Must Run Corveaux
-- Staged adoption model: Observe → Validate → Govern → Launch → Retire
+- Staged adoption model: Observe â†’ Validate â†’ Govern â†’ Launch â†’ Retire
 - Vendor consolidation sequencing (not exclusion — sequencing)
 
 ### V4 Final Framework

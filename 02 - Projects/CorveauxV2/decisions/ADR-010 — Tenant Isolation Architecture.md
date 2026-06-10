@@ -1,4 +1,4 @@
----
+﻿---
 type: decision
 domain: corveaux
 status: active
@@ -20,7 +20,21 @@ Application-level tenant filtering is rejected as an isolation mechanism.
 
 Shared-database / shared-schema with RLS may be used only in local development, automated tests, prototypes, or non-production validation contexts. It is not the production architecture.
 
-The final choice between database-per-tenant and schema-per-tenant is deferred to the schema design phase but must be resolved before any multi-tenant data is written to production.
+The production choice is database/project-per-tenant on Neon. Schema-per-tenant remains a local-development convenience only.
+
+## Implementation Revision (2026-06-09)
+
+The deferred production choice is resolved:
+
+- The platform registry is stored in a dedicated Neon platform project.
+- Each institutional tenant receives an isolated Neon project.
+- Corveaux Tenant Zero and SLCC Validation have been provisioned into separate projects.
+- Tenant Workers receive only their own direct Neon connection secret.
+- Platform records contain project, branch, database, role, region, schema version, Worker URL, and bucket identifiers; database passwords and connection strings are not persisted in platform tables.
+- Each tenant has separate private R2 data and audit buckets.
+- Provisioning records `tenant_region` and `tenant_residency_requirement`.
+
+The local PostgreSQL schema-per-tenant layout is retained as a development and rollback source, not the production isolation boundary.
 
 ## Context
 
@@ -112,7 +126,7 @@ If a Day 30 validation run is executed locally against a single-tenant schema, t
 - Search must be designed with tenant-scoped indexes or tenant-namespaced entries
 - AI retrieval must be scoped to the tenant's knowledge layer; never cross-tenant
 - Migration tooling must be designed to operate per-tenant, not globally
-- The Coolify deployment model must support provisioning a database (or schema) per tenant
+- The Cloudflare/Neon provisioning Workflow must create and record an isolated Neon project per tenant
 
 ## Supersedes
 
@@ -126,4 +140,5 @@ Replaces the RLS assumption in:
 - [[ADR-005 — Capability-Based Authority Model]]
 - [[ADR-006 — Tenant Zero]]
 - [[ADR-009 — Tech Stack]]
+- [[ADR-019 — Cloudflare and Neon Runtime Architecture]]
 - [[Corveaux V2 - Session 02 — Tech Stack and Vault Infrastructure]]

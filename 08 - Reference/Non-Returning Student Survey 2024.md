@@ -131,7 +131,7 @@ Seven categories were assessed. Respondents could select all that applied.
 
 ## Relevance to IVR Call Routing Analysis
 
-This survey does not directly measure phone friction, but it provides institutional corroboration for the confusion-to-exit argument in the [[IVR Call Routing Analysis]] one-pager.
+This survey does not directly measure phone friction, but it provides institutional corroboration for the confusion-to-exit argument in the [[IVR Call Routing Analysis]] one-pager and the [[Bruin Connect Transition]] proposal.
 
 **The connection:**
 
@@ -144,6 +144,14 @@ This survey does not directly measure phone friction, but it provides institutio
 **Suggested citation framing:** "SLCC's 2024 Non-Returning Student Survey found that confusion around accessing advising and guidance was the most common form of student confusion, cited by 42% of non-returning students. DSA identified improving information accessibility as a viable intervention for reducing early exit. Simplifying how students reach support by phone is a direct and measurable implementation of that recommendation."
 
 ---
+
+## Related
+
+[[IVR Call Routing Analysis]]
+[[Bruin Connect Transition]]
+[[SLCC Overview]]
+[[Online Success Coaching]]
+[[HB 265]]
 
 ## Reference
 

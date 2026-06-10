@@ -1,4 +1,4 @@
----
+﻿---
 type: spec
 domain: corveaux
 status: active
@@ -39,20 +39,20 @@ If a fact lives in a block and not in the canonical layer, it is projection drif
 
 ```
 Canonical Layer                     Projection Layer
-─────────────────────               ──────────────────────────────────────
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€               â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 Entity                              ContentBlock
-  attributes (intrinsic)    →         title, content (rendered)
-  validFrom / validTo       →         validFrom / validTo
-  extractionRunId           →         lastExtractionRunId
-  confidence                →         confidenceScore (min across all deps)
-  sourceUrl                 →         sourceUrls (union from all deps)
+  attributes (intrinsic)    â†’         title, content (rendered)
+  validFrom / validTo       â†’         validFrom / validTo
+  extractionRunId           â†’         lastExtractionRunId
+  confidence                â†’         confidenceScore (min across all deps)
+  sourceUrl                 â†’         sourceUrls (union from all deps)
 
-Relationship                →         dependencies.relationships[]
-Policy                      →         dependencies.policies[]
-EntityIdentifier            →         (resolved via Entity, not stored on block)
+Relationship                â†’         dependencies.relationships[]
+Policy                      â†’         dependencies.policies[]
+EntityIdentifier            â†’         (resolved via Entity, not stored on block)
 
-ExtractionObservation       →         (provenance trace, not on block)
-ExtractionRun               →         lastExtractionRunId (cached reference)
+ExtractionObservation       â†’         (provenance trace, not on block)
+ExtractionRun               â†’         lastExtractionRunId (cached reference)
 ```
 
 The block caches derived and aggregated metadata for rendering performance. It does not author those values — it derives them from the canonical layer at generation time.
@@ -83,9 +83,9 @@ contact_block:jane-smith
 **URL routing:** The canonical key is the routing substrate.
 
 ```
-program_block:associate-of-science-computer-science  →  /programs/associate-of-science-computer-science
-course_block:math-1010                                →  /courses/math-1010
-department_block:school-of-science                    →  /departments/school-of-science
+program_block:associate-of-science-computer-science  â†’  /programs/associate-of-science-computer-science
+course_block:math-1010                                â†’  /courses/math-1010
+department_block:school-of-science                    â†’  /departments/school-of-science
 ```
 
 **Regeneration preserves identity:** When a block is regenerated, it upserts by `canonicalKey`. The `platformId` is unchanged. The `id` is unchanged. URLs never break due to regeneration.
@@ -203,7 +203,7 @@ All of those UUIDs appear in `dependencies`. Any change to any of them triggers 
 - Temporal history (`validFrom`/`validTo` on canonical records)
 - Extraction run provenance (`ExtractionRun` records)
 
-A block's `sourceUrls` is a rendering convenience — a human can see "this came from these pages." It is not the authoritative provenance record. The authoritative trace runs: Block → `dependencies` → canonical records → `extractionRunId` → `ExtractionObservation` → `citationText`.
+A block's `sourceUrls` is a rendering convenience — a human can see "this came from these pages." It is not the authoritative provenance record. The authoritative trace runs: Block â†’ `dependencies` â†’ canonical records â†’ `extractionRunId` â†’ `ExtractionObservation` â†’ `citationText`.
 
 ### 4. Governance
 
@@ -214,7 +214,7 @@ Governance metadata is standardized across all block types. No block type may om
 | `ownerEntityId` | Person or organization entity responsible for this block's accuracy |
 | `reviewedAt` | When the owner last confirmed the block is accurate |
 | `reviewedByEntityId` | Who performed the review |
-| `status` | DRAFT → REVIEW → PUBLISHED → ARCHIVED (see status flow below) |
+| `status` | DRAFT â†’ REVIEW â†’ PUBLISHED â†’ ARCHIVED (see status flow below) |
 | `validFrom` / `validTo` | Temporal validity of this version of the block |
 | `confidenceScore` | Rendering-time signal of aggregate extraction confidence |
 | `generatedAt` | When the block was last assembled — basis for freshness calculation |
@@ -270,12 +270,12 @@ The block schema supports all generated tenant capabilities:
 | Capability | Supported by |
 |---|---|
 | Institutional Search | `searchContent` text field + PostgreSQL FTS index |
-| Ownership Maps | `ownerEntityId` → person/org entity hierarchy |
+| Ownership Maps | `ownerEntityId` â†’ person/org entity hierarchy |
 | Gap Detection | `ownerEntityId IS NULL` OR `status IN ('DRAFT', 'REVIEW')` after threshold |
 | Governance Visibility | `ownerEntityId`, `reviewedAt`, `status`, `confidenceScore` |
 | Freshness Visibility | `generatedAt` + freshness policy evaluation |
 | Role-Aware Rendering | `renderingContexts` (targeting) + Policy (field visibility) |
-| Citations | `sourceUrls` (cached), `lastExtractionRunId` → canonical trace |
+| Citations | `sourceUrls` (cached), `lastExtractionRunId` â†’ canonical trace |
 | Audience Navigation | Block listing by `blockType` + `renderingContexts` containment |
 
 ### 8. Regeneration Strategy
@@ -613,8 +613,8 @@ Same governance as canonical type registry (ADR-013): new block types require a 
 ## Open Questions
 
 - [ ] Block generator spec: exact assembly query per block type — deferred to implementation
-- [ ] Freshness policy shape: how are thresholds configured per block type? — deferred to Day 60 governance work
-- [ ] Demo mode: how are rendering contexts simulated for unauthenticated demo visitors? — deferred to role-aware rendering spec
+- [ ] Freshness policy shape: how are thresholds configured per block type? — deferred to Day 60 governance work. Shape: Policy record (`policyType: "freshness"`) with rules `{ published_block_stale_after_days: N, draft_block_auto_archive_after_days: N }`. Evaluated at query time in RSC from `block.generatedAt`. Not stored on the block.
+- [x] Demo mode: how are rendering contexts simulated for unauthenticated demo visitors? — **The public `(tenant)` route IS demo mode.** Unauthenticated visitors receive visitor context. For showing prospective_student/current_student context during demos: `?context=` query param on public routes, constrained to non-admin contexts, read in RSC only. See [[ADR-015 — Rendering Architecture]] §Demo Mode.
 
 ---
 

@@ -1,4 +1,4 @@
----
+﻿---
 type: session-note
 domain: corveaux
 status: complete
@@ -15,7 +15,7 @@ tags:
 
 ## What Was Built
 
-### Platform Site Architecture Refactor ✅
+### Platform Site Architecture Refactor âœ…
 
 **Motivation:** The previous "platform site" concept used `findFirst` heuristics (oldest tenant, oldest site) with no semantic distinction between Corveaux LLC itself and customer tenants. This created ambiguity and would break as more tenants were added.
 
@@ -60,7 +60,7 @@ getInternalPrimarySite()
 // combines above; returns { tenant, site } | null
 
 parseSiteNav(navConfig)
-// unchanged: parses navConfig JSON → { label, href }[]
+// unchanged: parses navConfig JSON â†’ { label, href }[]
 ```
 
 **Deleted:** `src/lib/platform-site.ts`
@@ -69,16 +69,16 @@ parseSiteNav(navConfig)
 
 ### Consuming Code Updates
 
-- `src/app/page.tsx` — `getPlatformSite` → `getInternalPrimarySite`, import from `@/lib/tenant`
+- `src/app/page.tsx` — `getPlatformSite` â†’ `getInternalPrimarySite`, import from `@/lib/tenant`
 - `src/app/[...path]/page.tsx` — same
-- `src/app/admin/layout.tsx` — `prisma.tenant.findFirst()` → `getInternalTenant()` from `@/lib/tenant`; removed direct `prisma` import
+- `src/app/admin/layout.tsx` — `prisma.tenant.findFirst()` â†’ `getInternalTenant()` from `@/lib/tenant`; removed direct `prisma` import
 
 ---
 
 ## Build Status
 
-- `npx tsc --noEmit` → clean
-- `npm run build` → 31 routes compiled; all correct
+- `npx tsc --noEmit` â†’ clean
+- `npm run build` â†’ 31 routes compiled; all correct
 - No regressions: `/`, `/[...path]`, `/admin/**`, `/preview/[pageId]`, `/t/[slug]/**` all pass
 
 ---

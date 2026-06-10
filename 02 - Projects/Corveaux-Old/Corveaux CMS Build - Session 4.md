@@ -1,4 +1,4 @@
----
+﻿---
 type: session-note
 domain: corveaux
 status: complete
@@ -61,7 +61,7 @@ tags:
 ### Ownership Fields
 - **Pages**: Layout + ownership (owner select from tenant members, department context) added to PageMetaForm sidebar
 - **Blocks**: Owner select + department input added to BlockEditor sidebar
-- Both editors load tenant members via `prisma.tenant.findUnique` → members join
+- Both editors load tenant members via `prisma.tenant.findUnique` â†’ members join
 - `updatePageMeta` now saves layout, departmentContext, ownerId
 - `updateBlockMeta` now saves departmentContext, ownerId
 
@@ -73,3 +73,11 @@ tags:
 
 **Route isolation:** `t/[slug]/(public)/` route group for public site, `t/[slug]/admin/` independent layout tree
 
+---
+
+## Related
+
+[[Corveaux]]
+[[Corveaux CMS Build - Session 3]]
+[[Corveaux CMS Build - Session 5]]
+[[Corveaux CMS Build - Session 6 Plan]]

@@ -1,4 +1,4 @@
----
+﻿---
 type: session-note
 domain: corveaux
 status: complete
@@ -23,7 +23,7 @@ The "unable to sign in" report was caused by a stale Node.js process (PID 21236)
 
 ## What Was Built
 
-### Root-Level Platform Pages ✅
+### Root-Level Platform Pages âœ…
 
 The platform admin at `/admin` already managed sites/pages/blocks. The missing piece was public routes serving those pages at the root domain.
 
@@ -36,13 +36,13 @@ The platform admin at `/admin` already managed sites/pages/blocks. The missing p
 - `src/app/page.tsx` — now renders the platform homepage from the DB using PlatformLayout; falls back to redirect('/admin') if no published homepage
 
 **How it works:**
-- Platform site = `prisma.tenant.findFirst()` → `prisma.site.findFirst()` — same placeholder as other admin sections; will be replaced when auth/RBAC lands
+- Platform site = `prisma.tenant.findFirst()` â†’ `prisma.site.findFirst()` — same placeholder as other admin sections; will be replaced when auth/RBAC lands
 - Pages are served at root URL: `/` is the homepage, `/about` is the about page, etc.
 - Next.js route precedence: `/admin`, `/api`, `/login`, `/t`, `/preview` all take priority over `[...path]`
 
 ---
 
-### Preview Before Publishing ✅
+### Preview Before Publishing âœ…
 
 **New files:**
 - `src/components/platform/PreviewBanner.tsx` — sticky graphite banner at top of preview; shows page title, status badge, "Edit page" link, close button (`window.close()`)
@@ -52,7 +52,7 @@ The platform admin at `/admin` already managed sites/pages/blocks. The missing p
 
 ---
 
-### Preview Button + Published Page Link in Editors ✅
+### Preview Button + Published Page Link in Editors âœ…
 
 Both the platform admin editor and tenant admin editor now have two action buttons at the top of the Page Settings sidebar:
 - **Preview** — always shown; opens `/preview/[pageId]` in new tab
@@ -70,8 +70,8 @@ Both the platform admin editor and tenant admin editor now have two action butto
 
 ## Build Status
 
-- `npx tsc --noEmit` → clean
-- `npm run build` → 31 routes compiled; all correct
+- `npx tsc --noEmit` â†’ clean
+- `npm run build` â†’ 31 routes compiled; all correct
 
 ---
 

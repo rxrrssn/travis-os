@@ -17,7 +17,7 @@ Validate Trigger.dev orchestration end-to-end. Fix crawlSource() to actually spi
 - [x] Replace Promise.allSettled(triggerAndWait()) with batchTriggerAndWait() — Trigger.dev v4 requirement
 - [x] Add token tracking and cost formula v1 to ExtractionRun.metadata
 - [x] New script: trigger-validate.ts — single-page Trigger.dev smoke test
-- [x] New script: catalog-programs-pilot.ts — 5–10 page catalog pilot
+- [x] New script: catalog-programs-pilot.ts — 5â€“10 page catalog pilot
 - [x] New script: catalog-programs.ts — full 132-page run (ready, not yet run)
 - [x] New script: generate-metrics.ts — generate metrics.md from DB source of truth
 - [x] Pilot passed — 9 programs, 6 extracted, 0.965 avg confidence, $0.776 cost
@@ -68,7 +68,7 @@ Projected full SLCC catalog (132 programs): ~$17
 - npm run metrics after full run — refresh economics baseline
 - Manual accuracy sample: 10–20 programs against SLCC catalog ground truth
 - Day 30 gate formal assessment — Coverage, Accuracy, Economics, Operational Reliability
-- Entra ID auth end-to-end browser verification (deferred from Session 07)
+- [x] Entra ID auth end-to-end browser verification — completed in [[Corveaux V2 - Session 11 — Tenant Zero Auth Validation]]
 - S3 integration for crawl storage (still local tmp/crawl-output/)
 
 ## Related

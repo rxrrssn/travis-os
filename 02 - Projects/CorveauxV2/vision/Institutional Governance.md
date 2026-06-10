@@ -1,4 +1,4 @@
----
+﻿---
 type: concept
 domain: corveaux
 status: active
@@ -212,3 +212,13 @@ Every governance decision must pass a single test:
 If it makes continuity harder, it is probably the wrong decision.
 
 If it strengthens continuity, it is probably the right one.
+
+## Related
+
+- [[Corveaux Constitution]]
+- [[Philosophy]]
+- [[Institutional Maturity Model]]
+- [[The End State]]
+- [[ADR-005 — Capability-Based Authority Model]]
+- [[ADR-012 — Canonical Schema Architecture]]
+- [[Corveaux Institution Model]]

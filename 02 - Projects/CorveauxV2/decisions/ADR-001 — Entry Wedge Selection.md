@@ -1,4 +1,4 @@
----
+﻿---
 type: decision
 domain: corveaux
 status: active
@@ -45,7 +45,7 @@ The political sensitivity around catalog arises only when proposing to *publish*
 
 - The extraction pipeline must include catalog parsing adapters alongside the web crawler
 - The catalog format survey (Acalog HTML, PDF, custom) must be conducted in the first 10 institutions processed
-- The institutional object schema must support round-trip fidelity (catalog extracted → blocks → catalog rendered)
+- The institutional object schema must support round-trip fidelity (catalog extracted â†’ blocks â†’ catalog rendered)
 - This wedge does not preclude any future domain; it is the entry point, not the ceiling
 
 ## Related

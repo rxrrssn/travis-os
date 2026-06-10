@@ -1,11 +1,14 @@
----
+﻿---
 type: decision
 domain: corveaux
-status: active
+status: superseded
 date: 2026-06-05
 tags: [corveaux, tech-stack, architecture, infrastructure]
 ---
 # ADR-009 — Tech Stack
+
+> [!status] Superseded in part on 2026-06-09
+> The language, application, ORM, authentication, AI, and initial search choices remain active. The infrastructure, database hosting, object storage, and orchestration choices are superseded by [[ADR-019 — Cloudflare and Neon Runtime Architecture]]. Trigger.dev remains active only for crawl/extraction during the staged migration.
 
 ## Decision
 
@@ -82,7 +85,7 @@ Stack choices must balance:
 
 ### Search
 
-1. **PostgreSQL Full-Text Search** (chosen initially) — Sufficient for Day 30–90 scope. No additional infrastructure required.
+1. **PostgreSQL Full-Text Search** (chosen initially) — Sufficient for Day 30â€“90 scope. No additional infrastructure required.
 
 2. **Dedicated search infrastructure** (future evaluation) — Potential future option if search quality, relevance, or scale exceeds PostgreSQL capabilities.
 
@@ -170,6 +173,7 @@ Next.js monolith-first is appropriate for the Day 30–90 timeline. Services sho
 
 ## Related
 
+- [[ADR-019 — Cloudflare and Neon Runtime Architecture]]
 - [[ADR-007 — LLM Strategy Positioning]]
 - [[ADR-004 — Platform Tenant Architecture]]
 - [[ADR-005 — Capability-Based Authority Model]]

@@ -12,7 +12,7 @@ tags:
 
 Full name: **Seini Pahulu, MSW**
 
-Confirmed from Star Student Recognition Email (Appendix I of OSC Executive Summary and Program Report Spring 2026): signed "SEINI PAHULU, MSW -- Salt Lake Community College -- Program Coordinator, Online Success Coach" (2018 title; now Director).
+Confirmed from Star Student Recognition Email (Appendix I of [[OSC Executive Summary and Program Report Spring 2026]]): signed "SEINI PAHULU, MSW -- Salt Lake Community College -- Program Coordinator, Online Success Coach" (2018 title; now Director).
 
 ## Role
 
@@ -42,4 +42,10 @@ Less traditional management, more: Travis generates the system-level thinking, S
 ## Related
 
 [[Contact Center]]
+[[Online Success Coaching]]
 [[Travis SLCC Positioning]]
+[[Annalise Karr]]
+[[Megan Brandly]]
+[[Bruin Connect Transition]]
+[[IVR Call Routing Analysis]]
+[[Navigate360 Transition]]

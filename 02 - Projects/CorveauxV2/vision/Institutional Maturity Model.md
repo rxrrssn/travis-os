@@ -1,4 +1,4 @@
----
+﻿---
 type: framework
 domain: corveaux
 status: draft
@@ -89,3 +89,13 @@ Institutional continuity becomes native.
 The goal of Corveaux is not software adoption.
 
 The goal is institutional maturity.
+
+## Related
+
+- [[Institutional Governance]]
+- [[Why Institutions Fail To Understand Themselves]]
+- [[The End State]]
+- [[Vendor Displacement Strategy]]
+- [[GTM Hypothesis]]
+- [[Product Brief]]
+- [[SLCC Validation Run]]

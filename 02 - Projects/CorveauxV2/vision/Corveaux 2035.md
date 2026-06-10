@@ -52,3 +52,13 @@ And ultimately, easier to serve through.
 The future of Corveaux is not software.
 
 The future of Corveaux is institutional continuity.
+
+## Related
+
+- [[The End State]]
+- [[Why Corveaux Exists]]
+- [[Corveaux Constitution]]
+- [[Institutional Maturity Model]]
+- [[Vendor Displacement Strategy]]
+- [[Product Brief]]
+- [[Corveaux V2]]

@@ -1,4 +1,4 @@
----
+﻿---
 type: philosophy
 domain: corveaux
 status: draft
@@ -98,3 +98,12 @@ Corveaux does not exist to accumulate features.
 Corveaux exists to reduce institutional complexity.
 
 If a decision increases complexity without increasing institutional understanding, it is likely the wrong decision.
+
+## Related
+
+- [[Corveaux Constitution]]
+- [[Philosophy]]
+- [[Product Brief]]
+- [[Vendor Displacement Strategy]]
+- [[GTM Hypothesis]]
+- [[ADR-007 — LLM Strategy Positioning]]

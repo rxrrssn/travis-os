@@ -1,4 +1,4 @@
----
+﻿---
 type: session-note
 domain: corveaux
 status: complete
@@ -52,7 +52,7 @@ Massive schema and UI expansion session. Added six new platform modules and over
 - `SmCategory` — service categories (icon, sortOrder, isActive)
 - `SmService` — services with slug, category FK, `approvalOrgId` FK, `isPublic`, `isActive`
 - `SmTicket` — support tickets with ticketNumber, status, priority, assignment, linked personId
-- `SmChange` — ITSM change records: type (NORMAL/STANDARD/EMERGENCY), state (DRAFT→CLOSED), CAB required, implementation/rollback/test plans, scheduled windows, requester/implementer/assignmentGroup FKs
+- `SmChange` — ITSM change records: type (NORMAL/STANDARD/EMERGENCY), state (DRAFTâ†’CLOSED), CAB required, implementation/rollback/test plans, scheduled windows, requester/implementer/assignmentGroup FKs
 - `ApprovalOrg` — approval organization model; linked to SmService for service-level approval routing
 - `SmFlowTemplate` + `SmFlowStep` — approval flow templates and steps
 
@@ -82,7 +82,7 @@ Massive schema and UI expansion session. Added six new platform modules and over
 
 **Schema additions:**
 - `WfPosition` — position record: orgId FK, laborClass, scheduleType, workLocation, supervisorPositionId, FTE, headcount, vacancy, salary band, fundingSource, FLSA, jobFamily, benefits, education/experience/license requirements, `postingDuties`, `postingQualReq`, `postingQualPref`, `postingOrgSummary`
-- `WfJobApplication` — application record: positionId + personId FKs, status (SUBMITTED→HIRED/REJECTED), coverLetter, resumeUrl, portfolioUrl, referralSource, reviewedById
+- `WfJobApplication` — application record: positionId + personId FKs, status (SUBMITTEDâ†’HIRED/REJECTED), coverLetter, resumeUrl, portfolioUrl, referralSource, reviewedById
 
 **UI built (all under `/t/[slug]/admin/workforce/`):**
 - Dashboard
@@ -243,7 +243,7 @@ These migrations have been applied to the local SQLite dev database. The `prisma
 
 - Assistant inference endpoint (API route wiring Claude to AssistantConfig)
 - Public-facing assistant widget (web channel)
-- Conversation session persistence (cookie → DB)
+- Conversation session persistence (cookie â†’ DB)
 - KB grounding / retrieval for assistant
 - RBAC enforcement across all new modules
 - Delete/archive flows for most new entity types

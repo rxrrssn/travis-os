@@ -15,13 +15,13 @@ This repository serves as:
 
 ## Core Domains
 
-- SLCC Operations
-- Corveaux
-- Student Success
-- Institutional Systems
+- [[SLCC Overview|SLCC Operations]]
+- [[Corveaux]]
+- [[Online Success Coaching|Student Success]]
+- [[TDX|Institutional Systems]]
 - Workflow Automation
 - Governance
-- Analytics
+- [[Power Platform|Analytics]]
 - Personal Infrastructure
 
 ## Principles
