@@ -72,8 +72,8 @@ The SLCC tenant is **catalog-only** (`catalog.slcc.edu` → courses/programs); `
 
 ## Consequences
 
-- A new interpretation/assembly path (a new module in the Cartographer/Interpreter/Archivist/Projector roster) — capture + resolution + page assembly. The crawler (Cartographer) is reused for fetching/IA.
-- `generate_tenant` (or a new `page.reconstruct` operation) gains the ability to **auto-produce `TenantPage`s**, not just blocks. The manual page builder becomes the editor for generated pages.
+- A new module — **Compositor** — joins the roster (Cartographer · Interpreter · Archivist · Projector · Impressionist · **Compositor**): it captures a site's pages, resolves + binds references, and composes them into `TenantPage`s. The crawler (Cartographer) is reused for fetching/IA; Compositor consumes its output. Module identity = *Compositor*; the user-facing operation/verb is **`page.reconstruct`** ("Reconstruct"), per the naming convention (identity noun ≠ action verb).
+- The `page.reconstruct` operation gains the ability to **auto-produce `TenantPage`s**, not just blocks. The manual page builder becomes the editor for Compositor-generated pages.
 - Captured narrative needs a home: page-section content on the `TenantPage` (cited). An open question is whether some institutional narrative ("mission statement") should become canonical `content`/`statement` facts rather than page content.
 - Entity resolution is an entity-linking problem; the content-review queue (ADR-024 work) is the human-in-the-loop for low-confidence bindings — no schema change needed to start.
 - Re-scrape semantics: a page re-capture updates the shell; fact changes never require it.
