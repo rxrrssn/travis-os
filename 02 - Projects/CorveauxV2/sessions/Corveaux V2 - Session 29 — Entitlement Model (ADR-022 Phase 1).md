@@ -66,9 +66,14 @@ Authored and iterated with the Founder to a tight decision set:
   `role_definition`), HRIS population (manual + Entra → SIS), person impersonation,
   role inheritance.
 
+## Also this session — ADR-023 (Page Reconstruction)
+
+Validating Phase 1 on staging surfaced that the SLCC tenant is catalog-only and the pipeline emits per-entity *blocks*, never assembled *pages* — the generated-tenant value gap. The Founder's framing: scan a site, mirror its pages + navigation as faithfully as possible, and **swap every reference to a canonical entity for a live binding** so pages become stable shells over single sources of truth (facts live once; pages point). Captured as [[ADR-023 — Page Reconstruction and Single-Source Page Binding]] (active): two interpretation modes (entity extraction vs page reconstruction), URL-match-first conservative binding, audience-tagged pages (public vs intranet = identical scrape, different audience — reuses ADR-022's audience machinery), page-level audit incl. upstream reference updates, reusing the existing `TenantPage`/inline-embed/Impressionist layer. Phase 1 build (capture + URL-match binding) is the next major work.
+
 ## Related
 
 - [[ADR-022 — Canonical Entitlements, Typed Supporting Tables, and Role and Person Impersonation]]
+- [[ADR-023 — Page Reconstruction and Single-Source Page Binding]]
 - [[ADR-005 — Capability-Based Authority Model]]
 - [[ADR-012 — Canonical Schema Architecture]]
 - [[Corveaux V2 - Session 28 — Status Page and Operation-Worker Backlog]]
