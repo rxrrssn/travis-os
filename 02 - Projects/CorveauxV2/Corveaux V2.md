@@ -186,9 +186,12 @@ Key decisions:
 - [x] Build tenant page builder, ontology UI, brand/theme editor, Impressionist extraction, configurable footer (Session 25)
 - [x] Role-aware rendering — audience-conditional rendering now differentiates via a configurable visibility policy (ADR-022 Phase 1c/1b, Session 29). Full generated-tenant experience polish ongoing.
 - [x] Configurable entitlement model (ADR-022 Phase 1): canonical Role/Capability, graph resolution + explanation trace, tenant entitlement config + explain view, governed view-as impersonation (Session 29)
+- [x] **Compositor page reconstruction** (ADR-023 Phase 1, Session 30): capture → bind (URL-match) → fuzzy-resolve → two-phase reconstruct; `page.reconstruct` operation. Closes the "blocks, not pages" value gap — a scanned site becomes assembled `TenantPage`s with live single-source bindings.
+- [x] **Data Debt Report** (ADR-026, Session 30): cited staleness findings as a discovery-audit projection — per-source + institution-aggregated, print/PDF, interactive binding-review queue.
+- [x] **Multi-source authority + discontinued-entity retention** (ADR-027/028, Session 30): source roles per entity type (`source_authority` Policy + config UI), role-aware promoter (projection sources don't mint), completeness-gated discontinuation.
 - [ ] Corveaux website running on Corveaux
 - [x] Implement GitHub-controlled staging and production deployment architecture
-- [ ] Catalog round-trip validation
+- [ ] **Catalog round-trip validation** — the SLCC end-to-end rebuild (seed `source_authority` → crawl slcc.edu → re-canonicalize catalog with completeness → `page.reconstruct` → Data Debt Report) is the vehicle. Code shipped to staging (Session 30); **rebuild RUN held for sprint-end** (Founder).
 - [ ] First external buyer conversation
 
 **Day 90 (~2026-09-05)**
