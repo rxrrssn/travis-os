@@ -142,7 +142,7 @@ Content blocks are projections of these primitives. Content blocks are not canon
 
 ## Decisions
 
-See decisions/ folder for full ADRs (ADR-001 through ADR-023).
+See decisions/ folder for full ADRs (ADR-001 through ADR-028).
 
 Key decisions:
 - Entry wedge: Web + Catalog + Directory (unified extraction sources)
@@ -228,10 +228,15 @@ Key decisions:
 - [[Corveaux V2 - Session 27 — Extraction Run Worker Verification]] — extraction.run verified live; extraction.retry_failed + source.cache.purge built
 - [[Corveaux V2 - Session 28 — Status Page and Operation-Worker Backlog]] — shipped status.corveaux.app; cleared the operation-worker backlog (promote_run, source.validate, tenant.review)
 - [[Corveaux V2 - Session 29 — Entitlement Model (ADR-022 Phase 1)]] — configurable entitlements: Role/Capability model, graph resolution + explanation trace, role-aware rendering turned on, tenant entitlement config + explain view, governed view-as impersonation
+- [[Corveaux V2 - Session 30 — Compositor, Data Debt Report, and Multi-Source Architecture]] — Compositor page reconstruction (ADR-023), Data Debt Report (ADR-026), discontinued-entity retention (ADR-027), source roles/authority (ADR-028); fuzzy resolver, per-source + aggregated report, binding-review queue, source-authority config; SLCC's live site found promoting 7+ discontinued programs via stale catalog editions
 - [[ADR-018 — Canonical Attribute Standardization and Relationship-Attached Policies]] — fixed course/program attribute sets, relationship-attached policies, three-phase promotion
 - [[ADR-019 — Cloudflare and Neon Runtime Architecture]] — current infrastructure decision
 - [[ADR-020 — Deployment and Promotion Architecture]] — GitHub-controlled staging and production promotion
 - [[ADR-021 — Effective Dating on Entity and Relationship]] — effectiveFrom/effectiveTo/catalogYear; validTo (record dead) vs effectiveTo (period ended)
 - [[ADR-022 — Canonical Entitlements, Typed Supporting Tables, and Role and Person Impersonation]] — canonical Person/Position/Role/Capability/Policy split; typed supporting tables; tenant-owned, effective-dated, explainable entitlements; role + person impersonation
 - [[ADR-023 — Page Reconstruction and Single-Source Page Binding]] — scan a site → mirror its pages + nav as assembled `TenantPage`s where every fact is a live binding to a canonical entity (not a copy); audience-tagged; page-level audit incl. upstream reference updates
+- [[ADR-025 — Push Companion App and Event-to-Device Projection]] — **accepted, build deferred**: native companion app as a push channel (Event→device projection), runtime per-tenant branding via Impressionist `themeConfig`, one tenant-keyed Expo app; depends on HRIS Phase 2 (device registry, notification Policy) + JSON projection API
+- [[ADR-026 — Data Debt Report and Staleness Detection]] — **primitive-aligned**: cited staleness findings = `ExtractionObservation(conflict)` + effective-dated truth (NOT a new table); Data Debt Report = a projection; history = snapshot artifacts; discovery-audit → onboarding → tenant-tied → exported PDF
+- [[ADR-027 — Discontinued-Entity Retention]] — disappearance from a *complete* authoritative source ⇒ retain as effective-dated entity (`effectiveTo`) + discontinuation `InstitutionalEvent`, never dropped; completeness-gated against partial-crawl false positives; makes "discontinued" canonical/cited/queryable (realizes ADR-021)
+- [[ADR-028 — Source Roles and Authority]] — each source has a role *per entity type*: **authority** (mints, conflict precedence, optionally completeness-authoritative) vs **projection** (binds/references, never mints, deltas = Data Debt drift). A `source_authority` Policy, default projection (safe). Unblocks multi-source convergence without collision + ADR-026/027 gates
 - [[institutional-archetypes]] — institutional archetype research (community college, regional university, R1, system office, foundation)

@@ -11,10 +11,14 @@
             "id": "ae9488f415d2c032",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "02 - Projects/CorveauxV2/decisions/ADR-022 — Canonical Entitlements, Typed Supporting Tables, and Role and Person Impersonation.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "ADR-022 — Canonical Entitlements, Typed Supporting Tables, and Role and Person Impersonation"
             }
           }
         ]
@@ -192,6 +196,10 @@
   },
   "active": "ae9488f415d2c032",
   "lastOpenFiles": [
+    "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.5592.3c277b8acd06",
+    "02 - Projects/CorveauxV2/decisions/ADR-022 — Canonical Entitlements, Typed Supporting Tables, and Role and Person Impersonation.md.tmp.5592.25dccf67e64d",
+    "02 - Projects/CorveauxV2/decisions/ADR-022 — Canonical Entitlements, Typed Supporting Tables, and Role and Person Impersonation.md.tmp.5592.622e440d8de8",
+    "02 - Projects/CorveauxV2/decisions/ADR-001 — Entry Wedge Selection.md",
     "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 22 — Cloudflare and Neon Deployment Closeout.md",
     "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.14872.cabeff3223b8",
     "02 - Projects/CorveauxV2/Corveaux V2.md.tmp.14872.382d42465363",
@@ -208,8 +216,6 @@
     "02 - Projects/CorveauxV2/decisions/ADR-019 — Cloudflare and Neon Runtime Architecture.md",
     "02 - Projects/CorveauxV2/decisions/ADR-018 — Canonical Attribute Standardization and Relationship-Attached Policies.md",
     "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 20.5 — Brand Identity Applied to Auth and Platform Admin.md",
-    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 20.5 — Brand Identity Applied to Auth and Platform Admin.md.tmp.2604.a642cf88aa47",
-    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 20 — Module Identity Renames and Admin Vocabulary Sweep.md.tmp.2604.0f43bf5f3930",
     "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 20 — Module Identity Renames and Admin Vocabulary Sweep.md",
     "02 - Projects/sessions/2026-06-07 — Corveaux V2 Session 19 — Platform Admin and Tenant Operations.md",
     "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 19 — Platform Admin and Tenant Operations.md",
@@ -226,7 +232,6 @@
     "02 - Projects/CorveauxV2/decisions/ADR-017 — Cache-Aware Crawling and Extraction.md",
     "02 - Projects/CorveauxV2/decisions/ADR-016 — Topological Extraction Order and Content Quality Pipeline.md",
     "02 - Projects/Corveaux-Old/Corveaux Auth Architecture - Tenant Resolver.md",
-    "02 - Projects/CorveauxV2/sessions/Corveaux V2 - Session 14 — Day 30 Gate Defect Remediation.md",
     "Untitled.canvas"
   ]
 }
