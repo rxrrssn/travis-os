@@ -2,7 +2,7 @@
 
 **Project:** Corveaux V2  
 **Purpose:** Manual scoring checklist for the SLCC Day 30 validation gate.  
-**Status:** Draft. Fill in exact expected values during/after source review.  
+**Status:** Superseded by the live re-sample method. Day 30 gate **CLOSED 2026-06-07** (96.5% / 99.4%). This per-fact worksheet was never filled cell-by-cell — scoring was performed by fetching each sampled entity's `sourceUrl` live and scoring its material facts PASS/PARTIAL/FAIL. Authoritative scoring lives in [[SLCC Validation Run]], [[day-30-gate-resample-findings]], [[day-30-gate-resample-random-20-manual]], and [[metrics]]. Retained as the fact-coverage reference.  
 **Prepared:** 2026-06-05
 
 ---
@@ -302,7 +302,7 @@ Validate that raw extraction is safely separated from canonical state.
 | No `tenant_id` on tenant DB tables | Yes |  |  |
 | Tenant context chosen by DB/schema connection | Yes |  |  |
 | No `if tenant == "corveaux"` logic | Yes |  |  |
-| Trigger.dev payload carries tenant context for routing | Yes |  |  |
+| Operation/worker payload carries tenant context for routing (was Trigger.dev; now Cloudflare Workers/Workflows/Queues) | Yes |  |  |
 
 ---
 
@@ -310,21 +310,21 @@ Validate that raw extraction is safely separated from canonical state.
 
 ### Pass Criteria
 
-- [ ] Smoke test completes without crash
-- [ ] SLCC extraction run completes
-- [ ] Program/course/service/policy observations written
-- [ ] Promotion engine creates canonical records
-- [ ] Source precedence policy applied
-- [ ] Conflicts detected where applicable
-- [ ] Content blocks generated
-- [ ] Manual accuracy score â‰¥ 90%
-- [ ] Every promoted fact has citation/provenance
-- [ ] No hallucinated material facts found in reviewed sample
+- [x] Smoke test completes without crash
+- [x] SLCC extraction run completes
+- [x] Program/course/service/policy observations written
+- [x] Promotion engine creates canonical records
+- [x] Source precedence policy applied
+- [x] Conflicts detected where applicable
+- [x] Content blocks generated
+- [x] Manual accuracy score â‰¥ 90% — 96.5% live re-sample / 99.4% independent random-20
+- [x] Every promoted fact has citation/provenance
+- [x] No hallucinated material facts found in reviewed sample
 
 ### Gate Result
 
 ```text
-[ ] PASS — proceed to generated tenant work
+[x] PASS — proceed to generated tenant work    (closed 2026-06-07, user-authorized)
 [ ] CONDITIONAL PASS — fix specific extraction defects, then proceed
 [ ] FAIL — iterate extraction/promotion before generated tenant work
 ```
@@ -332,13 +332,15 @@ Validate that raw extraction is safely separated from canonical state.
 ### Reviewer Notes
 
 ```text
-Date:
-Reviewer:
-Run ID:
-Source Set:
-Accuracy Score:
-Major Issues:
-Decision:
+Date:           2026-06-07 (Run 002 / live re-sample, Session 17)
+Reviewer:       Travis Hornbuckle (independent random-20 manual review) + automated live re-sample
+Run ID:         Run 002 (SLCC catalog + program + website)
+Source Set:     20 courses + 20 programs sampled vs live catalog.slcc.edu ground truth
+Accuracy Score: 96.5% combined (live re-sample) / 99.4% combined, zero FAILs (independent random-20)
+Major Issues:   6 genuine defects logged (4 course prerequisite omissions, 1 citation/identity
+                mismatch, 1 unit-normalization) — known_bugs Bugs 15-17. Confidence calibration
+                not yet a reliable signal (scope-leakage stubs carried high confidence).
+Decision:       PASS — gate closed, generated-tenant work unblocked.
 ```
 
 ---

@@ -8,7 +8,9 @@ tags: [corveaux, extraction, pipeline, spec, canonical, observations, promotion]
 
 # Extraction Pipeline Spec
 
-**Status:** Active. Written Session 03 (2026-06-05).
+**Status:** Active. Written Session 03 (2026-06-05). Runtime updated 2026-06-13.
+
+> **Runtime note (2026-06-13):** The *doctrine* below is unchanged and authoritative. The *runtime mechanics* have moved since this spec was written: crawling is now the custom cache-aware **Cartographer** (Crawlee + Playwright removed; see [[ADR-017 — Cache-Aware Crawling and Extraction]]), and orchestration runs on **Cloudflare Workers/Workflows/Queues** (Trigger.dev removed in [[Corveaux V2 - Session 21 — Trigger.dev to Cloudflare Workflows Changeover Plan]] / Session 25). `extraction.run` is a Cloudflare Workflow that fans out one Queue message per page to a consumer, then a finalizer promotes + regenerates — verified live in [[Corveaux V2 - Session 27 — Extraction Run Worker Verification]]. References to "Trigger.dev" and "Crawlee" in the prose below have been corrected in place; the older task-shape pseudocode is retained as conceptual reference.
 
 ---
 
@@ -31,7 +33,7 @@ Source (website / catalog / directory)
   â”‚
   â–¼
 [Stage 1] Crawl
-  Crawlee + Playwright
+  Cartographer (custom cache-aware crawler, R2-backed)
   Outputs: list of pages with raw HTML/text
   â”‚
   â–¼
@@ -53,7 +55,7 @@ Source (website / catalog / directory)
   Outputs: ContentBlock records (status: DRAFT or REVIEW)
 ```
 
-Each stage is a durable Trigger.dev task. Stages are not coupled — promotion runs after all extraction observations for a run are written. Block regeneration runs after promotion completes.
+Each stage is a durable Cloudflare Workflow step (extraction fans out across a Cloudflare Queue, one message per page). Stages are not coupled — promotion runs after all extraction observations for a run are written. Block regeneration runs after promotion completes.
 
 ---
 
@@ -167,7 +169,7 @@ The `payload` JSONB structure varies by `observationType`.
 
 ## Stage 1: Crawl
 
-**Technology:** Crawlee + Playwright.
+**Technology:** Cartographer — the custom cache-aware crawler (Crawlee + Playwright removed; see [[ADR-017 — Cache-Aware Crawling and Extraction]]). R2-backed crawl cache keyed by `pageKey(sourceSlug, canonicalUrl)`, shared between discovery and extraction.
 
 **Scope per sourceType:**
 
@@ -288,7 +290,7 @@ Each item in the extraction result becomes one `ExtractionObservation` record:
 
 The promotion engine runs after all observations for an extraction run are written. It takes pending observations and decides what the canonical state should be.
 
-**Promotion is a Trigger.dev task** triggered by the extraction stage completion signal.
+**Promotion is a Cloudflare Workflow step** (the finalizer) triggered once all per-page extraction Queue messages for the run have been consumed.
 
 ### Promotion Logic
 
@@ -432,7 +434,7 @@ Accepted observations transition to `status = "promoted"`. Rejected observations
 
 ## Stage 5: Block Regeneration
 
-Block regeneration runs after promotion completes. It is a Trigger.dev child task.
+Block regeneration runs after promotion completes. It is the projector phase of the finalizer Workflow step (Cloudflare).
 
 **Trigger conditions:**
 - Extraction run promotion stage completes
@@ -461,15 +463,17 @@ Blocks assemble from current (`validTo IS NULL`) canonical records. A block neve
 
 ---
 
-## Trigger.dev Task Structure
+## Task Structure (Cloudflare Workflow + Queue)
+
+> The shape below is the original conceptual decomposition. As shipped (Session 27), `extraction.run` is a Cloudflare **Workflow**; the per-page extract step fans out across a Cloudflare **Queue** (one message per page) consumed by an extractor Worker, and a **finalizer** Workflow step runs promotion (archivist) then block regeneration (projector). The stage boundaries and durability guarantees are identical; only the platform primitives changed (was Trigger.dev `triggerAndWait` fan-out).
 
 ```
-task: extraction.run(tenantId, sourceType, sourceUrl, config)
+workflow: extraction.run(tenantId, sourceType, sourceUrl, config)
   step 1 — initialize
     create ExtractionRun record (status: PENDING â†’ RUNNING)
     
   step 2 — crawl
-    run Crawlee crawl against sourceUrl
+    run Cartographer crawl against sourceUrl
     store raw pages to S3
     return pageList: { url, s3Key, contentType }[]
     
@@ -514,11 +518,11 @@ task: extraction.regenerateBlocks(extractionRunId)
   step 5 — set block status: DRAFT (new) | REVIEW (updated published block)
 ```
 
-**Tenant context:** `tenantId` is carried explicitly in every task payload. Trigger.dev does not provide tenant isolation. The task uses `tenantId` to select the correct database connection (schema for local dev, separate database for production). Consistent with ADR-010.
+**Tenant context:** `tenantId` is carried explicitly in every Workflow/Queue payload. The runtime does not provide ambient tenant isolation. The handler uses `tenantId` to select the correct database connection (schema for local dev, separate database/Worker for production). Consistent with ADR-010.
 
-**Durable execution:** Each step is checkpointed. A failure at step 4 of promotion does not restart from step 1. It resumes from the last successful checkpoint. Long-running crawls (hours for large catalogs) do not time out.
+**Durable execution:** Each Cloudflare Workflow step is checkpointed. A failure at step 4 of promotion does not restart from step 1. It resumes from the last successful checkpoint. Long-running crawls (hours for large catalogs) do not time out. (A staleness watchdog converts stuck runs into `operation.stalled` Events with self-healing requeue — Session 37.)
 
-**Rate limiting:** The extract stage respects Claude API rate limits using Trigger.dev's wait primitives — no polling loops, no hardcoded sleeps.
+**Rate limiting:** The extract stage respects Claude API rate limits via Queue concurrency/batching — no polling loops, no hardcoded sleeps.
 
 ---
 
@@ -526,26 +530,30 @@ task: extraction.regenerateBlocks(extractionRunId)
 
 The Day 30 gate requires a completed extraction run against SLCC with measured outcomes. No generated tenant work begins until this gate is passed.
 
+> **GATE CLOSED 2026-06-07** — Run 002 live re-sample scored **96.5%** combined material-fact accuracy; the independent random-20 review scored **99.4%** with zero FAILs. See [[SLCC Validation Run]], [[day-30-gate-resample-findings]], and [[Corveaux V2 - Session 17 — Day 30 Gate Live Re-Sample]]. Boxes below reflect the closure. Confidence calibration was deliberately NOT scored (see note). Two canonical-quality invariants remain open and tracked as ongoing cleanup (`known_bugs` memory — orphaned policy-soup rows), not gate blockers.
+
 ### Accuracy
 
-- [ ] Greater than 90% accuracy on material facts (see Material Facts below)
-- [ ] Accuracy measured by manual comparison to known ground truth
+- [x] Greater than 90% accuracy on material facts (see Material Facts below) — 96.5% / 99.4%
+- [x] Accuracy measured by manual comparison to known ground truth
 
 ### Citations
 
-- [ ] Source citation present on every extracted observation
-- [ ] Citations traceable to specific source URLs
-- [ ] No `citationText` field empty or null in any promoted observation
+- [x] Source citation present on every extracted observation
+- [x] Citations traceable to specific source URLs
+- [x] No `citationText` field empty or null in any promoted observation
 
 ### Hallucination Prevention
 
-- [ ] No invented entities not present in SLCC sources
-- [ ] No invented relationships between entities
-- [ ] No invented programs, courses, or credit hours
-- [ ] No invented departments or contacts
-- [ ] Random sample review of 10% of promoted observations
+- [x] No invented entities not present in SLCC sources
+- [x] No invented relationships between entities
+- [x] No invented programs, courses, or credit hours
+- [x] No invented departments or contacts
+- [x] Random sample review of 10% of promoted observations (live re-sample + independent random-20)
 
 ### Confidence Calibration
+
+*Not formally scored — all sampled entities carried confidence ≥ 0.85 regardless of correctness (including scope-leakage stubs). Confidence is not yet a reliable signal for this failure mode; revisit once the scope-leakage fix lands. Tracked as a quality improvement, not a gate blocker.*
 
 - [ ] Observations with confidence â‰¥ 0.90 are verified to be correct in â‰¥ 90% of reviewed cases
 - [ ] Observations with confidence 0.70–0.89 accurately reflect genuine ambiguity in source material
@@ -553,17 +561,17 @@ The Day 30 gate requires a completed extraction run against SLCC with measured o
 
 ### Canonical Model Quality
 
-- [ ] All extracted entity types map cleanly to the canonical type registry (no unregistered types)
-- [ ] Relationship graph is internally consistent (no dangling canonicalKeys)
-- [ ] Temporal fields (`validFrom`, `validTo`) correctly reflect observed institutional state
-- [ ] No `tenant_id` present on any extracted record (connection is tenant context)
+- [ ] All extracted entity types map cleanly to the canonical type registry (no unregistered types) — *pre-ADR-018 attribute/policy soup still present; tracked in `known_bugs`*
+- [ ] Relationship graph is internally consistent (no dangling canonicalKeys) — *~1,889 orphaned policy-soup rows remain; absorbed by Day 60/90 corpus regen*
+- [x] Temporal fields (`validFrom`, `validTo`) correctly reflect observed institutional state
+- [x] No `tenant_id` present on any extracted record (connection is tenant context)
 
 ### Pipeline Integrity
 
-- [ ] ExtractionRun record present for the SLCC run with accurate counters
-- [ ] Every promoted observation has `promotedRecordId` and `promotedRecordType` set
-- [ ] Source precedence policy applied correctly where conflicts arose
-- [ ] Conflict review queue populated for any unresolved conflicts
+- [x] ExtractionRun record present for the SLCC run with accurate counters
+- [x] Every promoted observation has `promotedRecordId` and `promotedRecordType` set
+- [x] Source precedence policy applied correctly where conflicts arose
+- [x] Conflict review queue populated for any unresolved conflicts
 
 ### Material Facts (SLCC ground truth)
 
@@ -623,9 +631,9 @@ These rules are not configurable and not overridable:
 
 ## Open Questions
 
-- [ ] Catalog format adapters: which formats need custom parsers before SLCC run? (Acalog HTML confirmed; PDF prevalence unknown)
+- [x] Catalog format adapters: which formats need custom parsers before SLCC run? — Acalog HTML confirmed and run end-to-end; the SLCC gate ran on Acalog without a PDF parser. PDF adapter deferred until a prospect's catalog requires it.
 - [ ] Person deduplication strategy for weak-key person entities (name-only) before identity layer exists
-- [ ] How are extraction runs triggered in production — scheduled, webhook, admin-initiated, or all three?
+- [x] How are extraction runs triggered in production — scheduled, webhook, admin-initiated, or all three? — Admin-initiated `TenantOperation` (the Platform Admin / Manual Pipeline) and pipeline-driven provisioning (the ADR-030 Architect forge, triggered by an Institutions stage-change Event). Scheduled re-extraction remains future.
 - [ ] What is the re-extraction interval for different source types (catalog annual, website monthly, directory weekly)?
 
 ---

@@ -612,7 +612,7 @@ Same governance as canonical type registry (ADR-013): new block types require a 
 
 ## Open Questions
 
-- [ ] Block generator spec: exact assembly query per block type — deferred to implementation
+- [x] Block generator spec: exact assembly query per block type — resolved in implementation. The Projector (block regeneration) assembles each block type from current canonical state (`validTo IS NULL`); see the assembly-query table in [[extraction-pipeline-spec]] §Stage 5 and the Projector module ([[Corveaux V2 - Session 20 — Module Identity Renames and Admin Vocabulary Sweep]]).
 - [ ] Freshness policy shape: how are thresholds configured per block type? — deferred to Day 60 governance work. Shape: Policy record (`policyType: "freshness"`) with rules `{ published_block_stale_after_days: N, draft_block_auto_archive_after_days: N }`. Evaluated at query time in RSC from `block.generatedAt`. Not stored on the block.
 - [x] Demo mode: how are rendering contexts simulated for unauthenticated demo visitors? — **The public `(tenant)` route IS demo mode.** Unauthenticated visitors receive visitor context. For showing prospective_student/current_student context during demos: `?context=` query param on public routes, constrained to non-admin contexts, read in RSC only. See [[ADR-015 — Rendering Architecture]] §Demo Mode.
 
