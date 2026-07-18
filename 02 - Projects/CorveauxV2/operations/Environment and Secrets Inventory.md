@@ -30,7 +30,7 @@ is refused. A leaked secret can be rotated without a code change.
 | `*_DATABASE_URL` (platform + per-tenant) | Database access | Per-tenant URLs keep schools separated |
 | `ANTHROPIC_API_KEY` | AI inference | Sees only redacted prompts (no personal data) |
 | `RESEND_API_KEY` | Outbound + inbound email | Environment-resolved: test vs live |
-| `RESEND_INBOUND_SIGNING_SECRET` | Verifies inbound email is really from Resend | Required before connecting inbound in prod |
+| `RESEND_INBOUND_SIGNING_SECRET` | Verifies inbound email is really from Resend | Wired into the **staging** app worker (deploy passes `RESEND_INBOUND_SIGNING_SECRET_STAGING`); set the prod equivalent before connecting inbound in prod |
 | `TWILIO_ACCOUNT_SID` / `TWILIO_AUTH_TOKEN` / `TWILIO_FROM_NUMBER` | SMS (not connected yet) | Auth token also verifies inbound SMS signatures |
 | `CONVERSATIONS_INBOUND_TOKEN` | Fallback inbound auth when no provider signature | Send in the `x-corveaux-inbound-token` header |
 | `STRIPE_*` (test/live pair) | Billing | Live key only in production |
@@ -54,7 +54,7 @@ is refused. A leaked secret can be rotated without a code change.
 ## Open items
 - ☐ Document the exact rotation command per provider.
 - ☐ Confirm `CORVEAUX_ENVIRONMENT=production` is set on the production app worker.
-- ☐ Set `RESEND_INBOUND_SIGNING_SECRET` before connecting inbound email; keep Twilio secrets unset until SMS is connected.
+- ☑ Staging: `RESEND_INBOUND_SIGNING_SECRET` set + wired via the deploy. ☐ Prod: set it before connecting inbound email. Keep Twilio secrets unset until SMS is connected.
 
 ## Related
 - [[Inbound Channel Connection Runbook]] · [[Security Overview and SOC 2 Control Mapping]] · [[Subprocessors and DPAs]]

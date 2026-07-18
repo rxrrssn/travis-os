@@ -49,7 +49,7 @@ When helping Travis on SLCC work:
 
 [[Seini Pahulu]]
 [[Annalise Karr]]
-[[Megan Brandly]]
+[[Megan Brandley]]
 [[Contact Center]]
 [[Online Success Coaching]]
 [[Bruin Connect Transition]]

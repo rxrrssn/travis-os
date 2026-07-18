@@ -33,7 +33,7 @@ Common activities:
 
 - ~5,400 students served annually
 - ~400 students per coach per semester (evolved from 125 in 2016)
-- 5 coaches + AD (Megan Brandly) + Director (Seini Pahulu, 30% allocation to OSC)
+- 5 coaches + AD (Megan Brandley) + Director (Seini Pahulu, 30% allocation to OSC)
 - Fully remote team
 
 ## Key Outcomes
@@ -112,7 +112,7 @@ Dashboard vision: one dashboard per program objective, covering outreach totals,
 
 ## Key People
 
-- [[Megan Brandly]] -- Assistant Director; oversees 5 coaches
+- [[Megan Brandley]] -- Assistant Director; oversees 5 coaches
 - Coaches: Charlotte, Meti, [[Magen Despain]] (confirmed from student testimonials)
 - [[Seini Pahulu]] -- Director (30% allocation to OSC; also runs inbound/outbound Contact Center)
 

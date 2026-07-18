@@ -81,7 +81,7 @@ Proposed dashboards per objective:
 ## Related
 
 [[Online Success Coaching]]
-[[Megan Brandly]]
+[[Megan Brandley]]
 [[Seini Pahulu]]
 [[Bruin Connect Transition]]
 [[HB 265]]

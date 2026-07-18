@@ -14,7 +14,7 @@ tags:
 
 Online Success Coach, OSC -- SLCC
 
-Under [[Megan Brandly]] (Assistant Director). Part of the team that will become Coaching under the [[Bruin Connect Transition]].
+Under [[Megan Brandley]] (Assistant Director). Part of the team that will become Coaching under the [[Bruin Connect Transition]].
 
 ## Notes
 
@@ -25,7 +25,7 @@ Named in multiple student testimonials (Spring 2025):
 ## Related
 
 [[Online Success Coaching]]
-[[Megan Brandly]]
+[[Megan Brandley]]
 [[Seini Pahulu]]
 [[Bruin Connect Transition]]
 [[OSC Executive Summary and Program Report Spring 2026]]

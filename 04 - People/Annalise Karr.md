@@ -23,7 +23,7 @@ Under proposed restructure: would oversee Assist (inbound) and Persist (outbound
 ## Related
 
 [[Seini Pahulu]]
-[[Megan Brandly]]
+[[Megan Brandley]]
 [[Contact Center]]
 [[Bruin Connect Transition]]
 [[IVR Call Routing Analysis]]

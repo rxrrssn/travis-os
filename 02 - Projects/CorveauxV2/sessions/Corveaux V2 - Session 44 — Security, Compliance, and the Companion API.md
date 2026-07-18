@@ -32,11 +32,9 @@ human readable… convey the security posture we are assuming"*):
 [[Subprocessors and DPAs]], [[Data Handling and Retention Policy]] (incl. the FERPA
 rights + a planned **per-tenant field-level encryption** for the expansion tables —
 founder's question, a future ADR), [[Security Overview and SOC 2 Control Mapping]],
-[[Incident Response Runbook]], [[Environment and Secrets Inventory]], [[Inbound
-Channel Connection Runbook]], and the [[Expo App Integration Guide]].
+[[Incident Response Runbook]], [[Environment and Secrets Inventory]], [[Inbound Channel Connection Runbook]], and the [[Expo App Integration Guide]].
 
-Parsed the real **HECVAT 4.16** workbook and drafted honest answers ([[HECVAT 4.16 —
-Draft Responses]]). Proxy score from the draft: **~42% Yes / ~57% with partial
+Parsed the real **HECVAT 4.16** workbook and drafted honest answers ([[HECVAT 4.16 — Draft Responses]]). Proxy score from the draft: **~42% Yes / ~57% with partial
 credit; 34% Yes on critical questions** — "strong architecture, light on
 formal process/attestation." Biggest cheap movers: DPAs, BCP/DRP/IR + a pen test,
 confirm the Partial items, a training record, the field-encryption, a VPAT. The AI

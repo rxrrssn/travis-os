@@ -8,7 +8,7 @@ tags:
   - online-success-coaching
 ---
 
-# Megan Brandly
+# Megan Brandley
 
 ## Role
 

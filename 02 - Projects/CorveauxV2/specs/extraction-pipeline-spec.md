@@ -30,25 +30,25 @@ Three rules govern every decision in this spec:
 
 ```
 Source (website / catalog / directory)
-  â”‚
-  â–¼
+  │
+  ▼
 [Stage 1] Crawl
   Cartographer (custom cache-aware crawler, R2-backed)
   Outputs: list of pages with raw HTML/text
-  â”‚
-  â–¼
+  │
+  ▼
 [Stage 2] Extract
   Claude claude-sonnet-4-6, one call per page
   Outputs: ExtractionObservation records (status: pending)
-  â”‚
-  â–¼
+  │
+  ▼
 [Stage 3] Promote
   Promotion Engine
   Applies source precedence Policy
   Outputs: canonical primitive updates (temporal close + new record)
            or conflict flags
-  â”‚
-  â–¼
+  │
+  ▼
 [Stage 4] Regenerate
   Block Regeneration
   Assembles ContentBlock projections from current canonical state
@@ -66,7 +66,7 @@ Each stage is a durable Cloudflare Workflow step (extraction fans out across a C
 Provenance record for one extraction pass against one source. Created before crawling begins. Updated at each stage.
 
 ```
-status:           PENDING â†’ RUNNING â†’ COMPLETED | FAILED | CANCELLED
+status:           PENDING → RUNNING → COMPLETED | FAILED | CANCELLED
 sourceType:       website | catalog | directory
 sourceUrl:        root URL of the crawl target
 observationCount: total observations written in this run
@@ -103,11 +103,11 @@ createdAt:          immutable
 
 **Status transitions:**
 ```
-pending â†’ promoted   (promotion engine accepted this observation)
-pending â†’ conflict   (promotion engine detected a conflict it cannot resolve)
-pending â†’ rejected   (observation failed validation: missing citation, confidence below threshold, malformed)
-conflict â†’ promoted  (human resolved the conflict, winning observation is promoted)
-conflict â†’ rejected  (human rejected this observation as incorrect)
+pending → promoted   (promotion engine accepted this observation)
+pending → conflict   (promotion engine detected a conflict it cannot resolve)
+pending → rejected   (observation failed validation: missing citation, confidence below threshold, malformed)
+conflict → promoted  (human resolved the conflict, winning observation is promoted)
+conflict → rejected  (human rejected this observation as incorrect)
 ```
 
 ---
@@ -200,9 +200,9 @@ The extraction call takes one page's content and returns all canonical primitive
 
 **Confidence calibration rules embedded in the prompt:**
 ```
-â‰¥ 0.90 — The source page states this fact directly and unambiguously.
-0.70â€“0.89 — The fact is clearly implied or stated with minor ambiguity.
-0.50â€“0.69 — You are inferring this fact from context. Flag it.
+≥ 0.90 — The source page states this fact directly and unambiguously.
+0.70–0.89 — The fact is clearly implied or stated with minor ambiguity.
+0.50–0.69 — You are inferring this fact from context. Flag it.
 < 0.50   — Do not emit this observation. Below threshold.
 ```
 
@@ -253,19 +253,19 @@ The extraction prompt instructs Claude to produce a natural key for each entity.
 
 **Format:** `{entityType}:{normalized-natural-key}`
 
-**Normalization:** lowercase, whitespace â†’ hyphens, strip special characters except hyphens and digits.
+**Normalization:** lowercase, whitespace → hyphens, strip special characters except hyphens and digits.
 
 **Natural key by entity type:**
 
 | Entity type | Natural key source |
 |---|---|
-| course | `{subject_code}-{course_number}` â†’ `course:math-1010` |
-| program | normalized program name â†’ `program:associate-of-science-computer-science` |
-| organization | normalized org name â†’ `organization:school-of-business-and-technology` |
-| position | `{normalized-title}-{normalized-org}` â†’ `position:dean-school-of-science` |
-| person | `{first-last}` â†’ `person:jane-smith` — **weak key, low confidence, flag for review** |
-| service | normalized service name â†’ `service:financial-aid-office` |
-| policy | `{policy_type}-{normalized-name}` â†’ `policy:graduation-requirement-associate-degree` |
+| course | `{subject_code}-{course_number}` → `course:math-1010` |
+| program | normalized program name → `program:associate-of-science-computer-science` |
+| organization | normalized org name → `organization:school-of-business-and-technology` |
+| position | `{normalized-title}-{normalized-org}` → `position:dean-school-of-science` |
+| person | `{first-last}` → `person:jane-smith` — **weak key, low confidence, flag for review** |
+| service | normalized service name → `service:financial-aid-office` |
+| policy | `{policy_type}-{normalized-name}` → `policy:graduation-requirement-associate-degree` |
 
 Person keys derived from name only are intentionally low-confidence. They require an additional identifier (employee ID, email, Entra object ID) to become strong keys. The extraction pipeline notes the weakness; the identity layer resolves it.
 
@@ -301,11 +301,11 @@ for each pending observation:
   if canonicalKey is null (new entity, no key yet):
     auto-generate canonicalKey from payload
     check for existing entities with same canonicalKey
-    if none: promote â†’ create new canonical record
+    if none: promote → create new canonical record
     if exists: treat as update case (see below)
   
   if no current canonical record for this canonicalKey:
-    promote â†’ create new canonical record
+    promote → create new canonical record
     stamp: extractionRunId, extractedAt, sourceUrl, confidence
     set: validFrom = now(), validTo = null
     mark observation: status = "promoted", promotedRecordId, promotedRecordType
@@ -335,8 +335,8 @@ BEFORE promotion:
   Entity { id: X, canonicalKey: "program:cs", attributes: { credits: 62 }, validFrom: T1, validTo: null }
 
 AFTER promotion of observation claiming credits = 60:
-  Entity { id: X, canonicalKey: "program:cs", attributes: { credits: 62 }, validFrom: T1, validTo: now() }  â† closed
-  Entity { id: Y, canonicalKey: "program:cs", attributes: { credits: 60 }, validFrom: now(), validTo: null }  â† current
+  Entity { id: X, canonicalKey: "program:cs", attributes: { credits: 62 }, validFrom: T1, validTo: now() }  ← closed
+  Entity { id: Y, canonicalKey: "program:cs", attributes: { credits: 60 }, validFrom: now(), validTo: null }  ← current
 ```
 
 Full history of any fact is always queryable:
@@ -447,11 +447,11 @@ Each block type is assembled by querying current canonical state (`validTo IS NU
 
 | Block type | Assembly query |
 |---|---|
-| ProgramBlock | Program entity + `part_of` â†’ organization + Course entities in requirement relationships + Contact entities |
+| ProgramBlock | Program entity + `part_of` → organization + Course entities in requirement relationships + Contact entities |
 | CourseBlock | Course entity + prerequisite/corequisite relationships + offering organization |
 | DepartmentBlock | Organization entity + `part_of` relationships + Person entities with `holds_position` |
 | ServiceBlock | Service entity + eligibility Policy + Contact entities |
-| ContactBlock | Person entity + `holds_position` â†’ Position + `part_of` chain â†’ Organization |
+| ContactBlock | Person entity + `holds_position` → Position + `part_of` chain → Organization |
 | PolicyBlock | Policy entity + subject entity if applicable |
 
 **Block status on generation:**
@@ -470,7 +470,7 @@ Blocks assemble from current (`validTo IS NULL`) canonical records. A block neve
 ```
 workflow: extraction.run(tenantId, sourceType, sourceUrl, config)
   step 1 — initialize
-    create ExtractionRun record (status: PENDING â†’ RUNNING)
+    create ExtractionRun record (status: PENDING → RUNNING)
     
   step 2 — crawl
     run Cartographer crawl against sourceUrl
@@ -555,7 +555,7 @@ The Day 30 gate requires a completed extraction run against SLCC with measured o
 
 *Not formally scored — all sampled entities carried confidence ≥ 0.85 regardless of correctness (including scope-leakage stubs). Confidence is not yet a reliable signal for this failure mode; revisit once the scope-leakage fix lands. Tracked as a quality improvement, not a gate blocker.*
 
-- [ ] Observations with confidence â‰¥ 0.90 are verified to be correct in â‰¥ 90% of reviewed cases
+- [ ] Observations with confidence ≥ 0.90 are verified to be correct in ≥ 90% of reviewed cases
 - [ ] Observations with confidence 0.70–0.89 accurately reflect genuine ambiguity in source material
 - [ ] Observations with confidence < 0.50 are not present in promoted canonical state
 

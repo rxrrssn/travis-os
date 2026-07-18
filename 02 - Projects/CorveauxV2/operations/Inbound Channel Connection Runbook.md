@@ -28,7 +28,7 @@ place.
 ## Connect inbound EMAIL (Resend)
 1. In Resend, set up inbound for the address the school will use (e.g. `ask@school.edu`).
 2. Point Resend's inbound webhook at: `https://<host>/api/inbound/email/<tenant-slug>`
-3. Copy Resend's signing secret into `RESEND_INBOUND_SIGNING_SECRET` (Worker secret).
+3. Copy Resend's signing secret into `RESEND_INBOUND_SIGNING_SECRET` (Worker secret). On **staging** this is now automated: set the `RESEND_INBOUND_SIGNING_SECRET_STAGING` GitHub secret and the deploy passes it to the app worker (do the prod equivalent at prod cutover).
 4. Redeploy. From then on, every inbound email's signature is verified before it threads.
 5. Test: send a real email to the address → confirm it appears as a conversation in the inbox.
 

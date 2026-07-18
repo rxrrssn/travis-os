@@ -1,17 +1,20 @@
 ---
 type: decision
 domain: companion-app
-status: proposed
+status: active
 date: 2026-06-13
 tags: [mobile, ia, context, theming, connectors, projection, day-planner]
 ---
 
 # ADR-037 — Companion App Information Architecture and the Ambient Context Model
 
-> **DRAFT (proposed).** Captured from a founder design session on 2026-06-13. Not yet
-> built — it defines the target IA the S46 app (5-tab shell + triple-tap admin,
-> [[ADR-036 — The Companion App Client and Hidden Admin Mode]]) evolves toward. Flip to
-> `active` on founder sign-off.
+> **ACCEPTED 2026-06-13** (founder sign-off via PR #36, Session 47). **Slices A–D shipped**
+> — appearance (dark/light) + App Settings, the Alerts inbox, the Home day-planner, and
+> Profile manage-me. **Slice E (ambient context + shell manifest)** is the remaining piece,
+> deferred pending the shell-config **Policy shape** decision (tenant-Policy-driven vs
+> hardcoded defaults per relationship) — see Open Questions. The S46 app
+> ([[ADR-036 — The Companion App Client and Hidden Admin Mode]]) evolves toward this; the
+> triple-tap admin retires when E lands (operator becomes a context).
 
 ## Decision
 
@@ -110,9 +113,11 @@ default landing, **connections**).
 
 ### Alerts — the inbox
 The **durable ledger behind the ephemeral push** (organic push fires; the inbox persists it):
-a reverse-chron feed of the person's notifications, an unread badge, each row deep-linking to
-its target. A **gear** opens App Settings. The inbox is a projection of the person's
-notification dispatches (already PII-minimal).
+a reverse-chron feed of the person's notifications, an unread badge, each row deep-linking
+**in-app** to its target — alerts resolve inside the app and **never open a browser** (founder
+rule, S49: e.g. a compliance access-request alert lands on the admin **Trust** tab where you
+approve/deny; an alert with no in-app home stays informational). A **gear** opens App Settings.
+The inbox is a projection of the person's notification dispatches (already PII-minimal).
 
 ### Tabs + More
 Surfaces are projected per the person's relationships into **domained spaces** you *enter*

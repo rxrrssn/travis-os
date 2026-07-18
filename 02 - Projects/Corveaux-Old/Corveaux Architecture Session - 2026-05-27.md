@@ -6,7 +6,7 @@ Before the architectural pivot, sessions 6–11 completed:
 
 - **WYSIWYG block editor**: side-by-side layout with live `BlockRenderer` preview; sticky left panel with content form + settings; `-mx-8 -mb-7` breakout from PageContainer for full-width canvas
 - **Two new block types**: `MARQUEE` (CSS ticker animation, brass diamond separators, hover-pause) and `STATS_BAND` (dark graphite bg, hairline grid via `gap-px bg-white/10`, brass stat values)
-- **Internal tenant homepage**: 8-block futuristic homepage — HERO, MARQUEE (14 module names), two SECTION_HEADERs, FEATURE_GRID (6 data principles), STATS_BAND (16+ modules / 1 data model / 0 middleware / âˆž scale), PULLQUOTE, SERVICE_GRID (12 platform modules)
+- **Internal tenant homepage**: 8-block futuristic homepage — HERO, MARQUEE (14 module names), two SECTION_HEADERs, FEATURE_GRID (6 data principles), STATS_BAND (16+ modules / 1 data model / 0 middleware / ∞ scale), PULLQUOTE, SERVICE_GRID (12 platform modules)
 - Cleaned up 8 draft pages and 8 orphaned content blocks from the internal tenant
 
 ---
@@ -34,19 +34,19 @@ Before the architectural pivot, sessions 6–11 completed:
 
 ```
 INTERNAL TENANT        — Operational brain
-  â†“ governed workflows
+  ←“ governed workflows
 PLATFORM               — Protected execution layer (no direct access by any tenant)
-  â†“ provisioning jobs
+  ←“ provisioning jobs
 TENANT                 — Institution operating environment
 ```
 
 **Key principle:** The internal tenant is not the platform. It *operates* Corveaux through workflows. Example flow:
 
-1. Customer org (in internal tenant) â†’ creates Implementation Project
-2. Implementation Project â†’ triggers Provisioning Request
-3. Provisioning Request â†’ triggers Platform Job
-4. Platform Job â†’ provisions tenant
-5. Platform Job completion â†’ fires Domain Event â†’ updates Provisioning Request status
+1. Customer org (in internal tenant) → creates Implementation Project
+2. Implementation Project → triggers Provisioning Request
+3. Provisioning Request → triggers Platform Job
+4. Platform Job → provisions tenant
+5. Platform Job completion → fires Domain Event → updates Provisioning Request status
 
 This means even Corveaux staff interact through governed workflows, not raw platform access. The platform has no UI — it is triggered by events.
 
@@ -92,8 +92,8 @@ metadata String @default("{}")
 
 ### 5. Grant (new)
 ```
-id, actorId â†’ Actor
-roleId â†’ Role
+id, actorId → Actor
+roleId → Role
 scopeType String      // TENANT | ORGANIZATION | TEAM | GLOBAL
 scopeId String?       // null = global
 grantedBy String      // actorId
@@ -158,7 +158,7 @@ isActive Boolean @default(true)
 ### 10. WorkflowInstance (new)
 ```
 id
-definitionId â†’ WorkflowDefinition
+definitionId → WorkflowDefinition
 tenantId?
 contextEntityType String?    // what this instance is "about"
 contextEntityId String?
@@ -172,7 +172,7 @@ createdAt DateTime @default(now())
 ### 11. WorkflowStepRecord (new)
 ```
 id
-instanceId â†’ WorkflowInstance
+instanceId → WorkflowInstance
 stepKey String
 stepType String    // TASK | APPROVAL | CONDITION | ACTION | WAIT | FORK
 status String @default("PENDING")
@@ -188,7 +188,7 @@ completedAt DateTime?
 ## Design Principles Confirmed
 
 - **ONE PERSON** — a person exists once across all tenants; identity is federated, not duplicated
-- **RBAC â‰  Affiliations** — being an employee does not grant system access; grants are explicit
+- **RBAC ≠ Affiliations** — being an employee does not grant system access; grants are explicit
 - **Workflows govern platform actions** — no direct DB writes to platform layer from tenant code
 - **Events are immutable** — DomainEvent and AuditEvent are append-only
 - **Modules are lenses** — the SIS module is a query + UI layer over Person + Affiliation + Lifecycle; it adds no new primitives

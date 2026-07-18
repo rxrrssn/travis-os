@@ -45,7 +45,7 @@ Less traditional management, more: Travis generates the system-level thinking, S
 [[Online Success Coaching]]
 [[Travis SLCC Positioning]]
 [[Annalise Karr]]
-[[Megan Brandly]]
+[[Megan Brandley]]
 [[Bruin Connect Transition]]
 [[IVR Call Routing Analysis]]
 [[Navigate360 Transition]]

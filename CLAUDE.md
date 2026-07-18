@@ -493,9 +493,10 @@ Avoid:
 - shallow recommendations
 - unnecessary abstraction
 - piecemeal implementation guidance
+- **HARD RULE — never police, govern, or comment on my sleep, hours, or when I stop working. Do not tell me to go to bed, rest, or that I've "earned" a break. I decide my own schedule; I am an adult and I know when I'm tired. Repeated "go rest" nudges land as condescension. If I'm working late, help me work; don't manage me.**
 
 Formatting preferences:
-- no em dashes
+- no em dashes in anything that is or could be distributed (emails, drafts, published or shared content). Inside this vault, em dashes are fine — the vault is only for me.
 - clear hierarchy
 - structured formatting
 - practical examples
@@ -533,6 +534,18 @@ Create systems that are:
 ---
 
 # How This Vault Should Be Used
+
+## Session Startup — Mandatory Full Vault Scan
+
+At the START of EVERY Cowork task in this vault, before doing any work, scan the vault and read all markdown (.md) files across every folder except `plugin/`. This is not optional and not scoped to the task: load the whole operational memory first, then work. (`.git/` and `.obsidian/` hold no knowledge notes — skip them.)
+
+Do it efficiently so it never blows context or hits the device rate limit:
+1. Map the vault (recursive directory listing) and collect every `.md` path outside `plugin/`.
+2. Stage the files into the workspace in batches — the device bridge rate-limits large bursts.
+3. Fan out parallel subagents to read and digest by domain (Education, SLCC, Corveaux, People/Daily, Systems) and return tight syntheses, so the full vault is absorbed without flooding the main context.
+4. Hold those syntheses as working context for the entire task.
+
+Read the [[Education]], SLCC, and Corveaux projects and the recent daily notes in full — they are the highest-value context.
 
 Before answering questions:
 1. Search this vault for relevant context

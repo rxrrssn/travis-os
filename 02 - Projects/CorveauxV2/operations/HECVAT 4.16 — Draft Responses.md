@@ -42,7 +42,7 @@ Legend: **Y** = yes, in place · **N** = no · **Planned** = roadmap, not yet ·
 | Third-party management strategy* | Partial | Inventory + change discipline; formalizing. |
 | Notify institution of major environment changes* | Y | Change-notification commitment; status page carries incidents. |
 | System configuration management (gold images)* | Y | Infrastructure-as-config (Workers/Wrangler), reproducible deploys. |
-| Documented change management | Y | Branch → PR → CI (tsc/lint/build) → squash-merge; no direct commits. |
+| Documented change management | Y | Branch → PR → CI (tsc/lint/build, GitGuardian) → squash-merge on green; no direct commits in practice. (GitHub branch protection requires a paid plan for a private repo, so the control is the documented workflow + CI, not a server-side rule.) |
 | Change mgmt incl. authorization/impact/test/validation | Y | CI gates + review before production. |
 | Verify third-party libs supported each change | Partial | Dependency audit in place; not a formal gate yet. |
 | Critical-patch policy | Partial | Dependency updates + audit; formal patch SLA is roadmap. |
@@ -197,10 +197,13 @@ Legend: **Y** = yes, in place · **N** = no · **Planned** = roadmap, not yet ·
 | Safeguards vs unintended AI queries/processing* | Y | Closed-world + PII redaction + per-tenant data isolation. |
 
 ## IT Accessibility (summary)
-- **VPAT / WCAG 2.1 AA conformance: Planned.** The generated sites and the assistant
-  widget are built on semantic HTML and themeable contrast, but a formal accessibility
-  audit + VPAT has not been completed. Commit to a VPAT before a public institution
-  go-live (accessibility is often a hard procurement gate in higher ed).
+- **VPAT / WCAG 2.2 AA conformance: In progress.** The generated sites and the assistant
+  widget are built on semantic HTML and themeable contrast, and the compliance hub runs a
+  baseline automated check (lang / title / image-alt heuristics). A formal accessibility
+  audit + VPAT (full external axe/pa11y scan) has not been completed — note the in-worker
+  probe cannot scan the app's own origin, so real measurement needs an external CI scan.
+  Commit to a VPAT before a public institution go-live (accessibility is often a hard
+  procurement gate in higher ed).
 
 ## Case-Specific
 - Complete only the conditional sections the institution flags as required based on

@@ -248,7 +248,7 @@ Expected fields:
   
 - [x] Which catalog elements are material facts? — Program name, degree type, total credit hours, required courses with credits. These are the Day 30 accuracy gate targets.
 - [x] Which catalog elements require citation? — All extracted facts per architectural rule: every observation requires a `citationText` verbatim from the source page.
-- [x] Which catalog elements require confidence scoring? — All. Minimum threshold 0.50; Day 30 gate target avg â‰¥ 0.90.  
+- [x] Which catalog elements require confidence scoring? — All. Minimum threshold 0.50; Day 30 gate target avg ≥ 0.90.  
   
 ---  
   

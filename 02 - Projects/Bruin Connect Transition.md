@@ -185,7 +185,7 @@ Full-year PBX data pulled and consolidated in Excel via Power Query. Two-table m
 
 - [[Seini Pahulu]] -- Director, BruinConnect (umbrella)
 - [[Annalise Karr]] -- Contact Center Manager (Assist/Persist)
-- [[Megan Brandly]] -- Assistant Director, Coaching
+- [[Megan Brandley]] -- Assistant Director, Coaching
 - Travis -- Success Operations Analyst
 
 ---
@@ -200,6 +200,24 @@ Full-year PBX data pulled and consolidated in Excel via Power Query. Two-table m
 - Whether SLA target changes under the new model
 
 ---
+
+## Naming Process, Rejected Alternatives, and Proposal Reception
+
+**Origin and political handling.** The Bruin Connect name and the Assist/Persist/Coaching model were Travis's own concept, developed and pitched upward on his own initiative rather than assigned top-down. The director encouraged iteration on the one-pagers through several rounds (praise, requests for polish, no rejection cycles) before later opening a team-wide thread asking everyone for name ideas -- read correctly by Travis as standard political process (stakeholder buy-in, cover for "we explored options," avoiding the appearance of a pre-selected decision) rather than a signal the name was in trouble. Only the Contact Center manager submitted alternatives in that thread; Travis deliberately stayed silent in the public brainstorm so the name would stand on its own merits. Proposal submitted by 2026-05-26.
+
+**Rejected name alternatives (team brainstorm) and why Bruin Connect beat them:** The Frontline (internal-facing, militaristic); Student Central (generic, widely used); Student Compass (reads advising-only); Ask Us Desk (doesn't scale for a remote team); Student Connect / SLCC Connect / SLCC Campus Connect / Campus Connection Center (generic/corporate; "SLCC Connect" reads like a VPN/portal); SLCC Navigation Hub / Navigation Ambassadors / Connection Ambassadors (feel temporary or peer-program-based); Connect Desk / Connect Hub / Connect Center (generic service-counter naming); Student Success Hub (overlaps coaching/advising language); Enrollment & Support Center (administrative/transactional); SLCC Student Connect+ / SLCC Connect+ (dated, tech-product-y). Key rationale for keeping Bruin Connect: SLCC already has heavy "hub/navigator/ambassador/one-stop-shop" naming sprawl (Bruin Support Hub, Admissions Hub, etc.), so another generic hub/center name causes semantic dilution. Bruin Connect stays distinctive, ties to the mascot without needing "SLCC" bolted on, avoids "call center" baggage, and scales cleanly across phone/SMS/chatbot/email/case management. The director independently converged on "connect/connection" language ("that's what we do").
+
+**Scope clarification:** the rename/rebrand applies only to Travis's ~20-person unit (the Contact Center ecosystem), not a college-wide restructuring -- the reason the proposal reads as low-risk and executable rather than triggering territorial/governance resistance.
+
+**Considered but cut:** an early structural pass proposed a 4th branch alongside Assist/Persist/Coaching -- "Success Operations" -- as the name for Travis's own analytics/systems/automation function (reporting, automation, journey orchestration, knowledge governance, process engineering). Alternatives floated: Engagement Operations, Student Engagement Operations, Experience Operations, Journey Operations, Strategic Operations. This branch did not carry into the submitted one-pagers, which scoped to Assist/Persist/Online Success Coaching only.
+
+**Feedback on the submitted 3-page one-pager set (Institutional Friction / Name & Mission / Operational & Financial Impact):**
+- Page 1: "Institutional Friction" flagged as the strongest framing -- operational, measurable, systemic without sounding accusatory. Standout line: "the phone system mirrors institutional structure instead of student journeys." Weak spot: "untapped capacity unused" read as repetitive.
+- Page 2: "One brand. One team." and "Connecting today. Empowering tomorrow." landed as sticky taglines. "Connectors, champions, and partners" flagged as too marketing-heavy for the deck's tone.
+- Page 3 (biggest risk): the **"9.6% staff utilization" stat was flagged as politically dangerous** -- executives could read it as "why do we need this team." Reframe toward demand penetration: the Contact Center already handles ~89,600 of ~741,000 total institutional calls (~12%) at strong AHT (~103 sec) and low cost per interaction, so the constraint is fragmented institutional intake, not frontline capacity. Intended executive takeaway: the Contact Center handles ~12% of institutional call volume today and has clear room to absorb more.
+- Overall: deck deliberately structured to move leadership from "rename" (emotionally safe) to "operating model shift" (strategically serious) without ever using centralization language -- "continuity for students" tests far better politically than "centralization for efficiency."
+
+**Early validation signal:** shortly after submission, the director announced the college website's listed phone numbers were being consolidated to effectively just the Contact Center's number. Staff read it only as "accurate directory info," not recognizing it as the first concrete step toward the single-intake-point model the proposal is building toward.
 
 ## Related
 

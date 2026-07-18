@@ -239,7 +239,7 @@ Collaborates with: DSA (grade reports), SLCC Online and eLearning Services (Canv
 ## Related
 
 [[Online Success Coaching]]
-[[Megan Brandly]]
+[[Megan Brandley]]
 [[Seini Pahulu]]
 [[Magen Despain]]
 [[Bruin Connect Transition]]
