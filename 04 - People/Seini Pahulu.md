@@ -39,6 +39,8 @@ Less traditional management, more: Travis generates the system-level thinking, S
 
 ## Notes
 
+- 2026-07-23 -- Seini brought me the operational planning tool DSA built for her team, unhappy with how it worked. I revised and extended it (notifications, to-dos, an inline editable database with export on demand) and demoed it today. She loved it. The DSA build chained five systems to do one job (MS Form intake, shared mailbox, hand-updated SP workbook, daily semantic model collect, read-only app), baking in a full day of refresh latency plus a read-only round trip back to the Form. Moving edits inline removes both. Clean win with my direct supervisor on a DSA-built tool, a useful signal toward the DSA/PWC door. Full context in [[2026-07-23]].
+
 ## Related
 
 [[Contact Center]]
